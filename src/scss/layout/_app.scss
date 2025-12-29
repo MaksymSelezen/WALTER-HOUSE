@@ -1,0 +1,27 @@
+@use "../utils/variables" as *;
+
+.app {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.main {
+  min-height: 100vh;
+}
+
+/* Оверлей поверх фонового зображення */
+.app::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: $overlay;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Все над оверлеєм */
+.app > * {
+  position: relative;
+  z-index: 1;
+}

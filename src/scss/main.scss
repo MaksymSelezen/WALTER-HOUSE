@@ -1,0 +1,22 @@
+@use "utils/variables";
+@use "utils/mixins";
+
+@use "base/reset";
+@use "base/base";
+
+@use "layout/container";
+@use "layout/app";
+
+@use "components/header";
+@use "components/social";
+@use "components/pager";
+@use "components/form";
+@use "components/burger-menu";
+@use "components/modal";
+
+@use "pages/slide-1";
+@use "pages/slide-2";
+@use "pages/slide-3";
+@use "pages/slide-4";
+@use "pages/slide-5";
+@use "pages/slide-6";

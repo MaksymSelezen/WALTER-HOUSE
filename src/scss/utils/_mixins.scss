@@ -1,0 +1,22 @@
+@use "./variables" as *;
+
+@mixin mq($bp) {
+  @media (min-width: $bp) {
+    @content;
+  }
+}
+
+@mixin hover {
+  @media (any-hover: hover) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+@mixin focus-ring {
+  &:focus-visible {
+    outline: 2px solid $color-accent;
+    outline-offset: 3px;
+  }
+}

@@ -1,0 +1,25 @@
+@use "../utils/variables" as *;
+@use "../utils/mixins" as *;
+
+.container {
+  width: 100%;
+  max-width: $container-max;
+  margin-inline: auto;
+  padding-inline: $container-pad-375;
+
+  @include mq($bp-320) {
+    padding-inline: $container-pad-320;
+  }
+
+  @include mq($bp-768) {
+    padding-inline: $container-pad-768;
+  }
+
+  @include mq($bp-1440) {
+    padding-inline: $container-pad-1440;
+  }
+
+  @include mq($bp-1920) {
+    padding-inline: $container-pad-1920;
+  }
+}
