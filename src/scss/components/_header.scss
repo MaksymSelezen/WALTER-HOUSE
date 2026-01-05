@@ -2,12 +2,13 @@
 
 .header {
   position: absolute;
-  top: 0;
+  top: -4px;
   left: 0;
   width: 100%;
   z-index: 50;
 
   padding-block: 14px 11px;
+  padding-right: 20px;
 
   &__container {
     display: flex;

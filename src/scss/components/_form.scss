@@ -1,0 +1,109 @@
+// * ========== FORM ==========
+
+.project-form {
+  padding: 0 40px 50px;
+  font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  color: #000;
+
+  &__field {
+    &:not(:last-of-type) {
+      margin-bottom: 10px;
+    }
+  }
+
+  &__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  &__input {
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0;
+    background-color: transparent;
+
+    padding: 6px 0 16px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.3;
+    color: #000;
+
+    outline: none;
+
+    &::placeholder {
+      color: #000;
+      opacity: 1;
+    }
+
+    &:focus {
+      border-bottom-color: #ffac30;
+    }
+  }
+
+  &__action {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  &__action-text {
+    max-width: 140px;
+    margin: 0;
+
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.3;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: #ffac30;
+  }
+
+  &__action-btn {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #ffac30;
+    cursor: pointer;
+
+    transition: opacity 200ms ease;
+
+    &:hover,
+    &:focus-visible {
+      opacity: 0.75;
+    }
+
+    &:focus-visible {
+      outline: 2px solid rgba(255, 172, 48, 0.35);
+      outline-offset: 6px;
+    }
+  }
+
+  &__action-line {
+    display: block;
+    width: 140px;
+    height: 1px;
+    background-color: currentColor;
+  }
+
+  &__action-icon {
+    display: block;
+    width: 24px;
+    height: 14px;
+  }
+}

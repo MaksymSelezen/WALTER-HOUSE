@@ -8,5 +8,9 @@
             <path stroke-linejoin="miter" stroke-linecap="butt" stroke-miterlimit="4" stroke-width="3.5556" d="M0 16h23.111"></path>
             <path stroke-linejoin="miter" stroke-linecap="butt" stroke-miterlimit="4" stroke-width="3.5556" d="M0 30.222h53.333"></path>
         </symbol>
+        <symbol id="icon-arrow" viewBox="0 0 142 32">
+            <path stroke-linejoin="miter" stroke-linecap="butt" stroke-miterlimit="4" stroke-width="1.3913" d="M0 16.579h109.913"></path>
+            <path stroke-linejoin="miter" stroke-linecap="butt" stroke-miterlimit="4" stroke-width="1.3913" d="M116.178 0.579l23.103 15.378-23.103 15.378"></path>
+        </symbol>
     </defs>
 </svg>

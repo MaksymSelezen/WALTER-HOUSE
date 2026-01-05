@@ -1,0 +1,48 @@
+<form class="project-form" action="#" method="post" autocomplete="on">
+  <div class="project-form__field">
+    <label class="project-form__label" for="project-form-name">Your name</label>
+    <input
+      class="project-form__input"
+      id="project-form-name"
+      name="name"
+      type="text"
+      placeholder="Your name"
+      required
+    />
+  </div>
+
+  <div class="project-form__field">
+    <label class="project-form__label" for="project-form-phone"
+      >Your phone number</label
+    >
+    <input
+      class="project-form__input"
+      id="project-form-phone"
+      name="phone"
+      type="tel"
+      placeholder="Your phone number"
+      required
+    />
+  </div>
+
+  <div class="project-form__action">
+    <span class="project-form__action-text">Discuss a project</span>
+
+    <button
+      class="project-form__action-btn"
+      type="submit"
+      aria-label="Discuss a project"
+    >
+      <span class="project-form__action-line" aria-hidden="true"></span>
+
+      <svg
+        class="project-form__action-icon"
+        width="24"
+        height="14"
+        aria-hidden="true"
+      >
+        <use href="./icons/sprite.svg#arrow-right"></use>
+      </svg>
+    </button>
+  </div>
+</form>
