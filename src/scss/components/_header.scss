@@ -1,0 +1,142 @@
+// * ========== HEADER ==========
+
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+
+  padding-block: 14px 11px;
+
+  &__container {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
+
+  &__logo {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+  }
+
+  &__logo-img {
+    display: block;
+    width: 68px;
+    height: 54px;
+  }
+
+  &__burger {
+    flex: 0 0 auto;
+    width: 30px;
+    height: 16px;
+
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    color: rgba(255, 255, 255, 0.95);
+    transition: transform 200ms ease;
+
+    &:hover {
+      transform: translateY(-1px);
+    }
+
+    &:focus-visible {
+      outline: 2px solid rgba(255, 255, 255, 0.6);
+      outline-offset: 6px;
+      border-radius: 6px;
+    }
+  }
+
+  &__burger-icon {
+    display: block;
+    width: 30px;
+    height: 16px;
+
+    fill: none;
+    stroke: currentColor;
+  }
+
+  &__call {
+    margin-left: auto;
+    flex: 0 0 auto;
+
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+
+    display: grid;
+    place-items: center;
+
+    color: #fff;
+    text-decoration: none;
+
+    transition: transform 200ms ease;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: border-color 200ms ease;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 7.5px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      transition: border-color 200ms ease;
+    }
+
+    &:hover {
+      transform: translateY(-1px);
+    }
+
+    &:hover::before {
+      border-color: rgba(255, 255, 255, 0.22);
+    }
+
+    &:hover::after {
+      border-color: rgba(255, 255, 255, 0.42);
+    }
+
+    &:hover .header__call-bg {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    &:focus-visible {
+      outline: 2px solid rgba(255, 255, 255, 0.6);
+      outline-offset: 6px;
+    }
+  }
+
+  &__call-bg {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    transition: background-color 200ms ease;
+  }
+
+  &__call-icon {
+    position: relative;
+    display: block;
+    width: 30px;
+    height: 16px;
+    fill: currentColor;
+  }
+}

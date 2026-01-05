@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WALTER HOUSE</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&family=Bruno+Ace&family=Bruno+Ace+SC&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./scss/main.scss" />
+  </head>
+
+  <body class="app" data-active-screen="1">
+    {{> header}} {{> social}} {{> pager}} {{> burger-menu}} {{> modals}}
+
+    <main class="page" id="page">
+      <section class="screen screen--home is-active" data-screen="1">
+        {{> sections/home}}
+      </section>
+
+      <section class="screen screen--about" data-screen="2">
+        {{> sections/about}}
+      </section>
+
+      <section class="screen screen--packages" data-screen="3">
+        {{> sections/packages}}
+      </section>
+
+      <section class="screen screen--calculator" data-screen="4">
+        {{> sections/calculator}}
+      </section>
+
+      <section class="screen screen--steps" data-screen="5">
+        {{> sections/steps}}
+      </section>
+
+      <section class="screen screen--gallery" data-screen="6">
+        {{> sections/gallery}}
+      </section>
+    </main>
+
+    <script type="module" src="./js/main.js"></script>
+  </body>
+</html>

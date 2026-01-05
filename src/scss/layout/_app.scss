@@ -1,27 +1,42 @@
 @use "../utils/variables" as *;
+@use "../utils/mixins" as *;
 
 .app {
   min-height: 100vh;
-  position: relative;
-  overflow: hidden;
 }
 
-.main {
+.screen {
+  position: relative;
   min-height: 100vh;
-}
+  overflow: hidden;
 
-/* Оверлей поверх фонового зображення */
-.app::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: $overlay;
-  pointer-events: none;
-  z-index: 0;
-}
+  /* контент поверх фону */
+  display: block;
 
-/* Все над оверлеєм */
-.app > * {
-  position: relative;
-  z-index: 1;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+
+    background-image: var(--bg-img);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: var(--bg-pos, 50% 50%);
+  }
+
+  /* overlay (твоя тінь) */
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: var(--bg-overlay, rgba(0, 0, 0, 0.45));
+  }
+
+  /* все, що всередині секції — над overlay */
+  > * {
+    position: relative;
+    z-index: 2;
+  }
 }

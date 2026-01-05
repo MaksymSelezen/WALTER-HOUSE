@@ -1,11 +1,11 @@
-@use "utils/variables";
-@use "utils/mixins";
+@use "utils/variables" as *;
+@use "utils/mixins" as *;
 
 @use "base/reset";
 @use "base/base";
 
-@use "layout/container";
 @use "layout/app";
+@use "layout/container";
 
 @use "components/header";
 @use "components/social";
@@ -14,9 +14,9 @@
 @use "components/burger-menu";
 @use "components/modal";
 
-@use "pages/slide-1";
-@use "pages/slide-2";
-@use "pages/slide-3";
-@use "pages/slide-4";
-@use "pages/slide-5";
-@use "pages/slide-6";
+@use "sections/home";
+@use "sections/about";
+@use "sections/packages";
+@use "sections/calculator";
+@use "sections/steps";
+@use "sections/gallery";

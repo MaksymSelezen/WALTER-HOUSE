@@ -1,34 +1,17 @@
-// Breakpoints
-$bp-320: 320px;
-$bp-375: 375px;
+$color-accent: #ffac30;
+$color-white: #ffffff;
+$color-white-muted: rgba(255, 255, 255, 0.5);
+$color-line: rgba(255, 255, 255, 0.25);
+$color-overlay: rgba(0, 0, 0, 0.45);
+
+$ff-open-sans: "Open Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+$ff-roboto: "Roboto", system-ui, -apple-system, "Segoe UI", sans-serif;
+$ff-brand: "Bruno Ace SC", sans-serif;
+
 $bp-768: 768px;
+$bp-1024: 1024px;
 $bp-1440: 1440px;
 $bp-1920: 1920px;
 
-// Fonts
-$font-open-sans: "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto,
-  Arial, sans-serif;
-$font-roboto: "Roboto", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
-$font-bruno: "Bruno Ace", system-ui, -apple-system, "Segoe UI", sans-serif;
-$font-bruno-sc: "Bruno Ace SC", system-ui, -apple-system, "Segoe UI", sans-serif;
-
-$font-main: $font-open-sans;
-
-// Colors (тимчасово)
-$color-bg: #0f0f0f;
-$color-text: #ffffff;
-$color-muted: rgba(255, 255, 255, 0.7);
-$color-line: rgba(255, 255, 255, 0.2);
-$color-accent: #d4a75b;
-
-// Layout
-$container-max: 1920px;
-$container-pad-320: 12px;
-$container-pad-375: 16px;
-$container-pad-768: 24px;
-$container-pad-1440: 64px;
-$container-pad-1920: 80px;
-
-// Effects
-$overlay: rgba(0, 0, 0, 0.45);
-$transition: 250ms ease;
+$z-overlay: 1;
+$z-content: 2;

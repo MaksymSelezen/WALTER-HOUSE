@@ -1,0 +1,14 @@
+@use "../utils/mixins" as *;
+@use "../utils/variables" as *;
+
+.screen--steps {
+  background-image: url("../../assets/images/slides/slide-5-320.jpg");
+
+  @include mq($bp-768) {
+    background-image: url("../../assets/images/slides/slide-5-768.jpg");
+  }
+
+  @include mq($bp-1024) {
+    background-image: url("../../assets/images/slides/slide-5-1920.jpg");
+  }
+}
