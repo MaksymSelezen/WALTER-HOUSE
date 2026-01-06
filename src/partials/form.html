@@ -30,7 +30,10 @@
     type="submit"
     aria-label="Discuss a project"
   >
-    <span class="project-form__submit-text">Discuss a project</span>
+    <span class="project-form__submit-text" aria-hidden="true">
+      <span class="project-form__submit-line">DISCUSS</span>
+      <span class="project-form__submit-line">A PROJECT</span>
+    </span>
 
     <svg
       class="project-form__submit-icon"
@@ -38,7 +41,10 @@
       height="32"
       aria-hidden="true"
     >
-      <use href="/sprite.svg#icon-arrow"></use>
+      <use
+        href="/icons/sprite.svg#icon-arrow"
+        xlink:href="/icons/sprite.svg#icon-arrow"
+      ></use>
     </svg>
   </button>
 </form>

@@ -2,13 +2,21 @@
 @use "../utils/variables" as *;
 
 .screen--home {
-  background-image: url("../../assets/images/slides/slide-1-320.jpg");
+  --bg-overlay: rgba(0, 0, 0, 0.45);
+  --bg-pos: 50% 50%;
+  --bg-img: url("../../assets/images/slides/slide-1-320.jpg");
 
-  @include mq($bp-768) {
-    background-image: url("../../assets/images/slides/slide-1-768.jpg");
+  @media (min-width: 768px) {
+    --bg-img: url("../../assets/images/slides/slide-1-768.jpg");
   }
 
-  @include mq($bp-1024) {
-    background-image: url("../../assets/images/slides/slide-1-1920.jpg");
+  @media (min-width: 1024px) {
+    --bg-img: url("../../assets/images/slides/slide-1-1920.jpg");
+  }
+}
+
+.screen--home {
+  .screen__content {
+    padding-top: 85px; // під твій header
   }
 }

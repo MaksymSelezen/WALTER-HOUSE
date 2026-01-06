@@ -16,11 +16,15 @@
   </head>
 
   <body class="app" data-active-screen="1">
-    {{> header}} {{> social}} {{> pager}} {{> burger-menu}} {{> modals}}
+    {{> social}} {{> pager}} {{> burger-menu}} {{> modals}}
 
     <main class="page" id="page">
-      <section class="screen screen--home is-active" data-screen="1">
-        {{> sections/home}} {{> form}}
+      <section
+        class="screen screen--home screen--has-form is-active"
+        data-screen="1"
+      >
+        {{> header}} {{> sections/home}}
+        <!-- {{> form}} -->
       </section>
 
       <section class="screen screen--about" data-screen="2">
@@ -31,16 +35,19 @@
         {{> sections/packages}}
       </section>
 
-      <section class="screen screen--calculator" data-screen="4">
-        {{> sections/calculator}}
+      <section
+        class="screen screen--calculator screen--has-form"
+        data-screen="4"
+      >
+        {{> sections/calculator}} {{> form}}
       </section>
 
       <section class="screen screen--steps" data-screen="5">
         {{> sections/steps}}
       </section>
 
-      <section class="screen screen--gallery" data-screen="6">
-        {{> sections/gallery}}
+      <section class="screen screen--gallery screen--has-form" data-screen="6">
+        {{> sections/gallery}} {{> form}}
       </section>
     </main>
 

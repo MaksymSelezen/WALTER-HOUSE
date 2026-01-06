@@ -5,13 +5,20 @@
   min-height: 100vh;
 }
 
-.screen {
-  position: relative;
+.page {
   min-height: 100vh;
+}
+
+.screen {
+  display: flex;
+  flex-direction: column;
+}
+
+.screen__hero {
+  position: relative;
   overflow: hidden;
 
-  /* контент поверх фону */
-  display: block;
+  min-height: 100vh;
 
   &::before {
     content: "";
@@ -25,18 +32,31 @@
     background-position: var(--bg-pos, 50% 50%);
   }
 
-  /* overlay (твоя тінь) */
   &::after {
     content: "";
     position: absolute;
     inset: 0;
     z-index: 1;
+
     background: var(--bg-overlay, rgba(0, 0, 0, 0.45));
   }
 
-  /* все, що всередині секції — над overlay */
   > * {
     position: relative;
     z-index: 2;
   }
+}
+
+/* секції де є форма під hero */
+.screen--has-form {
+  min-height: 100vh;
+
+  .screen__hero {
+    flex: 1 1 auto;
+    min-height: 480px; /* щоб не “схлопувалось” на мобілці */
+  }
+}
+
+.screen__content {
+  height: 100%;
 }
