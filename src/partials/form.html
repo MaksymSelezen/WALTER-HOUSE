@@ -25,24 +25,20 @@
     />
   </div>
 
-  <div class="project-form__action">
-    <span class="project-form__action-text">Discuss a project</span>
+  <button
+    class="project-form__submit"
+    type="submit"
+    aria-label="Discuss a project"
+  >
+    <span class="project-form__submit-text">Discuss a project</span>
 
-    <button
-      class="project-form__action-btn"
-      type="submit"
-      aria-label="Discuss a project"
+    <svg
+      class="project-form__submit-icon"
+      width="142"
+      height="32"
+      aria-hidden="true"
     >
-      <span class="project-form__action-line" aria-hidden="true"></span>
-
-      <svg
-        class="project-form__action-icon"
-        width="24"
-        height="14"
-        aria-hidden="true"
-      >
-        <use href="./icons/sprite.svg#arrow-right"></use>
-      </svg>
-    </button>
-  </div>
+      <use href="/sprite.svg#icon-arrow"></use>
+    </svg>
+  </button>
 </form>
