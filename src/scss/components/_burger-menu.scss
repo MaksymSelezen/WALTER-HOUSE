@@ -234,3 +234,7 @@
 body.menu-open {
   overflow: hidden;
 }
+
+body.menu-open .page .header {
+  visibility: hidden;
+}
