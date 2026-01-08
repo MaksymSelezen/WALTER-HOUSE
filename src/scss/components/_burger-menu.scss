@@ -183,6 +183,19 @@
     }
   }
 
+  // *******************************
+  &__link-text {
+    display: block;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  &__link-text-line {
+    display: block;
+  }
+
+  // *********************************
+
   &__panel {
     background: #fff;
     color: #000;
@@ -518,14 +531,6 @@
       width: 100%;
       max-width: 312px;
       margin-inline: auto;
-    }
-
-    &__item:nth-child(3) {
-      .burger-menu__link-text {
-        display: block;
-        text-align: center;
-        line-height: 1.2;
-      }
     }
 
     &__panel {
