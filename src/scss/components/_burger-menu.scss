@@ -183,7 +183,6 @@
     }
   }
 
-  // *******************************
   &__link-text {
     display: block;
     text-align: center;
@@ -193,8 +192,6 @@
   &__link-text-line {
     display: block;
   }
-
-  // *********************************
 
   &__panel {
     background: #fff;
@@ -480,6 +477,9 @@
   @media (min-width: 1440px) {
     & {
       --menu-side-pad: clamp(60px, 9.22vw, 178px);
+
+      --menu-vline-w: 2px;
+      --menu-vline-h: 250px;
     }
 
     &__nav {
@@ -505,20 +505,34 @@
       align-items: center;
       justify-content: center;
 
-      padding-inline: 12px;
+      padding-inline: 0;
       min-height: clamp(120px, 18vh, 143px);
     }
 
     &__item:not(:last-child) {
-      background: linear-gradient(
-          to bottom,
-          var(--menu-line-fade) 0%,
-          var(--menu-line-core) var(--menu-line-stop),
-          var(--menu-line-fade) 100%
-        )
-        no-repeat right center;
+      background: none;
+    }
 
-      background-size: var(--menu-vline-w) var(--menu-vline-h);
+    &__item:not(:last-child)::after {
+      content: "";
+      position: absolute;
+
+      top: 50%;
+      transform: translateY(-50%);
+
+      right: -1px;
+
+      width: var(--menu-vline-w);
+      height: var(--menu-vline-h);
+
+      background: linear-gradient(
+        to bottom,
+        var(--menu-line-fade) 0%,
+        var(--menu-line-core) var(--menu-line-stop),
+        var(--menu-line-fade) 100%
+      );
+
+      pointer-events: none;
     }
 
     &__link {
@@ -526,11 +540,19 @@
       padding: 0;
 
       font-size: clamp(20px, 2.6vw, 30px);
-      line-height: 1.2;
+      line-height: 1.25;
 
       width: 100%;
       max-width: 312px;
       margin-inline: auto;
+    }
+
+    &__item:nth-child(3) .burger-menu__link-text-line:last-child {
+      margin-top: 10px;
+    }
+
+    &__item:nth-child(3) .burger-menu__link-text-line:nth-child(1) {
+      margin-top: -5px;
     }
 
     &__panel {
