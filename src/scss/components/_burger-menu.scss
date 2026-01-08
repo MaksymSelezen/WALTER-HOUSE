@@ -18,6 +18,8 @@
   --menu-vline-w: 1px;
   --menu-vline-h: clamp(140px, 22vh, 190px);
 
+  --menu-side-pad: 0px;
+
   &.is-open {
     opacity: 1;
     visibility: visible;
@@ -182,10 +184,12 @@
   }
 
   &__panel {
-    --panel-px: clamp(20px, 8vw, 33px);
-
     background: #fff;
     color: #000;
+
+    width: 100%;
+    max-width: none;
+    margin: 0;
 
     padding: 26px 31px 40px 36px;
 
@@ -282,7 +286,7 @@
     height: 1px;
     background: rgba(0, 0, 0, 0.15);
 
-    margin: 19px calc(-1 * var(--panel-px)) 30px;
+    margin: 19px 0 30px;
   }
 
   &__contacts {
@@ -380,13 +384,11 @@
     }
 
     &__panel {
-      // width: min(1413px, calc(100% - 2 * clamp(24px, 8vw, 169px)));
+      width: 100%;
+      max-width: none;
+      margin: 0;
 
-      max-width: 100%;
-
-      --panel-px: clamp(40px, 6vw, 88px);
-
-      padding: clamp(40px, 3vw, 54px) var(--panel-px) clamp(40px, 3vw, 50px);
+      padding: 56px 62px 50px 60px;
     }
 
     &__cta {
@@ -406,12 +408,12 @@
     }
 
     &__cta-text {
-      max-width: none;
+      max-width: 451px;
 
-      font-size: 18px;
+      font-size: 24px;
       line-height: 1.66667;
 
-      text-indent: 0.69em;
+      text-indent: 0;
     }
 
     &__cta-action {
@@ -422,12 +424,13 @@
 
     &__cta-icon {
       width: 100%;
-      max-width: 646px;
+      max-width: 248px;
       height: 21px;
     }
 
     &__divider {
-      margin: 39px calc(-1 * var(--panel-px)) 50px;
+      width: min(646px, 100%);
+      margin: 39px auto 50px;
     }
 
     &__contacts-list {
@@ -436,7 +439,7 @@
       row-gap: 28px;
 
       max-width: 370px;
-      margin-inline: auto;
+      margin: 0 0 0 28px;
     }
 
     &__contacts-item {
@@ -444,15 +447,28 @@
       gap: 22px;
     }
 
-    &__contacts-text,
-    &__contacts-link {
-      font-size: 18px;
-      line-height: 1.66667;
+    &__contacts {
+      &-text,
+      &-link {
+        font-size: 18px;
+        line-height: 1.66667;
+        width: 318px;
+      }
+    }
+
+    &__contacts-text {
+      .burger-menu__contacts-br {
+        display: none;
+      }
     }
   }
 
   // * ========== 1440 ==========
   @media (min-width: 1440px) {
+    & {
+      --menu-side-pad: clamp(60px, 9.22vw, 178px);
+    }
+
     &__nav {
       display: flex;
       align-items: center;
@@ -460,7 +476,7 @@
     }
 
     &__list {
-      width: min(1560px, calc(100% - 2 * clamp(48px, 10vw, 228px)));
+      width: min(1560px, calc(100% - 2 * var(--menu-side-pad)));
       margin-inline: auto;
 
       display: flex;
@@ -504,25 +520,122 @@
       margin-inline: auto;
     }
 
+    &__item:nth-child(3) {
+      .burger-menu__link-text {
+        display: block;
+        text-align: center;
+        line-height: 1.2;
+      }
+    }
+
+    &__panel {
+      width: min(1564px, calc(100% - 2 * var(--menu-side-pad)));
+      margin-inline: auto;
+
+      padding: clamp(40px, 2.8vw, 54px) clamp(40px, 4.8vw, 91px)
+        clamp(36px, 2.2vw, 42px) clamp(40px, 2.8vw, 54px);
+    }
+
+    &__cta {
+      grid-template-columns: 93px 1fr auto;
+      align-items: center;
+      column-gap: clamp(32px, 3.5vw, 64px);
+      row-gap: 0;
+
+      text-align: left;
+    }
+
+    &__cta-logo {
+      width: 93px;
+      height: 49px;
+    }
+
+    &__cta-text {
+      max-width: none;
+      text-align: center;
+      justify-self: center;
+    }
+
+    &__cta-action {
+      grid-column: auto;
+      justify-content: flex-end;
+      justify-self: end;
+      width: auto;
+    }
+
+    &__cta-icon {
+      width: clamp(320px, 34vw, 646px);
+      max-width: 646px;
+      height: 21px;
+    }
+
+    &__divider {
+      width: 100%;
+      margin: clamp(24px, 2vw, 30px) 0 clamp(24px, 2.2vw, 34px);
+    }
+
     &__contacts-list {
+      max-width: none;
+      margin: 0;
+
       grid-template-columns: repeat(4, minmax(0, 1fr));
       row-gap: 0;
-      align-items: start;
+      column-gap: clamp(24px, 4vw, 91px);
+      align-items: center;
+    }
+
+    &__contacts-item {
+      align-items: center;
+      gap: 22px;
+    }
+
+    &__contacts {
+      &-text,
+      &-link {
+        width: auto;
+      }
     }
   }
 
   // * ========== 1920 ==========
   @media (min-width: 1920px) {
-    &__panel {
-      width: 1413px;
+    &__nav {
+      padding-top: 80px;
     }
 
-    &__cta-text {
-      font-size: 24px;
+    &__panel {
+      width: 1564px;
+    }
+
+    &__list {
+      width: 1560px;
+    }
+
+    &__link {
+      max-width: 312px;
+      height: auto;
     }
 
     &__cta-icon {
       max-width: 646px;
+    }
+
+    &__body .header {
+      border-bottom: none;
+    }
+
+    &__body .header::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -20px;
+      transform: translateX(-50%);
+
+      width: min(1564px, calc(100% - 356px));
+      height: 1px;
+
+      background: rgba(255, 255, 255, 0.25);
+      pointer-events: none;
     }
   }
 
@@ -538,6 +651,15 @@
       transition: none;
       animation: none;
     }
+  }
+
+  &__body .header__request {
+    margin-top: 5px;
+  }
+
+  &__body .header__call {
+    margin-right: -20px;
+    margin-top: 5px;
   }
 }
 
