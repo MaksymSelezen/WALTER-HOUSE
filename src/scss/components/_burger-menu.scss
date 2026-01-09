@@ -470,7 +470,6 @@
       &-link {
         font-size: 18px;
         line-height: 1.66667;
-        width: 318px;
       }
     }
 
@@ -551,9 +550,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-
-      // padding-top: var(--menu-nav-pad-top);
-      // padding-top: 60px;
 
       position: relative;
       z-index: 1;
@@ -804,7 +800,6 @@
 
     &__divider {
       width: 100%;
-
       margin: 49px auto 32px;
     }
 
@@ -812,7 +807,12 @@
       max-width: none;
       margin-left: 37px;
 
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns:
+        minmax(max-content, clamp(240px, 19vw, 277px))
+        minmax(max-content, clamp(320px, 26vw, 385px))
+        minmax(max-content, clamp(120px, 10vw, 133px))
+        minmax(max-content, clamp(180px, 14.5vw, 209px));
+
       row-gap: 0;
       column-gap: clamp(24px, 4vw, 91px);
       align-items: center;
@@ -826,10 +826,16 @@
     &__contacts {
       &-text,
       &-link {
-        width: 100%;
+        max-width: 385px;
+
         white-space: nowrap;
-        min-height: 55px;
+        overflow-wrap: normal;
+        word-break: normal;
       }
+    }
+
+    &__contacts-item:nth-child(4) {
+      min-width: max-content;
     }
   }
 
