@@ -1,11 +1,12 @@
 <div class="burger-menu" id="mobile-menu" aria-hidden="true" data-menu>
-  <div class="burger-menu__backdrop" data-menu-close></div>
+  <div class="burger-menu__backdrop" data-menu-close aria-hidden="true"></div>
 
   <div
     class="burger-menu__body"
     role="dialog"
     aria-modal="true"
     aria-label="Site menu"
+    tabindex="-1"
   >
     {{> header}}
 
@@ -16,12 +17,7 @@
             <span class="burger-menu__link-content">styles of rennovation</span>
 
             <span class="burger-menu__link-arrow" aria-hidden="true">
-              <svg
-                class="burger-menu__link-arrow-icon"
-                width="135"
-                height="21"
-                aria-hidden="true"
-              >
+              <svg class="burger-menu__link-arrow-icon">
                 <use href="./icons/sprite.svg#icon-arrow"></use>
               </svg>
             </span>
@@ -33,12 +29,7 @@
             <span class="burger-menu__link-content">Costs</span>
 
             <span class="burger-menu__link-arrow" aria-hidden="true">
-              <svg
-                class="burger-menu__link-arrow-icon"
-                width="135"
-                height="21"
-                aria-hidden="true"
-              >
+              <svg class="burger-menu__link-arrow-icon">
                 <use href="./icons/sprite.svg#icon-arrow"></use>
               </svg>
             </span>
@@ -54,12 +45,7 @@
             </span>
 
             <span class="burger-menu__link-arrow" aria-hidden="true">
-              <svg
-                class="burger-menu__link-arrow-icon"
-                width="135"
-                height="21"
-                aria-hidden="true"
-              >
+              <svg class="burger-menu__link-arrow-icon">
                 <use href="./icons/sprite.svg#icon-arrow"></use>
               </svg>
             </span>
@@ -71,12 +57,7 @@
             <span class="burger-menu__link-content">Additional services</span>
 
             <span class="burger-menu__link-arrow" aria-hidden="true">
-              <svg
-                class="burger-menu__link-arrow-icon"
-                width="135"
-                height="21"
-                aria-hidden="true"
-              >
+              <svg class="burger-menu__link-arrow-icon">
                 <use href="./icons/sprite.svg#icon-arrow"></use>
               </svg>
             </span>
@@ -88,12 +69,7 @@
             <span class="burger-menu__link-content">Blog</span>
 
             <span class="burger-menu__link-arrow" aria-hidden="true">
-              <svg
-                class="burger-menu__link-arrow-icon"
-                width="135"
-                height="21"
-                aria-hidden="true"
-              >
+              <svg class="burger-menu__link-arrow-icon">
                 <use href="./icons/sprite.svg#icon-arrow"></use>
               </svg>
             </span>
@@ -102,7 +78,7 @@
       </ul>
     </nav>
 
-    <div class="burger-menu__panel" aria-label="Contacts panel">
+    <section class="burger-menu__panel" aria-label="Contacts panel">
       <div class="burger-menu__cta">
         <img
           class="burger-menu__cta-logo"
@@ -146,6 +122,7 @@
             >
               <use href="./icons/sprite.svg#icon-location"></use>
             </svg>
+
             <p class="burger-menu__contacts-text">
               Kiev, st. Getman Street 101
             </p>
@@ -160,6 +137,7 @@
             >
               <use href="./icons/sprite.svg#icon-clock"></use>
             </svg>
+
             <p class="burger-menu__contacts-text">
               Mon-Fri: 9:00 - 19:00,<br class="burger-menu__contacts-br" />
               Sat: 10:00 - 17:00
@@ -197,6 +175,6 @@
           </li>
         </ul>
       </address>
-    </div>
+    </section>
   </div>
 </div>
