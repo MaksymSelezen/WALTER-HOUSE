@@ -110,8 +110,8 @@
       margin-top: 5px;
     }
 
-    .header__call {
-      margin: 5px -20px 0 0;
+    .header__burger-icon {
+      margin-top: -10px;
     }
   }
 
@@ -349,6 +349,27 @@
   @media (min-width: 768px) {
     --menu-line-thickness: 1px;
 
+    &__body {
+      .header {
+        padding: 14px 20px 5px 14px;
+      }
+
+      .header__request {
+        margin-top: -4px;
+        margin-right: 10px;
+      }
+      .header__logo-img {
+        margin-top: 0;
+      }
+      .header__burger-icon {
+        margin-top: -10px;
+      }
+
+      .header__container {
+        gap: 36px;
+      }
+    }
+
     &__item--blog {
       display: block;
 
@@ -478,6 +499,7 @@
       .header {
         z-index: auto;
         border-bottom: 0;
+        padding: 20px 20px 0 0;
 
         background: transparent;
         backdrop-filter: none;
@@ -518,6 +540,19 @@
 
         .header__request {
           margin-right: 45px;
+        }
+
+        .header__request {
+          margin-top: 0;
+          margin-right: -2px;
+        }
+        .header__logo-img {
+          margin-top: 10px;
+        }
+
+        .header__container {
+          gap: 0;
+          padding-right: 190px;
         }
       }
     }
