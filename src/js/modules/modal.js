@@ -1,18 +1,14 @@
+// src/js/modules/modal.js
 export function initRequestCallModal() {
-  const modal = document.querySelector("[data-call-modal]");
-  const openButtons = document.querySelectorAll("[data-call-open]");
-
-  if (!modal || openButtons.length === 0) return;
-
-  const closeButtons = modal.querySelectorAll("[data-call-close]");
-  const dialog = modal.querySelector(".call-modal__dialog");
-  const form = modal.querySelector("[data-call-form]");
-
+  let activeModal = null;
   let lastActiveEl = null;
 
-  const getFocusable = () => {
+  const isOpen = () => activeModal && activeModal.classList.contains("is-open");
+
+  const getFocusable = (root) => {
+    if (!root) return [];
     return Array.from(
-      modal.querySelectorAll(
+      root.querySelectorAll(
         'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
       )
     ).filter(
@@ -20,42 +16,89 @@ export function initRequestCallModal() {
     );
   };
 
-  const setOpenState = (isOpen) => {
-    modal.classList.toggle("is-open", isOpen);
-    modal.setAttribute("aria-hidden", String(!isOpen));
-
-    document.documentElement.classList.toggle("is-modal-open", isOpen);
-    document.body.classList.toggle("is-modal-open", isOpen);
+  const setScrollLock = (locked) => {
+    document.documentElement.classList.toggle("is-modal-open", locked);
+    document.body.classList.toggle("is-modal-open", locked);
   };
 
-  const openModal = (triggerEl) => {
+  const getModalById = (id) => {
+    if (!id) return null;
+
+    // If ids are accidentally duplicated (because of partials),
+    // pick the one that is NOT inside burger-menu.
+    const safeId =
+      window.CSS && typeof window.CSS.escape === "function"
+        ? window.CSS.escape(id)
+        : id;
+
+    const candidates = Array.from(document.querySelectorAll(`#${safeId}`));
+    if (candidates.length === 0) return null;
+
+    return (
+      candidates.find((el) => !el.closest(".burger-menu")) || candidates[0]
+    );
+  };
+
+  const openModal = (modalEl, triggerEl) => {
+    if (!modalEl) return;
+
+    activeModal = modalEl;
     lastActiveEl = triggerEl || document.activeElement;
 
-    setOpenState(true);
+    activeModal.classList.add("is-open");
+    activeModal.setAttribute("aria-hidden", "false");
+    setScrollLock(true);
 
-    // focus first input
-    const firstInput = modal.querySelector(".call-modal__input");
-    (firstInput || dialog || modal).focus?.();
+    const panel = activeModal.querySelector(".call-modal__panel");
+    const firstInput = activeModal.querySelector(".call-modal__input");
+
+    (firstInput || panel || activeModal).focus?.();
   };
 
   const closeModal = () => {
-    setOpenState(false);
+    if (!activeModal) return;
+
+    activeModal.classList.remove("is-open");
+    activeModal.setAttribute("aria-hidden", "true");
+    setScrollLock(false);
 
     if (lastActiveEl && typeof lastActiveEl.focus === "function") {
       lastActiveEl.focus();
     }
+
     lastActiveEl = null;
+    activeModal = null;
   };
 
-  const onBackdropOrCloseClick = (e) => {
-    const target = e.target;
-    const isClose =
-      target && target.closest && target.closest("[data-call-close]");
-    if (isClose) closeModal();
-  };
+  // Delegation: open/close from ANY place in DOM
+  document.addEventListener("click", (e) => {
+    const openBtn = e.target.closest("[data-call-open]");
+    if (openBtn) {
+      e.preventDefault();
 
-  const onKeyDown = (e) => {
-    if (modal.getAttribute("aria-hidden") === "true") return;
+      const targetId =
+        openBtn.getAttribute("aria-controls") || openBtn.dataset.callTarget;
+
+      const modalEl = targetId
+        ? getModalById(targetId)
+        : document.querySelector("[data-call-modal]");
+
+      openModal(modalEl, openBtn);
+      return;
+    }
+
+    // Close only when modal is open and click is inside it
+    if (!isOpen()) return;
+
+    const closeBtn = e.target.closest("[data-call-close]");
+    if (closeBtn && activeModal.contains(closeBtn)) {
+      e.preventDefault();
+      closeModal();
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (!isOpen()) return;
 
     if (e.key === "Escape") {
       e.preventDefault();
@@ -65,7 +108,7 @@ export function initRequestCallModal() {
 
     if (e.key !== "Tab") return;
 
-    const focusable = getFocusable();
+    const focusable = getFocusable(activeModal);
     if (focusable.length === 0) return;
 
     const first = focusable[0];
@@ -73,7 +116,7 @@ export function initRequestCallModal() {
     const active = document.activeElement;
 
     if (e.shiftKey) {
-      if (active === first || !modal.contains(active)) {
+      if (active === first || !activeModal.contains(active)) {
         e.preventDefault();
         last.focus();
       }
@@ -84,21 +127,18 @@ export function initRequestCallModal() {
       e.preventDefault();
       first.focus();
     }
-  };
-
-  openButtons.forEach((btn) => {
-    btn.addEventListener("click", () => openModal(btn));
   });
 
-  modal.addEventListener("click", onBackdropOrCloseClick);
-  document.addEventListener("keydown", onKeyDown);
+  // Form (поки без API)
+  document.addEventListener("submit", (e) => {
+    const form = e.target.closest("[data-call-form]");
+    if (!form) return;
 
-  if (form) {
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
+    e.preventDefault();
+    // TODO: підключиш API
+    // const data = Object.fromEntries(new FormData(form).entries());
 
-      form.reset();
-      closeModal();
-    });
-  }
+    form.reset();
+    closeModal();
+  });
 }
