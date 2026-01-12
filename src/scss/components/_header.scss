@@ -103,8 +103,12 @@
     height: 60px;
     border-radius: 50%;
 
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+
     color: #fff;
-    text-decoration: none;
 
     &::before,
     &::after {
