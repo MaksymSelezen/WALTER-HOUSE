@@ -34,7 +34,11 @@
             placeholder="Your name"
             autocomplete="name"
             required
+            aria-describedby="call-name-error"
           />
+          <span class="call-modal__error" id="call-name-error">
+            Please fill out this field.
+          </span>
         </label>
 
         <label class="call-modal__field">
@@ -47,7 +51,11 @@
             autocomplete="tel"
             inputmode="tel"
             required
+            aria-describedby="call-phone-error"
           />
+          <span class="call-modal__error" id="call-phone-error">
+            Please fill out this field.
+          </span>
         </label>
 
         <button class="call-modal__submit" type="submit">
