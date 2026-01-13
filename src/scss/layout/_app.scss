@@ -30,6 +30,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: var(--bg-pos, 50% 50%);
+    pointer-events: none;
   }
 
   &::after {
@@ -39,6 +40,7 @@
     z-index: 1;
 
     background: var(--bg-overlay, rgba(0, 0, 0, 0.45));
+    pointer-events: none;
   }
 
   > * {
@@ -47,13 +49,12 @@
   }
 }
 
-/* секції де є форма під hero */
 .screen--has-form {
-  min-height: 100vh;
+  // min-height: 100vh;
 
   .screen__hero {
     flex: 1 1 auto;
-    min-height: 480px; /* щоб не “схлопувалось” на мобілці */
+    min-height: 480px;
   }
 }
 
