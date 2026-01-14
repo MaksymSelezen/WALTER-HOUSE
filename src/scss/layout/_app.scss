@@ -50,11 +50,27 @@
 }
 
 .screen--has-form {
-  // min-height: 100vh;
-
   .screen__hero {
     flex: 1 1 auto;
     min-height: 480px;
+  }
+
+  @media (min-width: 768px) {
+    .screen__hero {
+      min-height: 576px;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .screen__hero {
+      min-height: 1024px;
+    }
+  }
+
+  @media (min-width: 1920px) {
+    .screen__hero {
+      min-height: 1080px;
+    }
   }
 }
 

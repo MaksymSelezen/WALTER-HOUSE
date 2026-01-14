@@ -1,11 +1,22 @@
 .project-form {
+  --pf-accent: #ffac30;
+  --pf-border: rgba(0, 0, 0, 0.15);
+
   margin: 0;
+  width: 100%;
+  max-width: 320px;
+  min-height: 240px;
+
   padding: 40px 40px 50px;
+
   background-color: #fff;
 
   font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;
   color: #000;
+
+  display: flex;
+  flex-direction: column;
 
   &__field {
     &:not(:last-of-type) {
@@ -28,11 +39,11 @@
   &__input {
     display: block;
     width: 100%;
-    height: 40px;
+    min-height: 40px;
 
     padding: 0;
     border: 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    border-bottom: 1px solid var(--pf-border);
     border-radius: 0;
     background-color: transparent;
 
@@ -42,6 +53,7 @@
     color: #000;
 
     outline: none;
+    appearance: none;
 
     &::placeholder {
       color: #000;
@@ -49,7 +61,7 @@
     }
 
     &:focus {
-      border-bottom-color: #ffac30;
+      border-bottom-color: var(--pf-accent);
     }
   }
 
@@ -59,13 +71,14 @@
 
     display: flex;
     align-items: center;
+    justify-content: space-between;
 
     padding: 0;
     border: 0;
     background: transparent;
 
     cursor: pointer;
-    color: #ffac30;
+    color: var(--pf-accent);
 
     transition: opacity 200ms ease;
 
@@ -82,7 +95,8 @@
   }
 
   &__submit-text {
-    max-width: 140px;
+    width: 140px;
+    flex: 0 0 140px;
 
     font-weight: 600;
     font-size: 14px;
@@ -96,13 +110,114 @@
   }
 
   &__submit-icon {
-    margin-left: auto;
+    flex: 0 0 auto;
 
-    width: 140px;
-    height: 32px;
+    width: 100px;
+    height: 22px;
 
     display: block;
+
     fill: none;
     stroke: currentColor;
+    stroke-width: 1px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+  }
+
+  // ===== 768 =====
+  @media (min-width: 768px) {
+    max-width: 768px;
+    min-height: 400px;
+
+    padding: 85.26px 124.54px 94.74px;
+
+    &__field {
+      &:not(:last-of-type) {
+        margin-bottom: 20px;
+      }
+    }
+
+    &__input {
+      min-height: 64px;
+
+      font-size: 18px;
+      line-height: 1.2;
+    }
+
+    &__submit {
+      margin-top: 48px;
+    }
+
+    &__submit-text {
+      width: auto;
+      flex: 0 1 auto;
+
+      font-size: 20px;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    &__submit-line {
+      display: inline;
+    }
+
+    &__submit-icon {
+      width: 141px;
+    }
+  }
+
+  // ===== 1920 =====
+  @media (min-width: 1920px) {
+    width: 740px;
+    max-width: 740px;
+    min-height: 380px;
+
+    padding: 81px 120px 85px;
+
+    &__field {
+      &:not(:last-of-type) {
+        margin-bottom: 15px;
+      }
+    }
+
+    &__input {
+      min-height: 65px;
+
+      font-size: 18px;
+      line-height: 1.2;
+    }
+
+    &__submit {
+      margin-top: 44px;
+    }
+
+    &__submit-text {
+      width: auto;
+      flex: 0 1 auto;
+
+      font-size: 20px;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    &__submit-line {
+      display: inline;
+    }
+  }
+}
+
+/* ===== позиціонування форми ===== */
+@media (min-width: 1920px) {
+  .screen--has-form {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .screen--has-form .project-form {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
   }
 }
