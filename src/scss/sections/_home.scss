@@ -13,25 +13,44 @@
   @media (min-width: 1024px) {
     --bg-img: url("../../assets/images/slides/slide-1-1920.jpg");
   }
-}
 
-.screen--home {
   .screen__content {
     padding-top: 85px;
   }
 }
 
-// .hero__title__test {
-//   font-family: "Bruno Ace SC", sans-serif;
-//   font-weight: 400;
-//   font-size: 96px;
-//   line-height: 0.9375;
-//   text-transform: uppercase;
-//   color: #fff;
-//   margin-top: 150px;
-//   margin-left: 45px;
-// }
+.hero {
+  &__title {
+    font-family: "Bruno Ace SC", sans-serif;
+    font-weight: 400;
+    font-size: 46px;
+    line-height: 0.9375;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #fff;
+    margin-top: 108px;
+    margin-left: 5px;
+  }
 
-// .hero__span__test {
-//   margin-left: 185px;
-// }
+  &__title-line {
+    display: block;
+
+    &--shift {
+      margin-left: 90px;
+    }
+  }
+
+  &__tagline {
+    display: block;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 6px;
+    line-height: 1.71875;
+    letter-spacing: 1.25em;
+
+    text-transform: uppercase;
+    color: #fff;
+
+    margin-left: 5px;
+  }
+}
