@@ -2,12 +2,9 @@
   --pf-accent: #ffac30;
   --pf-border: rgba(0, 0, 0, 0.15);
 
-  --pf-arrow-w: 100px;
-  --pf-arrow-h: 22px;
-
   margin: 0;
   width: 100%;
-  max-width: 320px;
+  max-width: 100%;
   min-height: 240px;
 
   padding: 40px 40px 50px;
@@ -21,7 +18,12 @@
   display: flex;
   flex-direction: column;
 
+  align-items: center;
+
   &__field {
+    width: 100%;
+    max-width: 520px;
+
     &:not(:last-of-type) {
       margin-bottom: 10px;
     }
@@ -70,11 +72,14 @@
 
   &__submit {
     margin-top: 20px;
+
     width: 100%;
+    max-width: 520px;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 16px;
 
     padding: 0;
     border: 0;
@@ -115,8 +120,9 @@
   &__submit-icon {
     flex: 0 0 auto;
 
-    width: var(--pf-arrow-w);
-    height: var(--pf-arrow-h);
+    width: clamp(100px, 18vw, 140px);
+    height: auto;
+    aspect-ratio: 142 / 32;
 
     display: block;
 
@@ -128,14 +134,10 @@
     vector-effect: non-scaling-stroke;
   }
 
-  // ===== 768 =====
+  //  * ========== 768 ==========
+
   @media (min-width: 768px) {
-    --pf-arrow-w: 140px;
-    --pf-arrow-h: 22px;
-
-    max-width: 768px;
     min-height: 400px;
-
     padding: 85.26px 124.54px 94.74px;
 
     &__field {
@@ -166,33 +168,44 @@
     &__submit-line {
       display: inline;
     }
+
+    &__submit-line + &__submit-line {
+      margin-left: 1em;
+    }
+
+    &__submit-icon {
+      width: 140px;
+    }
   }
 
-  // ===== 1920 =====
-  @media (min-width: 1920px) {
-    --pf-arrow-w: 120px;
-    --pf-arrow-h: 21px;
+  //  * ========== 1440 ==========
 
+  @media (min-width: 1440px) {
     width: 740px;
     max-width: 740px;
     min-height: 380px;
 
     padding: 81px 120px 85px;
 
+    align-items: stretch;
+
     &__field {
+      max-width: none;
+
       &:not(:last-of-type) {
         margin-bottom: 15px;
       }
+    }
+
+    &__submit {
+      max-width: none;
+      margin-top: 44px;
     }
 
     &__input {
       min-height: 65px;
       font-size: 18px;
       line-height: 1.2;
-    }
-
-    &__submit {
-      margin-top: 44px;
     }
 
     &__submit-text {
@@ -207,10 +220,52 @@
     &__submit-line {
       display: inline;
     }
+
+    &__submit-icon {
+      width: 120px;
+    }
+  }
+
+  //  * ========== 1920 ==========
+  @media (min-width: 1920px) {
+    width: 740px;
+    max-width: 740px;
+    min-height: 380px;
+
+    padding: 81px 120px 85px;
+
+    &__field {
+      &:not(:last-of-type) {
+        margin-bottom: 15px;
+      }
+    }
+
+    &__submit {
+      margin-top: 44px;
+    }
+
+    &__submit-icon {
+      width: 120px;
+    }
   }
 }
 
-/* ===== позиціонування форми ===== */
+//  * ========== позиціонування форми: 1440 + 1920 ==========
+
+@media (min-width: 1440px) {
+  .screen--has-form {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .screen--has-form .project-form {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+  }
+}
+
 @media (min-width: 1920px) {
   .screen--has-form {
     position: relative;
