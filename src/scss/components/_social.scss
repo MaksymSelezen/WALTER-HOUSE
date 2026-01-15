@@ -45,7 +45,8 @@
   display: none;
 }
 
-/* ===== 768 ===== */
+// * ========== 768 ==========
+
 @media (min-width: 768px) {
   .social__topline {
     top: 98px;
@@ -54,7 +55,7 @@
   .social__title {
     left: 23px;
     right: 22px;
-    top: calc(90px + 48px);
+    top: calc(98px + 48px);
     white-space: nowrap;
   }
 
@@ -67,7 +68,7 @@
   }
 }
 
-/* ===== 1024 ===== */
+// * ========== 1024 ==========
 
 @media (min-width: 1024px) {
   .social__topline {
@@ -83,21 +84,20 @@
   }
 }
 
-/* ===== 1440 ===== */
+// * ========== 1440 ==========
 
 @media (min-width: 1440px) {
   .social__topline {
-    left: clamp(120px, 10vw, 178px);
-    right: clamp(60px, 4vw, 120px);
-    top: clamp(105px, 7.5vw, 119px);
+    left: 178px;
+    right: 178px;
+    top: 119px;
     background: rgba(255, 255, 255, 0.25);
   }
 
   .social__title {
-    left: clamp(55px, 4.5vw, 75px);
+    left: 75px;
     right: auto;
-
-    top: clamp(360px, 32vh, 502px);
+    top: 502px;
     width: 322px;
 
     transform: rotate(-90deg);
@@ -121,12 +121,11 @@
   .social__rail-notch {
     display: block;
     position: absolute;
-
-    left: clamp(60px, 4.8vw, 80px);
-    top: clamp(420px, 40vh, 565px);
+    left: 80px;
+    top: 565px;
 
     width: 1px;
-    height: clamp(120px, 12vh, 154px);
+    height: 154px;
     background: rgba(255, 255, 255, 0.25);
 
     pointer-events: none;
@@ -135,18 +134,25 @@
   .social__list {
     display: flex;
     flex-direction: column;
-
-    gap: clamp(26px, 2.6vh, 41px);
+    gap: 41px;
 
     position: absolute;
-    left: clamp(50px, 4.2vw, 70px);
-    bottom: clamp(48px, 5.5vh, 80px);
+    left: 70px;
+    bottom: 80px;
 
     margin: 0;
     padding: 0;
     list-style: none;
 
     pointer-events: auto;
+  }
+
+  .social__list > li:nth-child(3) {
+    transform: translateY(-10px);
+  }
+
+  .social__list > li:nth-child(4) {
+    transform: translateY(-15px);
   }
 
   .social__link {
@@ -181,45 +187,9 @@
     height: 20px;
     fill: currentColor;
   }
-
-  .social__list > li:nth-child(3),
-  .social__list > li:nth-child(4) {
-    transform: none;
-  }
 }
 
-/* ===== 1920 ===== */
+// * ========== 1920 ==========
+
 @media (min-width: 1920px) {
-  .social__topline {
-    left: 178px;
-    right: 178px;
-    top: 119px;
-    background: rgba(255, 255, 255, 0.25);
-  }
-
-  .social__title {
-    left: 75px;
-    top: 502px;
-    width: 322px;
-  }
-
-  .social__rail-notch {
-    left: 80px;
-    top: 565px;
-    height: 154px;
-  }
-
-  .social__list {
-    left: 70px;
-    bottom: 80px;
-    gap: 41px;
-  }
-
-  .social__list > li:nth-child(3) {
-    transform: translateY(-10px);
-  }
-
-  .social__list > li:nth-child(4) {
-    transform: translateY(-15px);
-  }
 }
