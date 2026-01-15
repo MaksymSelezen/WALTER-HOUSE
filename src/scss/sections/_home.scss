@@ -16,13 +16,37 @@
 
   .screen__content {
     padding-top: 85px;
+
+    @media (min-width: 375px) {
+      padding-top: 90px;
+    }
+
+    @media (min-width: 768px) {
+      padding-top: 110px;
+    }
+
+    @media (min-width: 1024px) {
+      padding-top: 120px;
+    }
+
+    @media (min-width: 1440px) {
+      padding-top: 135px;
+    }
+
+    @media (min-width: 1920px) {
+      padding-top: 150px;
+    }
   }
 }
 
+// * ========== HERO ==========
 .hero {
   padding-left: 9px;
   padding-right: 30px;
+
   margin-top: 108px;
+
+  transform: translateX(-4px);
 
   &__title {
     font-family: "Bruno Ace SC", sans-serif;
@@ -41,6 +65,7 @@
 
     &--shift {
       transform: translateX(1.96em);
+      letter-spacing: 0.5px;
     }
   }
 
@@ -56,5 +81,133 @@
     color: #fff;
 
     margin-left: 5px;
+  }
+
+  @media (min-width: 375px) {
+    padding-left: 12px;
+    padding-right: 30px;
+
+    margin-top: 112px;
+
+    transform: translateX(-3px);
+
+    &__title {
+      font-size: 50px;
+      letter-spacing: 1px;
+    }
+
+    &__title-line {
+      &--shift {
+        transform: translateX(2.05em);
+        letter-spacing: 0.5px;
+      }
+    }
+
+    &__tagline {
+      font-size: 7px;
+      margin-left: 6px;
+    }
+  }
+
+  // * ========== 768 ==========
+  @media (min-width: 768px) {
+    padding-left: 44px;
+    padding-right: 30px;
+
+    margin-top: 125px;
+
+    transform: translateX(0);
+
+    &__title {
+      font-size: 96px;
+      letter-spacing: 0;
+    }
+
+    &__title-line {
+      &--shift {
+        transform: translateX(186px) translateY(-5px);
+        letter-spacing: 0;
+      }
+    }
+
+    &__tagline {
+      font-family: "Roboto", sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.71875;
+      letter-spacing: 0.52em;
+      text-transform: uppercase;
+      color: #fff;
+
+      margin-left: 0;
+      margin-top: -3px;
+    }
+  }
+
+  // * ========== 1024 ==========
+  @media (min-width: 1024px) {
+    padding-left: 120px;
+    padding-right: 40px;
+
+    margin-top: 200px;
+
+    &__title {
+      font-size: 96px;
+      letter-spacing: 0;
+    }
+
+    &__title-line {
+      &--shift {
+        transform: translateX(186px) translateY(-5px);
+      }
+    }
+
+    &__tagline {
+      font-size: 16px;
+      letter-spacing: 0.52em;
+      margin-top: -3px;
+    }
+  }
+
+  // * ========== 1440 ==========
+  @media (min-width: 1440px) {
+    padding-left: 220px;
+    padding-right: 0;
+
+    margin-top: 240px;
+
+    &__title-line {
+      &--shift {
+        transform: translateX(185px) translateY(-5px);
+      }
+    }
+  }
+
+  // * ========== 1920 ==========
+  @media (min-width: 1920px) {
+    padding-left: 320px;
+    padding-right: 0;
+
+    margin-top: 210px;
+
+    &__title {
+      font-size: 96px;
+      letter-spacing: 1px;
+    }
+
+    &__title-line {
+      &--shift {
+        transform: translateX(185px) translateY(-5px);
+        letter-spacing: 0;
+      }
+    }
+
+    &__tagline {
+      font-size: 16px;
+      letter-spacing: 0.52em;
+
+      margin-left: 0;
+      margin-top: -3px;
+    }
   }
 }
