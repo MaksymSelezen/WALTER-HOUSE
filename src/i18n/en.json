@@ -1,0 +1,82 @@
+{
+  "common": {
+    "brand": "WALTER HOUSE",
+    "tagline": "YOUR PERSONAL",
+    "currencyUAH": "UAH",
+    "unitM2": "m²"
+  },
+  "header": {
+    "requestCall": "REQUEST FOR A CALL",
+    "sideLabel": "APARTMENT RENOVATION"
+  },
+  "form": {
+    "name": "Your name",
+    "phone": "Your phone number",
+    "ctaDiscussProject": "DISCUSS A PROJECT"
+  },
+  "home": {
+    "statsTitle": "ELITE RENOVATION OF YOUR APARTMENT",
+    "stats": {
+      "years": "YEARS",
+      "onTheMarket": "ON THE MARKET",
+      "completedProjects": "COMPLETED PROJECTS",
+      "employees": "EMPLOYEES"
+    },
+    "moreInfo": "MORE INFO ABOUT US"
+  },
+  "styles": {
+    "tabs": {
+      "elite": "ELITE",
+      "vip": "VIP",
+      "extra": "EXTRA"
+    },
+    "vipDesc": "THE VIP STYLE INCLUDES AN EXTENDED SET OF WORKS, SUITABLE FOR THOSE WHO WANTS TO GET THE PERFECT RESULT.",
+    "gallery": "GALLERY",
+    "listOfServices": "LIST OF SERVICES",
+    "backToStyles": "BACK TO STYLES"
+  },
+  "packages": {
+    "title": "Select an area size & one of the service packages:"
+  },
+  "steps": {
+    "title": "6 STEPS TO YOUR WALTER HOUSE:",
+    "stepTitle": {
+      "draftingEstimate": "DRAFTING AN ESTIMATE"
+    },
+    "stepDesc": {
+      "draftingEstimate": "DEVELOPMENT OF TERMS OF REFERENCE, 3D VISUALIZATION AND CALCULATION OF THE ESTIMATE"
+    }
+  },
+  "stepsIcons": {
+    "title": "STEPS & ICONS",
+    "items": {
+      "leaveApplication": "LEAVE AN APPLICATION",
+      "checkOutMeasurer": "CHECK OUT OF THE MEASURER",
+      "draftingEstimate": "DRAFTING AN ESTIMATE",
+      "signingContract": "SIGNING THE CONTRACT",
+      "beginningWork": "BEGINNING OF WORK",
+      "completion": "COMPLETION"
+    },
+    "descriptions": {
+      "leaveApplication": "LEAVE AN APPLICATION BY PHONE OR ON OUR WEBSITE",
+      "checkOutMeasurer": "OUR SPECIALIST COMES TO YOU AT THE OBJECT FOR MEASURING AND PHOTO FIXING",
+      "draftingEstimate": "DEVELOPMENT OF TERMS OF REFERENCE, 3D VISUALIZATION AND CALCULATION OF THE ESTIMATE",
+      "signingContract": "AGREEMENT OF THE COST AND DATE OF COMPLETION OF WORKS, SIGNING OF THE CONTRACT",
+      "beginningWork": "START OF REPAIR WORKS UNDER THE SUPERVISION OF A PERSONAL SUPERVISOR",
+      "completion": "COMPLETION OF REPAIRS, REMOVAL OF CONSTRUCTION RUBBISH"
+    }
+  },
+  "services": {
+    "cards": {
+      "videoSurveillanceAlarm": "VIDEO SURVEILLANCE AND ALARM",
+      "onlineBroadcastRepair": "ONLINE BROADCAST OF REPAIR",
+      "selectionFurniture": "SELECTION OF FURNITURE",
+      "householdAppliances": "HOUSEHOLD APPLIANCES",
+      "ultraService": "ULTRA SERVICE"
+    },
+    "details": {
+      "videoSurveillanceAlarmTitle": "VIDEO SURVEILLANCE AND ALARM",
+      "videoSurveillanceAlarmText": "Purchase, installation and setup of video surveillance, both open and hidden, for indoor and outdoor use. Help with registering the system on the security panel."
+    }
+  }
+}

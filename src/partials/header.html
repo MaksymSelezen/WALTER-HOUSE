@@ -29,12 +29,58 @@
       </svg>
     </button>
 
+    <!-- LANG (left, for 320 -> 1024) -->
+    <div class="header__lang header__lang--left" aria-label="Language switcher">
+      <button
+        class="header__lang-btn"
+        type="button"
+        data-lang-switch="en"
+        aria-pressed="false"
+      >
+        EN
+      </button>
+
+      <button
+        class="header__lang-btn"
+        type="button"
+        data-lang-switch="ru"
+        aria-pressed="false"
+      >
+        RU
+      </button>
+    </div>
+
     <div class="header__meta">
       <a class="header__phone" href="tel:+380971234567" aria-label="Call us">
         +38 (097) 123 45 67
       </a>
 
-      <span class="header__request">Request for a call</span>
+      <div
+        class="header__lang header__lang--meta"
+        aria-label="Language switcher"
+      >
+        <button
+          class="header__lang-btn"
+          type="button"
+          data-lang-switch="en"
+          aria-pressed="false"
+        >
+          EN
+        </button>
+
+        <button
+          class="header__lang-btn"
+          type="button"
+          data-lang-switch="ru"
+          aria-pressed="false"
+        >
+          RU
+        </button>
+      </div>
+
+      <span class="header__request" data-i18n="header.requestCall">
+        Request for a call
+      </span>
     </div>
 
     <button

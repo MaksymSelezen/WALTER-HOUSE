@@ -1,0 +1,82 @@
+{
+  "common": {
+    "brand": "WALTER HOUSE",
+    "tagline": "ВАШ ПЕРСОНАЛЬНЫЙ",
+    "currencyUAH": "UAH",
+    "unitM2": "m²"
+  },
+  "header": {
+    "requestCall": "ЗАЯВКА НА ЗВОНОК",
+    "sideLabel": "РЕМОНТ КВАРТИР"
+  },
+  "form": {
+    "name": "Ваше имя",
+    "phone": "Ваш номер телефона",
+    "ctaDiscussProject": "ОБСУДИТЬ ПРОЕКТ"
+  },
+  "home": {
+    "statsTitle": "ЭЛИТНЫЙ РЕМОНТ ВАШЕЙ КВАРТИРЫ",
+    "stats": {
+      "years": "ЛЕТ",
+      "onTheMarket": "НА РЫНКЕ",
+      "completedProjects": "ЗАВЕРШЕННЫХ ПРОЕКТОВ",
+      "employees": "СОТРУДНИКОВ"
+    },
+    "moreInfo": "БОЛЬШЕ О НАС"
+  },
+  "styles": {
+    "tabs": {
+      "elite": "ELITE",
+      "vip": "VIP",
+      "extra": "EXTRA"
+    },
+    "vipDesc": "СТИЛЬ VIP ВКЛЮЧАЕТ РАСШИРЕННЫЙ НАБОР РАБОТ И ПОДХОДИТ ТЕМ, КТО ХОЧЕТ ПОЛУЧИТЬ ИДЕАЛЬНЫЙ РЕЗУЛЬТАТ.",
+    "gallery": "ГАЛЕРЕЯ",
+    "listOfServices": "СПИСОК УСЛУГ",
+    "backToStyles": "НАЗАД К СТИЛЯМ"
+  },
+  "packages": {
+    "title": "Выберите площадь и один из пакетов услуг:"
+  },
+  "steps": {
+    "title": "6 ШАГОВ К ВАШЕМУ WALTER HOUSE:",
+    "stepTitle": {
+      "draftingEstimate": "СОСТАВЛЕНИЕ СМЕТЫ"
+    },
+    "stepDesc": {
+      "draftingEstimate": "РАЗРАБОТКА ТЕХНИЧЕСКОГО ЗАДАНИЯ, 3D-ВИЗУАЛИЗАЦИЯ И РАСЧЕТ СМЕТЫ"
+    }
+  },
+  "stepsIcons": {
+    "title": "ШАГИ И ИКОНКИ",
+    "items": {
+      "leaveApplication": "ОСТАВИТЬ ЗАЯВКУ",
+      "checkOutMeasurer": "ВЫЕЗД ЗАМЕРЩИКА",
+      "draftingEstimate": "СОСТАВЛЕНИЕ СМЕТЫ",
+      "signingContract": "ПОДПИСАНИЕ ДОГОВОРА",
+      "beginningWork": "НАЧАЛО РАБОТ",
+      "completion": "ЗАВЕРШЕНИЕ"
+    },
+    "descriptions": {
+      "leaveApplication": "ОСТАВЬТЕ ЗАЯВКУ ПО ТЕЛЕФОНУ ИЛИ НА НАШЕМ САЙТЕ",
+      "checkOutMeasurer": "НАШ СПЕЦИАЛИСТ ПРИЕЗЖАЕТ К ВАМ НА ОБЪЕКТ ДЛЯ ЗАМЕРОВ И ФОТОФИКСАЦИИ",
+      "draftingEstimate": "РАЗРАБОТКА ТЕХНИЧЕСКОГО ЗАДАНИЯ, 3D-ВИЗУАЛИЗАЦИЯ И РАСЧЕТ СМЕТЫ",
+      "signingContract": "СОГЛАСОВАНИЕ СТОИМОСТИ И СРОКОВ ВЫПОЛНЕНИЯ РАБОТ, ПОДПИСАНИЕ ДОГОВОРА",
+      "beginningWork": "НАЧАЛО РЕМОНТНЫХ РАБОТ ПОД КОНТРОЛЕМ ПЕРСОНАЛЬНОГО РУКОВОДИТЕЛЯ",
+      "completion": "ЗАВЕРШЕНИЕ РЕМОНТА, ВЫВОЗ СТРОИТЕЛЬНОГО МУСОРА"
+    }
+  },
+  "services": {
+    "cards": {
+      "videoSurveillanceAlarm": "ВИДЕОНАБЛЮДЕНИЕ И СИГНАЛИЗАЦИЯ",
+      "onlineBroadcastRepair": "ОНЛАЙН-ТРАНСЛЯЦИЯ РЕМОНТА",
+      "selectionFurniture": "ПОДБОР МЕБЕЛИ",
+      "householdAppliances": "БЫТОВАЯ ТЕХНИКА",
+      "ultraService": "УЛЬТРА-СЕРВИС"
+    },
+    "details": {
+      "videoSurveillanceAlarmTitle": "ВИДЕОНАБЛЮДЕНИЕ И СИГНАЛИЗАЦИЯ",
+      "videoSurveillanceAlarmText": "Покупка, установка и настройка видеонаблюдения — открытого и скрытого — для помещений и улицы. Помощь с регистрацией системы на пульте охраны."
+    }
+  }
+}

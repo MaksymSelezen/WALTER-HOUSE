@@ -55,11 +55,74 @@
     stroke: currentColor;
   }
 
+  &__lang {
+    display: inline-flex;
+    align-items: center;
+
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 999px;
+    overflow: hidden;
+
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(6px);
+
+    &--meta {
+      display: none;
+    }
+  }
+
+  &__lang-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 38px;
+    height: 24px;
+    padding: 0 8px;
+
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+
+    font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 1;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    color: rgba(255, 255, 255, 0.85);
+
+    &:focus-visible {
+      outline: 2px solid rgba(255, 255, 255, 0.6);
+      outline-offset: 4px;
+      border-radius: 8px;
+    }
+
+    &:hover {
+      color: #ffac30;
+    }
+
+    &.is-active {
+      background: rgba(255, 172, 48, 0.18);
+      color: #ffac30;
+    }
+  }
+
+  &__lang-btn + &__lang-btn {
+    border-left: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
   &__meta {
-    display: none;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
   }
 
   &__request {
+    display: none;
+
     font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont,
       "Segoe UI", sans-serif;
     font-weight: 600;
@@ -150,7 +213,19 @@
   }
 }
 
-/* ========== 768px ========== */
+// * ========== 375 ==========
+@media (min-width: 375px) {
+  .header {
+    &__lang-btn {
+      min-width: 40px;
+      height: 25px;
+      padding: 0 9px;
+      font-size: 11px;
+    }
+  }
+}
+
+// * ========== 768 ==========
 @media (min-width: 768px) {
   .header {
     top: 0;
@@ -169,6 +244,11 @@
       margin-top: 32px;
     }
 
+    &__lang--left {
+      margin-top: 32px;
+      align-self: flex-start;
+    }
+
     &__meta {
       display: flex;
       flex-direction: column;
@@ -177,6 +257,18 @@
 
       margin-left: auto;
       margin-top: 30px;
+    }
+
+    &__request {
+      display: inline-flex;
+    }
+
+    &__lang-btn {
+      min-width: 44px;
+      height: 26px;
+      padding: 0 10px;
+      font-size: 11px;
+      letter-spacing: 0.13em;
     }
 
     &__call {
@@ -201,7 +293,7 @@
   }
 }
 
-/* ========== 1440px ========== */
+// * ========== 1440 ==========
 @media (min-width: 1440px) {
   .header {
     &__container {
@@ -218,18 +310,34 @@
       margin-right: 127px;
     }
 
+    &__lang--left {
+      display: none;
+    }
+
+    &__lang--meta {
+      display: inline-flex;
+      margin-left: 18px;
+    }
+
     &__meta {
+      margin-top: 25px;
+
       flex: 1;
       margin-left: 0;
 
       display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
       gap: 0;
     }
 
     &__phone {
+      display: inline-flex;
+    }
+
+    &__request {
+      margin-left: auto;
       display: inline-flex;
     }
 
@@ -239,7 +347,7 @@
   }
 }
 
-/* ========== 1920px ========== */
+// * ========== 1920 ==========
 @media (min-width: 1920px) {
   .header {
     padding: 19px 0 0;
