@@ -1,5 +1,3 @@
-// src/js/i18n.js
-
 const STORAGE_KEY = "lang";
 const SUPPORTED = ["en", "ru"];
 const DEFAULT_LANG = "en";
@@ -59,7 +57,6 @@ function applyTranslations(lang) {
 }
 
 async function loadDict(lang) {
-  // IMPORTANT: шлях під Vite. Файли лежать у src/i18n/*
   const res = await fetch(`./i18n/${lang}.json`, { cache: "no-store" });
   if (!res.ok) throw new Error(`Cannot load ${lang}.json`);
   return res.json();
@@ -77,7 +74,6 @@ function getInitialLang() {
   const saved = localStorage.getItem(STORAGE_KEY);
   if (saved && SUPPORTED.includes(saved)) return saved;
 
-  // optional: зчитати з html lang="" якщо колись додаси
   return DEFAULT_LANG;
 }
 

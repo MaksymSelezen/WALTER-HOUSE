@@ -1,12 +1,12 @@
 {
   "home": {
     "hero": {
-      "tagline": "your personal"
+      "overline": "APARTMENT RENOVATION",
+      "tagline": "YOUR PERSONAL"
     }
   },
   "header": {
-    "requestCall": "Request for a call",
-    "callBtnAria": "Request a call"
+    "requestCall": "REQUEST FOR A CALL"
   },
   "social": {
     "asideAria": "Apartment renovation and social links",
@@ -24,18 +24,18 @@
   },
   "burgerMenu": {
     "nav": {
-      "styles": "styles of rennovation",
-      "costs": "Costs",
+      "styles": "STYLES OF RENNOVATION",
+      "costs": "COSTS",
       "steps": {
         "line1": "5 STEPS",
         "line2": "TO WALTER",
         "line3": "HOUSE"
       },
-      "services": "Additional services",
-      "blog": "Blog"
+      "services": "ADDITIONAL SERVICES",
+      "blog": "BLOG"
     },
     "cta": {
-      "text": "Turnkey construction of houses",
+      "text": "TURNKEY CONSTRUCTION OF HOUSES",
       "actionAria": "Discuss a project"
     },
     "contacts": {
