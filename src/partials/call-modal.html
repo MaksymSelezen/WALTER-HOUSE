@@ -9,7 +9,11 @@
     tabindex="-1"
   >
     <div class="call-modal__header">
-      <p class="call-modal__title" id="request-call-title">
+      <p
+        class="call-modal__title"
+        id="request-call-title"
+        data-i18n="callModal.title"
+      >
         request for a call
       </p>
 
@@ -19,6 +23,7 @@
         class="call-modal__close"
         type="button"
         aria-label="Close modal"
+        data-i18n-aria-label="callModal.closeAria"
         data-call-close
       ></button>
     </div>
@@ -26,40 +31,60 @@
     <div class="call-modal__body">
       <form class="call-modal__form" autocomplete="on" data-call-form>
         <label class="call-modal__field">
-          <span class="call-modal__label">Your name</span>
+          <span
+            class="call-modal__label"
+            data-i18n="callModal.fields.name.label"
+            >Your name</span
+          >
           <input
             class="call-modal__input"
             type="text"
             name="name"
             placeholder="Your name"
+            data-i18n-placeholder="callModal.fields.name.placeholder"
             autocomplete="name"
             required
             aria-describedby="call-name-error"
           />
-          <span class="call-modal__error" id="call-name-error">
+          <span
+            class="call-modal__error"
+            id="call-name-error"
+            data-i18n="callModal.errors.required"
+          >
             Please fill out this field.
           </span>
         </label>
 
         <label class="call-modal__field">
-          <span class="call-modal__label">Your phone number</span>
+          <span
+            class="call-modal__label"
+            data-i18n="callModal.fields.phone.label"
+            >Your phone number</span
+          >
           <input
             class="call-modal__input"
             type="tel"
             name="phone"
             placeholder="Your phone number"
+            data-i18n-placeholder="callModal.fields.phone.placeholder"
             autocomplete="tel"
             inputmode="tel"
             required
             aria-describedby="call-phone-error"
           />
-          <span class="call-modal__error" id="call-phone-error">
+          <span
+            class="call-modal__error"
+            id="call-phone-error"
+            data-i18n="callModal.errors.required"
+          >
             Please fill out this field.
           </span>
         </label>
 
         <button class="call-modal__submit" type="submit">
-          <span class="call-modal__submit-text">request for a call</span>
+          <span class="call-modal__submit-text" data-i18n="callModal.submit">
+            request for a call
+          </span>
 
           <svg
             class="call-modal__submit-icon"

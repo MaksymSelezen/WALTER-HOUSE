@@ -1,19 +1,28 @@
 <form class="project-form" action="#" method="post" autocomplete="on">
   <div class="project-form__field">
-    <label class="project-form__label" for="project-form-name">Your name</label>
+    <label
+      class="project-form__label"
+      for="project-form-name"
+      data-i18n="projectForm.fields.name.label"
+      >Your name</label
+    >
     <input
       class="project-form__input"
       id="project-form-name"
       name="name"
       type="text"
       placeholder="Your name"
+      data-i18n-placeholder="projectForm.fields.name.placeholder"
       autocomplete="name"
       required
     />
   </div>
 
   <div class="project-form__field">
-    <label class="project-form__label" for="project-form-phone"
+    <label
+      class="project-form__label"
+      for="project-form-phone"
+      data-i18n="projectForm.fields.phone.label"
       >Your phone number</label
     >
     <input
@@ -22,6 +31,7 @@
       name="phone"
       type="tel"
       placeholder="Your phone number"
+      data-i18n-placeholder="projectForm.fields.phone.placeholder"
       autocomplete="tel"
       inputmode="tel"
       required
@@ -32,10 +42,19 @@
     class="project-form__submit"
     type="submit"
     aria-label="Discuss a project"
+    data-i18n-aria-label="projectForm.submit.aria"
   >
     <span class="project-form__submit-text" aria-hidden="true">
-      <span class="project-form__submit-line">DISCUSS</span>
-      <span class="project-form__submit-line">A PROJECT</span>
+      <span
+        class="project-form__submit-line"
+        data-i18n="projectForm.submit.line1"
+        >DISCUSS</span
+      >
+      <span
+        class="project-form__submit-line"
+        data-i18n="projectForm.submit.line2"
+        >A PROJECT</span
+      >
     </span>
 
     <svg

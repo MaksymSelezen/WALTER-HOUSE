@@ -1,82 +1,84 @@
 {
-  "common": {
-    "brand": "WALTER HOUSE",
-    "tagline": "ВАШ ПЕРСОНАЛЬНЫЙ",
-    "currencyUAH": "UAH",
-    "unitM2": "m²"
+  "home": {
+    "hero": {
+      "tagline": "ваш персональный"
+    }
   },
   "header": {
-    "requestCall": "ЗАЯВКА НА ЗВОНОК",
-    "sideLabel": "РЕМОНТ КВАРТИР"
+    "requestCall": "Заказать звонок",
+    "callBtnAria": "Заказать звонок"
   },
-  "form": {
-    "name": "Ваше имя",
-    "phone": "Ваш номер телефона",
-    "ctaDiscussProject": "ОБСУДИТЬ ПРОЕКТ"
-  },
-  "home": {
-    "statsTitle": "ЭЛИТНЫЙ РЕМОНТ ВАШЕЙ КВАРТИРЫ",
-    "stats": {
-      "years": "ЛЕТ",
-      "onTheMarket": "НА РЫНКЕ",
-      "completedProjects": "ЗАВЕРШЕННЫХ ПРОЕКТОВ",
-      "employees": "СОТРУДНИКОВ"
+  "social": {
+    "asideAria": "Ремонт квартир и ссылки на соцсети",
+    "title": {
+      "line1": "РЕМОНТ",
+      "line2": "КВАРТИР"
     },
-    "moreInfo": "БОЛЬШЕ О НАС"
-  },
-  "styles": {
-    "tabs": {
-      "elite": "ELITE",
-      "vip": "VIP",
-      "extra": "EXTRA"
-    },
-    "vipDesc": "СТИЛЬ VIP ВКЛЮЧАЕТ РАСШИРЕННЫЙ НАБОР РАБОТ И ПОДХОДИТ ТЕМ, КТО ХОЧЕТ ПОЛУЧИТЬ ИДЕАЛЬНЫЙ РЕЗУЛЬТАТ.",
-    "gallery": "ГАЛЕРЕЯ",
-    "listOfServices": "СПИСОК УСЛУГ",
-    "backToStyles": "НАЗАД К СТИЛЯМ"
-  },
-  "packages": {
-    "title": "Выберите площадь и один из пакетов услуг:"
-  },
-  "steps": {
-    "title": "6 ШАГОВ К ВАШЕМУ WALTER HOUSE:",
-    "stepTitle": {
-      "draftingEstimate": "СОСТАВЛЕНИЕ СМЕТЫ"
-    },
-    "stepDesc": {
-      "draftingEstimate": "РАЗРАБОТКА ТЕХНИЧЕСКОГО ЗАДАНИЯ, 3D-ВИЗУАЛИЗАЦИЯ И РАСЧЕТ СМЕТЫ"
+    "listAria": "Социальные сети",
+    "links": {
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "telegram": "Telegram",
+      "youtube": "YouTube"
     }
   },
-  "stepsIcons": {
-    "title": "ШАГИ И ИКОНКИ",
-    "items": {
-      "leaveApplication": "ОСТАВИТЬ ЗАЯВКУ",
-      "checkOutMeasurer": "ВЫЕЗД ЗАМЕРЩИКА",
-      "draftingEstimate": "СОСТАВЛЕНИЕ СМЕТЫ",
-      "signingContract": "ПОДПИСАНИЕ ДОГОВОРА",
-      "beginningWork": "НАЧАЛО РАБОТ",
-      "completion": "ЗАВЕРШЕНИЕ"
+  "burgerMenu": {
+    "nav": {
+      "styles": "стили ремонта",
+      "costs": "Стоимость",
+      "steps": {
+        "line1": "5 ШАГОВ",
+        "line2": "К WALTER",
+        "line3": "HOUSE"
+      },
+      "services": "Дополнительные услуги",
+      "blog": "Блог"
     },
-    "descriptions": {
-      "leaveApplication": "ОСТАВЬТЕ ЗАЯВКУ ПО ТЕЛЕФОНУ ИЛИ НА НАШЕМ САЙТЕ",
-      "checkOutMeasurer": "НАШ СПЕЦИАЛИСТ ПРИЕЗЖАЕТ К ВАМ НА ОБЪЕКТ ДЛЯ ЗАМЕРОВ И ФОТОФИКСАЦИИ",
-      "draftingEstimate": "РАЗРАБОТКА ТЕХНИЧЕСКОГО ЗАДАНИЯ, 3D-ВИЗУАЛИЗАЦИЯ И РАСЧЕТ СМЕТЫ",
-      "signingContract": "СОГЛАСОВАНИЕ СТОИМОСТИ И СРОКОВ ВЫПОЛНЕНИЯ РАБОТ, ПОДПИСАНИЕ ДОГОВОРА",
-      "beginningWork": "НАЧАЛО РЕМОНТНЫХ РАБОТ ПОД КОНТРОЛЕМ ПЕРСОНАЛЬНОГО РУКОВОДИТЕЛЯ",
-      "completion": "ЗАВЕРШЕНИЕ РЕМОНТА, ВЫВОЗ СТРОИТЕЛЬНОГО МУСОРА"
+    "cta": {
+      "text": "Строительство домов под ключ",
+      "actionAria": "Обсудить проект"
+    },
+    "contacts": {
+      "address": "Киев, ул. Гетмана 101",
+      "hours": {
+        "line1": "Пн–Пт: 9:00 – 19:00,",
+        "line2": "Сб: 10:00 – 17:00"
+      }
     }
   },
-  "services": {
-    "cards": {
-      "videoSurveillanceAlarm": "ВИДЕОНАБЛЮДЕНИЕ И СИГНАЛИЗАЦИЯ",
-      "onlineBroadcastRepair": "ОНЛАЙН-ТРАНСЛЯЦИЯ РЕМОНТА",
-      "selectionFurniture": "ПОДБОР МЕБЕЛИ",
-      "householdAppliances": "БЫТОВАЯ ТЕХНИКА",
-      "ultraService": "УЛЬТРА-СЕРВИС"
+  "callModal": {
+    "title": "заказать звонок",
+    "closeAria": "Закрыть окно",
+    "fields": {
+      "name": {
+        "label": "Ваше имя",
+        "placeholder": "Ваше имя"
+      },
+      "phone": {
+        "label": "Ваш номер телефона",
+        "placeholder": "Ваш номер телефона"
+      }
     },
-    "details": {
-      "videoSurveillanceAlarmTitle": "ВИДЕОНАБЛЮДЕНИЕ И СИГНАЛИЗАЦИЯ",
-      "videoSurveillanceAlarmText": "Покупка, установка и настройка видеонаблюдения — открытого и скрытого — для помещений и улицы. Помощь с регистрацией системы на пульте охраны."
+    "errors": {
+      "required": "Пожалуйста, заполните это поле."
+    },
+    "submit": "заказать звонок"
+  },
+  "projectForm": {
+    "fields": {
+      "name": {
+        "label": "Ваше имя",
+        "placeholder": "Ваше имя"
+      },
+      "phone": {
+        "label": "Ваш номер телефона",
+        "placeholder": "Ваш номер телефона"
+      }
+    },
+    "submit": {
+      "aria": "Обсудить проект",
+      "line1": "ОБСУДИТЬ",
+      "line2": "ПРОЕКТ"
     }
   }
 }
