@@ -40,6 +40,11 @@
   display: block;
 }
 
+.social__title-word:last-child {
+  display: inline-block;
+  transform: translateX(5px);
+}
+
 .social__rail-notch,
 .social__list {
   display: none;
@@ -61,6 +66,11 @@
 
   .social__title-word {
     display: inline;
+  }
+
+  .social__title-word:first-child {
+    display: inline-block;
+    transform: translateX(4px);
   }
 
   .social__title-word + .social__title-word::before {
