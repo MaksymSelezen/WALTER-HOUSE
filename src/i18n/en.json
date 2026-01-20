@@ -35,7 +35,10 @@
       "blog": "BLOG"
     },
     "cta": {
-      "text": "TURNKEY CONSTRUCTION OF HOUSES",
+      "text": {
+        "line1": "TURNKEY CONSTRUCTION",
+        "line2": "OF HOUSES"
+      },
       "actionAria": "Discuss a project"
     },
     "contacts": {

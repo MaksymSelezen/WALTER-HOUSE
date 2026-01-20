@@ -2,6 +2,7 @@
   position: absolute;
   inset: 0;
   height: 100vh;
+  height: 100dvh;
   z-index: 35;
   pointer-events: none;
 }
@@ -97,6 +98,12 @@
 // * ========== 1440 ==========
 
 @media (min-width: 1440px) {
+  .social {
+    --social-notch-height: clamp(90px, 12vh, 154px);
+    --social-list-gap: clamp(28px, 3.5vh, 41px);
+    --social-list-offset: clamp(30px, 5vh, 60px);
+  }
+
   .social__topline {
     left: 178px;
     right: 178px;
@@ -135,7 +142,7 @@
     top: 565px;
 
     width: 1px;
-    height: 154px;
+    height: var(--social-notch-height, 154px);
     background: rgba(255, 255, 255, 0.25);
 
     pointer-events: none;
@@ -144,11 +151,14 @@
   .social__list {
     display: flex;
     flex-direction: column;
-    gap: 41px;
-
+    gap: var(--social-list-gap, 41px);
     position: absolute;
     left: 70px;
-    bottom: 80px;
+    top: calc(
+      565px + var(--social-notch-height, 154px) +
+        var(--social-list-offset, 60px)
+    );
+    bottom: auto;
 
     margin: 0;
     padding: 0;
@@ -176,7 +186,9 @@
     color: rgba(255, 255, 255, 0.85);
     opacity: 0.8;
 
-    transition: opacity 180ms ease, transform 180ms ease;
+    transition:
+      opacity 180ms ease,
+      transform 180ms ease;
   }
 
   .social__link:hover {

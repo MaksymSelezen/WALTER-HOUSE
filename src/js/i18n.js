@@ -10,7 +10,7 @@ function get(obj, path) {
     .split(".")
     .reduce(
       (acc, key) => (acc && acc[key] != null ? acc[key] : undefined),
-      obj
+      obj,
     );
 }
 
@@ -83,6 +83,7 @@ async function setLang(lang) {
   await ensureDicts();
   currentLang = lang;
 
+  document.documentElement.setAttribute("lang", lang);
   localStorage.setItem(STORAGE_KEY, lang);
   applyTranslations(lang);
 }

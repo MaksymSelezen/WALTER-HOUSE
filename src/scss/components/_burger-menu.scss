@@ -10,7 +10,9 @@
   pointer-events: none;
   overflow: hidden;
 
-  transition: opacity 240ms ease, visibility 0s linear 240ms;
+  transition:
+    opacity 240ms ease,
+    visibility 0s linear 240ms;
 
   --menu-line-fade: rgba(255, 255, 255, 0);
   --menu-line-core: #fff;
@@ -90,7 +92,9 @@
     transform: translateY(-14px) scale(0.985);
     opacity: 0;
 
-    transition: transform 420ms $ease-smooth, opacity 240ms ease;
+    transition:
+      transform 420ms $ease-smooth,
+      opacity 240ms ease;
 
     .header {
       position: sticky;
@@ -129,7 +133,9 @@
     transform: translateY(-8px);
     opacity: 0;
 
-    transition: transform 360ms $ease-smooth, opacity 240ms ease;
+    transition:
+      transform 360ms $ease-smooth,
+      opacity 240ms ease;
 
     &:not(:last-child) {
       background: linear-gradient(
@@ -161,8 +167,13 @@
     min-height: clamp(100px, 28vw, 120px);
     margin-bottom: 4px;
 
-    font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont,
-      "Segoe UI", sans-serif;
+    font-family:
+      "Open Sans",
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      sans-serif;
     font-weight: 300;
     font-size: clamp(18px, 4.8vw, 20px);
     line-height: 1.2;
@@ -171,7 +182,9 @@
 
     color: rgba(255, 255, 255, 0.95);
 
-    transition: color 200ms ease, transform 200ms ease;
+    transition:
+      color 200ms ease,
+      transform 200ms ease;
 
     &:hover {
       color: #fff;
@@ -206,6 +219,10 @@
     display: block;
   }
 
+  &__link-text-line:empty {
+    display: none;
+  }
+
   &__panel {
     width: 100%;
     padding: 26px 31px 40px 36px;
@@ -216,7 +233,9 @@
     transform: translateY(12px);
     opacity: 0;
 
-    transition: transform 420ms $ease-smooth, opacity 240ms ease;
+    transition:
+      transform 420ms $ease-smooth,
+      opacity 240ms ease;
   }
 
   &__cta {
@@ -234,8 +253,13 @@
   &__cta-text {
     max-width: 256px;
 
-    font-family: "Roboto", system-ui, -apple-system, BlinkMacSystemFont,
-      "Segoe UI", sans-serif;
+    font-family:
+      "Roboto",
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      sans-serif;
     font-weight: 300;
     font-size: 14px;
     line-height: 1.5;
@@ -250,7 +274,9 @@
 
     color: #ffac30;
 
-    transition: transform 220ms ease, opacity 220ms ease;
+    transition:
+      transform 220ms ease,
+      opacity 220ms ease;
 
     &:hover {
       opacity: 0.95;
@@ -301,8 +327,13 @@
   &__contacts {
     font-style: normal;
 
-    font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont,
-      "Segoe UI", sans-serif;
+    font-family:
+      "Open Sans",
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      sans-serif;
     font-weight: 300;
     font-size: 14px;
     line-height: 1.42857;
@@ -388,7 +419,7 @@
     }
 
     &__link {
-      min-height: 143px;
+      min-height: 162px;
       margin-bottom: 0;
       padding: 0 16px;
 
@@ -636,7 +667,9 @@
         opacity: 0;
         visibility: hidden;
 
-        transition: transform 360ms $ease-smooth, opacity 220ms ease,
+        transition:
+          transform 360ms $ease-smooth,
+          opacity 220ms ease,
           visibility 0s linear 220ms;
 
         pointer-events: none;
@@ -711,7 +744,9 @@
       visibility: hidden;
       pointer-events: none;
 
-      transition: opacity 220ms ease, transform 360ms $ease-smooth;
+      transition:
+        opacity 220ms ease,
+        transform 360ms $ease-smooth;
       color: #ffac30;
     }
 
@@ -807,7 +842,9 @@
         opacity: 1;
         visibility: visible;
         transform: scaleY(1);
-        transition: transform 360ms $ease-smooth, opacity 220ms ease;
+        transition:
+          transform 360ms $ease-smooth,
+          opacity 220ms ease;
       }
     }
 
@@ -817,7 +854,9 @@
         opacity: 1;
         visibility: visible;
         transform: scaleY(1);
-        transition: transform 360ms $ease-smooth, opacity 220ms ease;
+        transition:
+          transform 360ms $ease-smooth,
+          opacity 220ms ease;
       }
 
       &__item:hover,
@@ -878,6 +917,12 @@
       transition: none;
       animation: none;
     }
+  }
+}
+
+html[lang="ru"] {
+  .burger-menu__link-text {
+    white-space: nowrap;
   }
 }
 

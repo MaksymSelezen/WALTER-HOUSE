@@ -63,13 +63,33 @@
 
   @media (min-width: 1440px) {
     .screen__hero {
-      min-height: 1024px;
+      min-height: min(100vh, 1024px);
     }
   }
 
   @media (min-width: 1920px) {
     .screen__hero {
-      min-height: 1080px;
+      min-height: min(100vh, 1080px);
+    }
+  }
+}
+
+@supports (height: 100dvh) {
+  .screen__hero {
+    min-height: 100dvh;
+  }
+
+  .screen--has-form {
+    @media (min-width: 1440px) {
+      .screen__hero {
+        min-height: min(100dvh, 1024px);
+      }
+    }
+
+    @media (min-width: 1920px) {
+      .screen__hero {
+        min-height: min(100dvh, 1080px);
+      }
     }
   }
 }
