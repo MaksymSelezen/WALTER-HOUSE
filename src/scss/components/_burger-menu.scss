@@ -774,7 +774,7 @@
 
       width: min(1564px, calc(100% - (2 * var(--menu-side-pad))));
 
-      min-height: 300px;
+      min-height: 280px;
       padding: 54px 60px 42px 54px;
     }
 
@@ -908,7 +908,7 @@
   // * ========== 1920 ==========
   @media (min-width: 1920px) {
     &__nav {
-      padding-top: 25px;
+      padding-top: 80px;
     }
 
     &__panel {
