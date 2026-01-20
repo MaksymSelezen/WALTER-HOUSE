@@ -935,10 +935,19 @@ html[lang="en"] {
       content: " ";
     }
   }
+
+  .burger-menu__link-text {
+    white-space: nowrap;
+  }
 }
 
 html[lang="ru"] {
   .burger-menu__link-text {
+    white-space: nowrap;
+  }
+
+  .burger-menu__cta-text span {
+    display: inline-block;
     white-space: nowrap;
   }
 }
