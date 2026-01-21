@@ -1,0 +1,32 @@
+@media (min-width: 1440px) {
+  .pager {
+    position: fixed;
+    right: clamp(28px, 3.4vw, 64px);
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 60;
+
+    pointer-events: auto;
+  }
+
+  .pager__dots {
+    display: grid;
+    gap: 14px;
+  }
+
+  .pager__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    border: 0;
+    padding: 0;
+
+    background: rgba(255, 255, 255, 0.35);
+    cursor: pointer;
+  }
+
+  .pager__dot[aria-current="true"] {
+    background: #ffac30;
+    box-shadow: 0 0 0 6px rgba(255, 172, 48, 0.18);
+  }
+}

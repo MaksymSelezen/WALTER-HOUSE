@@ -774,8 +774,8 @@
 
       width: min(1564px, calc(100% - (2 * var(--menu-side-pad))));
 
-      min-height: 280px;
-      padding: 54px 60px 42px 54px;
+      max-height: 280px;
+      padding: 60px 60px 0 54px;
     }
 
     &__cta {
@@ -783,6 +783,8 @@
       align-items: center;
       gap: 64px;
       text-align: left;
+
+      transform: translateY(-5px);
     }
 
     &__cta-logo {
@@ -795,6 +797,7 @@
       max-width: none;
       text-align: center;
       margin-right: 62px;
+      transform: translateX(2px);
     }
 
     &__cta-action {
@@ -908,7 +911,7 @@
   // * ========== 1920 ==========
   @media (min-width: 1920px) {
     &__nav {
-      padding-top: 80px;
+      padding-top: 25px;
     }
 
     &__panel {
@@ -926,6 +929,22 @@
     &__body .header::after {
       bottom: -15px;
       width: min(1564px, calc(100% - 356px));
+    }
+
+    &__contacts-item:nth-child(1) {
+      transform: translate(1px, -2px); // Address
+    }
+
+    &__contacts-item:nth-child(2) {
+      transform: translate(25px, 0px); // Hours
+    }
+
+    &__contacts-item:nth-child(3) {
+      transform: translate(0px, -5px); // Email
+    }
+
+    &__contacts-item:nth-child(4) {
+      transform: translate(0px, -5px); // Phone
     }
   }
 

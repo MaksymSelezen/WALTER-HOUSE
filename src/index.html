@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -18,34 +18,40 @@
   <body class="app" data-active-screen="1">
     {{> social}} {{> pager}} {{> burger-menu}} {{> call-modal}} {{> modals}}
 
-    <main class="page" id="page">
+    <main class="page" id="page" data-screens>
       <section
         class="screen screen--home screen--has-form is-active"
+        id="home"
         data-screen="1"
       >
         {{> header}} {{> sections/home}} {{> form}}
       </section>
 
-      <section class="screen screen--about" data-screen="2">
+      <section class="screen screen--about" id="about" data-screen="2">
         {{> sections/about}}
       </section>
 
-      <section class="screen screen--packages" data-screen="3">
+      <section class="screen screen--packages" id="packages" data-screen="3">
         {{> sections/packages}}
       </section>
 
       <section
         class="screen screen--calculator screen--has-form"
+        id="calculator"
         data-screen="4"
       >
         {{> sections/calculator}} {{> form}}
       </section>
 
-      <section class="screen screen--steps" data-screen="5">
+      <section class="screen screen--steps" id="steps" data-screen="5">
         {{> sections/steps}}
       </section>
 
-      <section class="screen screen--gallery screen--has-form" data-screen="6">
+      <section
+        class="screen screen--gallery screen--has-form"
+        id="gallery"
+        data-screen="6"
+      >
         {{> sections/gallery}} {{> form}}
       </section>
     </main>

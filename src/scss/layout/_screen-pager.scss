@@ -1,0 +1,58 @@
+@media (min-width: 1440px) {
+  body.is-screen-slider {
+    overflow: hidden;
+  }
+
+  .page[data-screens] {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .screen {
+    position: absolute;
+    inset: 0;
+    height: 100vh;
+
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(6%);
+
+    transition:
+      transform 650ms ease,
+      opacity 650ms ease;
+    will-change: transform, opacity;
+  }
+
+  .screen.is-active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .screen.is-active.is-exit-to-prev {
+    opacity: 0;
+    transform: translateY(-12%);
+  }
+
+  .screen.is-active.is-exit-to-next {
+    opacity: 0;
+    transform: translateY(12%);
+  }
+
+  .screen.is-enter-from-prev {
+    opacity: 0;
+    transform: translateY(-12%);
+  }
+
+  .screen.is-enter-from-next {
+    opacity: 0;
+    transform: translateY(12%);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .screen {
+      transition: none;
+    }
+  }
+}
