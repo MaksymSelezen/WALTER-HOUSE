@@ -11,8 +11,13 @@
 
   background-color: #fff;
 
-  font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
+  font-family:
+    "Open Sans",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   color: #000;
 
   display: flex;
@@ -173,10 +178,6 @@
       display: inline;
     }
 
-    // &__submit-line + &__submit-line {
-    //   margin-left: 1em;
-    // }
-
     &__submit-icon {
       width: 140px;
     }
@@ -279,7 +280,7 @@
   .screen--has-form .project-form {
     position: absolute;
     right: 0;
-    bottom: 0;
+    bottom: -50px;
     z-index: 5;
   }
 }
