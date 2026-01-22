@@ -1,25 +1,33 @@
-export function initScreenPager() {
-  const BREAKPOINT = 1440;
+// screen-pager.js — пейджер/слайдер для перемикання секцій .screen на 1440px+
 
+export function initScreenPager() {
+  const BREAKPOINT = 1440; // з цього брейкпоінта вмикаємо режим "екранного слайдера"
+
+  // Контейнер сторінки (якщо є) — щоб шукати screens локально, інакше шукаємо по всьому документу
   const page = document.querySelector("#page");
   const screens = page
     ? Array.from(page.querySelectorAll(".screen[data-screen]"))
     : Array.from(document.querySelectorAll(".screen[data-screen]"));
 
+  // Якщо секцій немає — нічого ініціалізувати
   if (!screens.length) return;
 
+  // Кореневий елемент пейджера та хост для "крапок" (може бути окремий контейнер або сам pagerEl)
   const pagerEl = document.querySelector("[data-pager]");
   const dotsHost =
     pagerEl?.querySelector("[data-pager-dots]") || pagerEl || null;
 
+  // Умови: 1440+ і системна опція "зменшити анімації"
   const mql = window.matchMedia(`(min-width: ${BREAKPOINT}px)`);
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
+  // Обмеження значення в діапазоні (щоб не вийти за 1..screens.length)
   const clamp = (n, min, max) => Math.min(Math.max(n, min), max);
 
-  let enabled = false;
-  let animating = false;
+  let enabled = false; // чи активний режим слайдера зараз
+  let animating = false; // чи триває перехід (блок повторних перемикань)
 
+  // Стартовий активний екран: body[data-active-screen] -> .screen.is-active -> 1
   let activeNum =
     Number(document.body.dataset.activeScreen) ||
     Number(
@@ -29,6 +37,7 @@ export function initScreenPager() {
 
   activeNum = clamp(activeNum, 1, screens.length);
 
+  // Перевірка: якщо фокус/клік у полях вводу — не перемикаємо екрани з клавіатури
   function isTypingTarget(target) {
     if (!target) return false;
     const el = target.closest?.(
@@ -37,6 +46,7 @@ export function initScreenPager() {
     return Boolean(el);
   }
 
+  // Очищає CSS-класи, які керують анімацією входу/виходу екрану
   function clearAnimClasses(el) {
     el.classList.remove(
       "is-exit-to-prev",
@@ -46,14 +56,17 @@ export function initScreenPager() {
     );
   }
 
+  // На мобільних/планшетах не ховаємо секції через aria-hidden (звичайний скрол)
   function setAriaForMobile() {
     screens.forEach((s) => s.removeAttribute("aria-hidden"));
   }
 
+  // Тримає актуальний номер екрану в body[data-active-screen] для CSS/стану
   function updateBodyActive(num) {
     document.body.dataset.activeScreen = String(num);
   }
 
+  // Оновлює активну "крапку" пейджера + aria-current для accessibility
   function updateDotsActive(num) {
     if (!dotsHost) return;
     const btns = Array.from(dotsHost.querySelectorAll("[data-pager-btn]"));
@@ -68,6 +81,7 @@ export function initScreenPager() {
     });
   }
 
+  // Миттєво робить екран активним без анімації (також керує aria-hidden у режимі enabled)
   function setActiveInstant(next) {
     const nextNum = clamp(Number(next), 1, screens.length);
     activeNum = nextNum;
@@ -87,6 +101,7 @@ export function initScreenPager() {
     updateBodyActive(nextNum);
   }
 
+  // Перехід на інший екран: перевірки -> reduced motion -> CSS-анімація -> фіналізація стану
   function goTo(next) {
     if (!enabled) return;
     if (animating) return;
@@ -116,12 +131,13 @@ export function initScreenPager() {
     clearAnimClasses(current);
     clearAnimClasses(nextEl);
 
-    // prepare next
+    // Готуємо наступний екран у стартовому стані "входу"
     nextEl.classList.add(forward ? "is-enter-from-next" : "is-enter-from-prev");
     nextEl.classList.add("is-active");
     nextEl.setAttribute("aria-hidden", "false");
     current.setAttribute("aria-hidden", "true");
 
+    // На наступному кадрі запускаємо transition: поточний виходить, наступний "заїжджає" у фінальний стан
     requestAnimationFrame(() => {
       current.classList.add(forward ? "is-exit-to-prev" : "is-exit-to-next");
       nextEl.classList.remove(
@@ -129,6 +145,7 @@ export function initScreenPager() {
       );
     });
 
+    // Завершення: прибрати активність зі старого, очистити класи, зафіксувати activeNum і UI
     const finish = () => {
       current.classList.remove("is-active");
       clearAnimClasses(current);
@@ -141,6 +158,7 @@ export function initScreenPager() {
       animating = false;
     };
 
+    // Страховка, якщо transitionend не спрацює (наприклад, CSS змінився)
     const fallback = window.setTimeout(finish, 900);
 
     current.addEventListener(
@@ -153,6 +171,7 @@ export function initScreenPager() {
     );
   }
 
+  // Генерує кнопки-крапки автоматично, якщо їх немає в розмітці
   function buildDotsIfMissing() {
     if (!dotsHost) return;
 
@@ -176,12 +195,14 @@ export function initScreenPager() {
     dotsHost.appendChild(frag);
   }
 
+  // Делегований клік по пейджеру: визначаємо кнопку і переходимо на її екран
   function onPagerClick(e) {
     const btn = e.target.closest?.("[data-pager-btn]");
     if (!btn) return;
     goTo(btn.dataset.pagerBtn);
   }
 
+  // Сервісні переходи на сусідні екрани
   function next() {
     goTo(activeNum + 1);
   }
@@ -190,6 +211,7 @@ export function initScreenPager() {
     goTo(activeNum - 1);
   }
 
+  // Шукає найближчого батька, який реально скролиться по Y (щоб не ламати скрол у внутрішніх блоках)
   function getScrollableParent(startEl) {
     let el = startEl;
     while (el && el !== document.body) {
@@ -204,13 +226,13 @@ export function initScreenPager() {
     return null;
   }
 
+  // Колесо миші: якщо можна скролити внутрішній блок — даємо скрол; інакше перемикаємо секції
   function onWheel(e) {
     if (!enabled) return;
     if (animating) return;
 
     const scrollParent = getScrollableParent(e.target);
     if (scrollParent) {
-      // якщо елемент реально може скролитись в напрямку — не перемикаємо секції
       const dy = e.deltaY;
       const atTop = scrollParent.scrollTop <= 0;
       const atBottom =
@@ -227,6 +249,7 @@ export function initScreenPager() {
     else prev();
   }
 
+  // Клавіатура: підтримка Arrow/Page/Home/End (без втручання під час введення тексту)
   function onKeydown(e) {
     if (!enabled) return;
     if (animating) return;
@@ -253,11 +276,12 @@ export function initScreenPager() {
     }
   }
 
+  // Вмикає режим: показує пейджер, синхронізує активний екран і підключає події керування
   function enable() {
     if (enabled) return;
     enabled = true;
 
-    document.body.classList.add("is-screen-slider"); // CSS режим 1440+
+    document.body.classList.add("is-screen-slider");
     if (pagerEl) pagerEl.hidden = false;
 
     buildDotsIfMissing();
@@ -268,6 +292,7 @@ export function initScreenPager() {
     window.addEventListener("keydown", onKeydown);
   }
 
+  // Вимикає режим: прибирає події, ховає пейджер і повертає звичайний доступ до всіх секцій
   function disable() {
     if (!enabled) return;
     enabled = false;
@@ -279,21 +304,19 @@ export function initScreenPager() {
     document.body.classList.remove("is-screen-slider");
     if (pagerEl) pagerEl.hidden = true;
 
-    // на мобілці/планшеті не ховаємо секції aria-hidden
     setAriaForMobile();
-
-    // прибираємо анімаційні класи (is-active можна лишити — не заважає)
     screens.forEach((s) => clearAnimClasses(s));
 
     animating = false;
   }
 
+  // Перемикає enable/disable відповідно до поточної ширини екрана
   function sync() {
     if (mql.matches) enable();
     else disable();
   }
 
-  // init
+  // Початкова ініціалізація стану і підписка на зміну брейкпоінта
   updateBodyActive(activeNum);
   sync();
 

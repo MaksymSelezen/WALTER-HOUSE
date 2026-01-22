@@ -1,10 +1,13 @@
-const STORAGE_KEY = "lang";
-const SUPPORTED = ["en", "ru"];
-const DEFAULT_LANG = "en";
+// i18n.js — перемикання мови (en/ru), завантаження словників і застосування перекладів до DOM
 
-let DICTS = {};
-let currentLang = DEFAULT_LANG;
+const STORAGE_KEY = "lang"; // ключ у localStorage для збереження вибраної мови
+const SUPPORTED = ["en", "ru"]; // список підтримуваних мов
+const DEFAULT_LANG = "en"; // мова за замовчуванням
 
+let DICTS = {}; // кеш словників: { en: {...}, ru: {...} }
+let currentLang = DEFAULT_LANG; // поточна активна мова
+
+// Безпечно дістає значення з об’єкта за шляхом типу "header.title"
 function get(obj, path) {
   return path
     .split(".")
@@ -14,6 +17,7 @@ function get(obj, path) {
     );
 }
 
+// Виставляє активний стан кнопок перемикання мови (клас + aria-pressed)
 function setActiveButtons(lang) {
   document.querySelectorAll("[data-lang-switch]").forEach((btn) => {
     const isActive = btn.getAttribute("data-lang-switch") === lang;
@@ -22,6 +26,7 @@ function setActiveButtons(lang) {
   });
 }
 
+// Перекладає текстовий вміст елементів з атрибутом data-i18n
 function applyTextTranslations(dict) {
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const key = el.getAttribute("data-i18n");
@@ -30,6 +35,7 @@ function applyTextTranslations(dict) {
   });
 }
 
+// Перекладає placeholder у полях вводу/textarea з атрибутом data-i18n-placeholder
 function applyPlaceholderTranslations(dict) {
   document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
     const key = el.getAttribute("data-i18n-placeholder");
@@ -38,6 +44,7 @@ function applyPlaceholderTranslations(dict) {
   });
 }
 
+// Перекладає aria-label для accessibility з атрибутом data-i18n-aria-label
 function applyAriaLabelTranslations(dict) {
   document.querySelectorAll("[data-i18n-aria-label]").forEach((el) => {
     const key = el.getAttribute("data-i18n-aria-label");
@@ -46,6 +53,7 @@ function applyAriaLabelTranslations(dict) {
   });
 }
 
+// Застосовує переклади для вибраної мови та оновлює UI перемикача
 function applyTranslations(lang) {
   const dict = DICTS[lang];
   if (!dict) return;
@@ -56,12 +64,14 @@ function applyTranslations(lang) {
   setActiveButtons(lang);
 }
 
+// Завантажує JSON-словник для конкретної мови з папки ./i18n
 async function loadDict(lang) {
   const res = await fetch(`./i18n/${lang}.json`, { cache: "no-store" });
   if (!res.ok) throw new Error(`Cannot load ${lang}.json`);
   return res.json();
 }
 
+// Гарантує, що всі потрібні словники завантажені (догружає тільки відсутні)
 async function ensureDicts() {
   const missing = SUPPORTED.filter((l) => !DICTS[l]);
   if (!missing.length) return;
@@ -70,6 +80,7 @@ async function ensureDicts() {
   missing.forEach((l, idx) => (DICTS[l] = loaded[idx]));
 }
 
+// Визначає стартову мову: з localStorage (якщо валідна) або DEFAULT_LANG
 function getInitialLang() {
   const saved = localStorage.getItem(STORAGE_KEY);
   if (saved && SUPPORTED.includes(saved)) return saved;
@@ -77,6 +88,7 @@ function getInitialLang() {
   return DEFAULT_LANG;
 }
 
+// Встановлює мову: валідує, підвантажує словники, зберігає вибір і перекладає DOM
 async function setLang(lang) {
   if (!SUPPORTED.includes(lang)) lang = DEFAULT_LANG;
 
@@ -88,6 +100,7 @@ async function setLang(lang) {
   applyTranslations(lang);
 }
 
+// Підв’язує перемикач мови через делегування кліку на document
 function bindLangSwitch() {
   document.addEventListener("click", (e) => {
     const btn = e.target.closest("[data-lang-switch]");
@@ -98,11 +111,13 @@ function bindLangSwitch() {
   });
 }
 
+// Публічна ініціалізація: підключає перемикач і застосовує стартову мову
 export async function initI18n() {
   bindLangSwitch();
   await setLang(getInitialLang());
 }
 
+// Повертає поточну активну мову (корисно для логіки/форматування)
 export function getCurrentLang() {
   return currentLang;
 }

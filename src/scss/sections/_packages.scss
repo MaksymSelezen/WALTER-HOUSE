@@ -2,13 +2,229 @@
 @use "../utils/variables" as *;
 
 .screen--packages {
-  background-image: url("../../assets/images/slides/slide-3-320.jpg");
+  padding: 0;
+  background: none;
 
-  @include mq($bp-768) {
-    background-image: url("../../assets/images/slides/slide-3-768.jpg");
+  .screen__content {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.packages {
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+
+  &__list {
+    width: 100%;
+    border-top: 2px solid rgba(255, 255, 255, 0.35);
   }
 
-  @include mq($bp-1024) {
-    background-image: url("../../assets/images/slides/slide-3-1920.jpg");
+  &__item {
+    --pkg-overlay: rgba(0, 0, 0, 0.45);
+    --pkg-border: rgba(255, 255, 255, 0.35);
+    --pkg-accent: #ffac30;
+
+    --pkg-collapsed-h: 190px;
+    --pkg-open-head-h: 150px;
+
+    position: relative;
+    overflow: hidden;
+    background: #111;
+    color: #fff;
+
+    border-bottom: 2px solid var(--pkg-border);
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+
+      background-image: var(--pkg-bg);
+      background-size: cover;
+      background-position: 50% 50%;
+
+      transform: scale(1);
+      transition: transform 520ms cubic-bezier(0.2, 0.85, 0.2, 1);
+      will-change: transform;
+
+      z-index: 0;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+
+      background: linear-gradient(
+        180deg,
+        var(--pkg-overlay) 0%,
+        rgba(0, 0, 0, 0.55) 55%,
+        rgba(0, 0, 0, 0.72) 100%
+      );
+
+      z-index: 1;
+    }
+
+    &[open]::before {
+      transform: scale(1.08);
+    }
+  }
+
+  &__item--elite {
+    --pkg-bg: url("../../assets/images/slides/slide-2-1-320.jpg");
+  }
+
+  &__item--vip {
+    --pkg-bg: url("../../assets/images/slides/slide-2-2-320.jpg");
+  }
+
+  &__item--extra {
+    --pkg-bg: url("../../assets/images/slides/slide-2-3-320.jpg");
+  }
+
+  &__summary {
+    position: relative;
+    z-index: 2;
+
+    height: var(--pkg-collapsed-h);
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::marker {
+      content: "";
+    }
+
+    &:focus-visible {
+      outline: 2px solid rgba(255, 255, 255, 0.6);
+      outline-offset: -2px;
+    }
+  }
+
+  &__title {
+    font-family: "Bruno Ace", sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-align: center;
+
+    position: relative;
+    z-index: 3;
+  }
+
+  &__body {
+    position: relative;
+    z-index: 2;
+
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 520ms cubic-bezier(0.2, 0.85, 0.2, 1);
+  }
+
+  &__body-inner {
+    overflow: hidden;
+
+    padding: 0 20px 32px;
+    text-align: center;
+
+    opacity: 0;
+    transform: translateY(-8px);
+    transition:
+      opacity 320ms ease,
+      transform 320ms ease;
+  }
+
+  &__text {
+    margin: 0 auto;
+    max-width: 280px;
+
+    font-family:
+      "Open Sans",
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.75;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+
+    color: rgba(255, 255, 255, 0.92);
+  }
+
+  &__arrow {
+    display: block;
+    width: 120px;
+    height: 16px;
+    margin: 18px auto 0;
+
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+
+      transform: translateY(-50%);
+      height: 2px;
+      background: var(--pkg-accent);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 50%;
+
+      width: 10px;
+      height: 10px;
+
+      border-right: 2px solid var(--pkg-accent);
+      border-top: 2px solid var(--pkg-accent);
+
+      transform: translateY(-50%) rotate(45deg);
+    }
+  }
+
+  &__item[open] {
+    .packages__summary {
+      height: var(--pkg-open-head-h);
+      padding-top: 26px;
+      padding-bottom: 10px;
+
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+
+    .packages__title {
+      margin: 0 auto;
+    }
+
+    .packages__body {
+      grid-template-rows: 1fr;
+    }
+
+    .packages__body-inner {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 120ms;
+    }
   }
 }
