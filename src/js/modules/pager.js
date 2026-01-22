@@ -281,7 +281,7 @@ export function initScreenPager() {
     if (enabled) return;
     enabled = true;
 
-    document.body.classList.add("is-screen-slider");
+    document.body.classList.add("is-screen-slider", "is-screen-slider--init");
     if (pagerEl) pagerEl.hidden = false;
 
     buildDotsIfMissing();
@@ -290,6 +290,10 @@ export function initScreenPager() {
     if (pagerEl) pagerEl.addEventListener("click", onPagerClick);
     window.addEventListener("wheel", onWheel, { passive: false });
     window.addEventListener("keydown", onKeydown);
+
+    requestAnimationFrame(() => {
+      document.body.classList.remove("is-screen-slider--init");
+    });
   }
 
   // Вимикає режим: прибирає події, ховає пейджер і повертає звичайний доступ до всіх секцій
@@ -301,7 +305,10 @@ export function initScreenPager() {
     window.removeEventListener("wheel", onWheel);
     window.removeEventListener("keydown", onKeydown);
 
-    document.body.classList.remove("is-screen-slider");
+    document.body.classList.remove(
+      "is-screen-slider",
+      "is-screen-slider--init",
+    );
     if (pagerEl) pagerEl.hidden = true;
 
     setAriaForMobile();

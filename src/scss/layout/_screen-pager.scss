@@ -24,6 +24,10 @@
     will-change: transform, opacity;
   }
 
+  body.is-screen-slider--init .screen {
+    transition: none;
+  }
+
   .screen.is-active {
     opacity: 1;
     pointer-events: auto;
