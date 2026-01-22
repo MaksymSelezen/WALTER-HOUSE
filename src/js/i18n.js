@@ -7,7 +7,15 @@ const DEFAULT_LANG = "en"; // мова за замовчуванням
 let DICTS = {}; // кеш словників: { en: {...}, ru: {...} }
 let currentLang = DEFAULT_LANG; // поточна активна мова
 
-// Безпечно дістає значення з об’єкта за шляхом типу "header.title"
+//! Безпечно дістає значення з об’єкта за шляхом типу "header.title"
+// Як працює:
+// path.split(".") робить масив ключів: "header.title" → ["header", "title"]
+// reduce проходиться по вкладеності:
+// спочатку бере obj["header"]
+// потім obj["header"]["title"]
+// якщо на якомусь кроці нема даних — повертає undefined, і код не падає.
+// Плюс: це безпечніше, ніж писати dict.header.title, бо якщо header нема — не буде помилки.
+
 function get(obj, path) {
   return path
     .split(".")
@@ -17,7 +25,13 @@ function get(obj, path) {
     );
 }
 
-// Виставляє активний стан кнопок перемикання мови (клас + aria-pressed)
+//! Виставляє активний стан кнопок перемикання мови (клас + aria-pressed)
+// Що відбувається:
+// знаходить всі елементи з [data-lang-switch]
+// для кожного: порівнює його атрибут ("en"/"ru") з поточною мовою
+// додає/знімає клас is-active
+// ставить aria-pressed="true/false" (це accessibility: екранні читачі розуміють “кнопка натиснута/активна”).
+
 function setActiveButtons(lang) {
   document.querySelectorAll("[data-lang-switch]").forEach((btn) => {
     const isActive = btn.getAttribute("data-lang-switch") === lang;
@@ -26,7 +40,13 @@ function setActiveButtons(lang) {
   });
 }
 
-// Перекладає текстовий вміст елементів з атрибутом data-i18n
+//! Перекладає текстовий вміст елементів з атрибутом data-i18n
+//Логіка:
+//бере ключ з атрибута
+//шукає значення в словнику dict через get()
+//якщо знайшло рядок — ставить в textContent
+//Важливий нюанс: textContent вставляє як текст, а не HTML. Тобто <b> не буде працювати як тег — це плюс для безпеки (захист від ін’єкцій).
+
 function applyTextTranslations(dict) {
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const key = el.getAttribute("data-i18n");
@@ -35,7 +55,8 @@ function applyTextTranslations(dict) {
   });
 }
 
-// Перекладає placeholder у полях вводу/textarea з атрибутом data-i18n-placeholder
+//! Перекладає placeholder у полях вводу/textarea з атрибутом data-i18n-placeholder
+
 function applyPlaceholderTranslations(dict) {
   document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
     const key = el.getAttribute("data-i18n-placeholder");

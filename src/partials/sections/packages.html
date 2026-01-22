@@ -1,59 +1,14 @@
 <div class="screen__hero packages">
   <div class="container screen__content">
-    <div class="packages__list">
+    <div class="packages__list" data-packages-accordion>
       <!-- ELITE -->
-      <details class="packages__item packages__item--elite">
-        <summary class="packages__summary">
-          <span class="packages__title">ELITE</span>
-          <span class="packages__arc" aria-hidden="true"></span>
-        </summary>
-
-        <div class="packages__body">
-          <div class="packages__body-inner">
-            <p class="packages__text">
-              LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DO
-              EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA.
-            </p>
-
-            <button
-              class="packages__btn"
-              type="button"
-              aria-label="Go to package details"
-            >
-              <svg
-                class="packages__btn-icon"
-                width="120"
-                height="21"
-                viewBox="0 0 120 21"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <path
-                  d="M0 10.5H110"
-                  stroke="currentColor"
-                  stroke-width="1"
-                  stroke-linecap="round"
-                />
-                <path
-                  d="M110 1L120 10.5L110 20"
-                  stroke="currentColor"
-                  stroke-width="1"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </details>
-
-      <!-- VIP -->
-      <details class="packages__item packages__item--vip">
-        <summary class="packages__summary">
-          <span class="packages__title">VIP</span>
-          <span class="packages__arc" aria-hidden="true"></span>
-        </summary>
+      <div class="packages__item packages__item--elite">
+        <h3 class="packages__header">
+          <button class="packages__summary" type="button">
+            <span class="packages__title">ELITE</span>
+            <span class="packages__arc" aria-hidden="true"></span>
+          </button>
+        </h3>
 
         <div class="packages__body">
           <div class="packages__body-inner">
@@ -64,11 +19,11 @@
               NISI UT ALIQUIP EX EA COMMODO CONSEQUAT.
             </p>
 
-            <button
-              class="packages__btn"
-              type="button"
-              aria-label="Go to package details"
-            >
+            <a class="packages__btn" href="#" aria-label="Open gallery">
+              <span class="packages__btn-text" data-i18n="packages.gallery"
+                >GALLERY</span
+              >
+
               <svg
                 class="packages__btn-icon"
                 width="120"
@@ -77,45 +32,39 @@
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
                 aria-hidden="true"
+                focusable="false"
               >
-                <path
-                  d="M0 10.5H110"
-                  stroke="currentColor"
-                  stroke-width="1"
-                  stroke-linecap="round"
-                />
-                <path
-                  d="M110 1L120 10.5L110 20"
-                  stroke="currentColor"
-                  stroke-width="1"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
+                <line x1="0.5" y1="10.5" x2="109.5" y2="10.5" />
+                <polyline points="109.5 3.5 119.5 10.5 109.5 17.5" />
               </svg>
-            </button>
+            </a>
           </div>
         </div>
-      </details>
+      </div>
 
-      <!-- EXTRA -->
-      <details class="packages__item packages__item--extra">
-        <summary class="packages__summary">
-          <span class="packages__title">EXTRA</span>
-          <span class="packages__arc" aria-hidden="true"></span>
-        </summary>
+      <!-- VIP -->
+      <div class="packages__item packages__item--vip">
+        <h3 class="packages__header">
+          <button class="packages__summary" type="button">
+            <span class="packages__title">VIP</span>
+            <span class="packages__arc" aria-hidden="true"></span>
+          </button>
+        </h3>
 
         <div class="packages__body">
           <div class="packages__body-inner">
             <p class="packages__text">
               LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DO
-              EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA.
+              EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT
+              ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS
+              NISI UT ALIQUIP EX EA COMMODO CONSEQUAT.
             </p>
 
-            <button
-              class="packages__btn"
-              type="button"
-              aria-label="Go to package details"
-            >
+            <a class="packages__btn" href="#" aria-label="Open gallery">
+              <span class="packages__btn-text" data-i18n="packages.gallery"
+                >GALLERY</span
+              >
+
               <svg
                 class="packages__btn-icon"
                 width="120"
@@ -124,25 +73,56 @@
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
                 aria-hidden="true"
+                focusable="false"
               >
-                <path
-                  d="M0 10.5H110"
-                  stroke="currentColor"
-                  stroke-width="1"
-                  stroke-linecap="round"
-                />
-                <path
-                  d="M110 1L120 10.5L110 20"
-                  stroke="currentColor"
-                  stroke-width="1"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
+                <line x1="0.5" y1="10.5" x2="109.5" y2="10.5" />
+                <polyline points="109.5 3.5 119.5 10.5 109.5 17.5" />
               </svg>
-            </button>
+            </a>
           </div>
         </div>
-      </details>
+      </div>
+
+      <!-- EXTRA -->
+      <div class="packages__item packages__item--extra">
+        <h3 class="packages__header">
+          <button class="packages__summary" type="button">
+            <span class="packages__title">EXTRA</span>
+            <span class="packages__arc" aria-hidden="true"></span>
+          </button>
+        </h3>
+
+        <div class="packages__body">
+          <div class="packages__body-inner">
+            <p class="packages__text">
+              LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DO
+              EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT
+              ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS
+              NISI UT ALIQUIP EX EA COMMODO CONSEQUAT.
+            </p>
+
+            <a class="packages__btn" href="#" aria-label="Open gallery">
+              <span class="packages__btn-text" data-i18n="packages.gallery"
+                >GALLERY</span
+              >
+
+              <svg
+                class="packages__btn-icon"
+                width="120"
+                height="21"
+                viewBox="0 0 120 21"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <line x1="0.5" y1="10.5" x2="109.5" y2="10.5" />
+                <polyline points="109.5 3.5 119.5 10.5 109.5 17.5" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

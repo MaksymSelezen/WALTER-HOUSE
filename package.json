@@ -12,5 +12,8 @@
     "sass": "^1.97.1",
     "vite": "^7.2.4",
     "vite-plugin-handlebars": "^2.0.0"
+  },
+  "dependencies": {
+    "accordion-js": "^3.4.1"
   }
 }
