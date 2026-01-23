@@ -141,7 +141,7 @@
 
   //  * ========== 768 ==========
   @media (min-width: 768px) {
-    min-height: 400px;
+    max-height: 400px;
     padding: 85.26px 124.54px 94.74px;
 
     &__field {
