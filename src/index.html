@@ -19,12 +19,13 @@
     {{> social}} {{> pager}} {{> burger-menu}} {{> call-modal}} {{> modals}}
 
     <main class="page" id="page" data-screens>
+      {{> header}}
       <section
         class="screen screen--home screen--has-form is-active"
         id="home"
         data-screen="1"
       >
-        {{> header}} {{> sections/home}} {{> form}}
+        {{> sections/home}} {{> form}}
       </section>
 
       <section class="screen screen--packages" id="packages" data-screen="3">
