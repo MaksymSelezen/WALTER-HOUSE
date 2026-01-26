@@ -3,14 +3,25 @@
     <div class="packages__list" data-packages-accordion>
       <div class="packages__item packages__item--elite">
         <h3 class="packages__header">
-          <button class="packages__summary" type="button">
+          <button
+            class="packages__summary"
+            type="button"
+            id="packages-trigger-elite"
+            aria-expanded="false"
+            aria-controls="packages-panel-elite"
+          >
             <span class="packages__title">ELITE</span>
             <span class="packages__arc" aria-hidden="true"></span>
           </button>
         </h3>
 
-        <div class="packages__body">
-          <div class="packages__body-inner">
+        <div
+          class="packages__body"
+          id="packages-panel-elite"
+          role="region"
+          aria-labelledby="packages-trigger-elite"
+        >
+          <div class="packages__content">
             <p class="packages__text">
               LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DO
               EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT
@@ -37,20 +48,33 @@
                 <polyline points="109.5 3.5 119.5 10.5 109.5 17.5" />
               </svg>
             </a>
+
+            <div class="packages__desktop-only" aria-hidden="true"></div>
           </div>
         </div>
       </div>
 
       <div class="packages__item packages__item--vip">
         <h3 class="packages__header">
-          <button class="packages__summary" type="button">
+          <button
+            class="packages__summary"
+            type="button"
+            id="packages-trigger-vip"
+            aria-expanded="false"
+            aria-controls="packages-panel-vip"
+          >
             <span class="packages__title">VIP</span>
             <span class="packages__arc" aria-hidden="true"></span>
           </button>
         </h3>
 
-        <div class="packages__body">
-          <div class="packages__body-inner">
+        <div
+          class="packages__body"
+          id="packages-panel-vip"
+          role="region"
+          aria-labelledby="packages-trigger-vip"
+        >
+          <div class="packages__content">
             <p class="packages__text">
               LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DO
               EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT
@@ -77,20 +101,33 @@
                 <polyline points="109.5 3.5 119.5 10.5 109.5 17.5" />
               </svg>
             </a>
+
+            <div class="packages__desktop-only" aria-hidden="true"></div>
           </div>
         </div>
       </div>
 
       <div class="packages__item packages__item--extra">
         <h3 class="packages__header">
-          <button class="packages__summary" type="button">
+          <button
+            class="packages__summary"
+            type="button"
+            id="packages-trigger-extra"
+            aria-expanded="false"
+            aria-controls="packages-panel-extra"
+          >
             <span class="packages__title">EXTRA</span>
             <span class="packages__arc" aria-hidden="true"></span>
           </button>
         </h3>
 
-        <div class="packages__body">
-          <div class="packages__body-inner">
+        <div
+          class="packages__body"
+          id="packages-panel-extra"
+          role="region"
+          aria-labelledby="packages-trigger-extra"
+        >
+          <div class="packages__content">
             <p class="packages__text">
               LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DO
               EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT
@@ -117,6 +154,8 @@
                 <polyline points="109.5 3.5 119.5 10.5 109.5 17.5" />
               </svg>
             </a>
+
+            <div class="packages__desktop-only" aria-hidden="true"></div>
           </div>
         </div>
       </div>

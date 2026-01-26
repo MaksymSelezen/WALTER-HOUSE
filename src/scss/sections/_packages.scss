@@ -79,6 +79,9 @@
     position: relative;
     overflow: hidden;
 
+    display: flex;
+    flex-direction: column;
+
     background-color: #111;
     background-image: var(--pkg-bg);
     background-size: cover;
@@ -225,13 +228,23 @@
     height: 0;
     overflow: hidden;
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     transition: height 520ms cubic-bezier(0.2, 0.85, 0.2, 1);
     will-change: height;
   }
 
-  &__body-inner {
+  &__content {
+    min-height: 100%;
     padding: 0 20px 50px;
     text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
     opacity: 0;
     transform: translateY(-8px);
@@ -316,6 +329,10 @@
     will-change: transform;
   }
 
+  &__desktop-only {
+    display: none;
+  }
+
   @media (hover: hover) and (pointer: fine) {
     &__btn:hover {
       opacity: 0.95;
@@ -351,7 +368,7 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    .packages__body-inner {
+    .packages__content {
       opacity: 1;
       transform: translateY(0);
       transition-delay: 120ms;
@@ -392,7 +409,7 @@
       top: calc(64px + (8 * (100vw - 768px) / 256));
     }
 
-    &__body-inner {
+    &__content {
       padding: 0 calc(109px + (51 * (100vw - 768px) / 256))
         calc(80px + (16 * (100vw - 768px) / 256));
     }
@@ -461,7 +478,7 @@
       top: 72px;
     }
 
-    &__body-inner {
+    &__content {
       padding: 0 160px 96px;
     }
 
@@ -494,9 +511,6 @@
     --pkg-open-arc-left: calc(64px + (22 * (100vw - 1440px) / 480));
     --pkg-open-arc-size: calc(130px + (44 * (100vw - 1440px) / 480));
 
-    --pkg-open-content-left: calc(255px + (85 * (100vw - 1440px) / 480));
-    --pkg-open-content-shift: calc(46px + (15 * (100vw - 1440px) / 480));
-
     --pkg-open-text-w: calc(360px + (119 * (100vw - 1440px) / 480));
     --pkg-open-btn-w: calc(236px + (78 * (100vw - 1440px) / 480));
     --pkg-open-icon-w: calc(125px + (40 * (100vw - 1440px) / 480));
@@ -528,14 +542,13 @@
     }
 
     &__summary {
-      height: 100vh;
+      height: 100%;
+      flex: 1 1 auto;
     }
 
     &__body {
-      position: absolute;
-      inset: 0;
-      height: auto;
-      overflow: hidden;
+      height: 0;
+      display: none;
 
       opacity: 0;
       pointer-events: none;
@@ -543,14 +556,15 @@
       transition: opacity 240ms ease;
     }
 
-    &__body-inner {
-      position: absolute;
-
-      left: var(--pkg-open-content-left);
-      top: calc(50% - var(--pkg-open-content-shift));
+    &__content {
+      position: relative;
+      min-height: 100%;
 
       padding: 0;
-      text-align: left;
+      text-align: center;
+
+      align-items: center;
+      justify-content: center;
 
       opacity: 1;
       transform: none;
@@ -568,6 +582,10 @@
       color: #fff;
     }
 
+    &__desktop-only {
+      display: block;
+    }
+
     &__item.is-open,
     &__item[open] {
       flex-grow: var(--pkg-open-grow);
@@ -577,7 +595,8 @@
       --pkg-overlay-bot: rgba(0, 0, 0, 0.5);
 
       .packages__summary {
-        height: 100vh;
+        height: auto;
+        flex: 0 0 auto;
         padding: 0;
         align-items: center;
         justify-content: flex-start;
@@ -617,8 +636,17 @@
       }
 
       .packages__body {
+        height: auto;
+        display: flex;
+
         opacity: 1;
         pointer-events: auto;
+      }
+
+      .packages__content {
+        min-height: 100%;
+        max-width: calc(var(--pkg-open-text-w) + 120px);
+        padding: 0 48px;
       }
 
       .packages__btn {
@@ -666,9 +694,6 @@
     --pkg-open-arc-left: 86px;
     --pkg-open-arc-size: 174px;
 
-    --pkg-open-content-left: 340px;
-    --pkg-open-content-shift: 61px;
-
     --pkg-open-text-w: 479px;
     --pkg-open-btn-w: 314px;
     --pkg-open-icon-w: 165px;
@@ -681,7 +706,7 @@
     &__title,
     &__arc,
     &__body,
-    &__body-inner,
+    &__content,
     &__btn,
     &__btn-icon {
       transition: none;
