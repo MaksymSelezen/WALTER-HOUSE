@@ -5,7 +5,6 @@
   padding: 0;
   background: none;
   color: #fff;
-
   position: relative;
   min-height: 100vh;
 
@@ -52,7 +51,6 @@
     left: 0;
     right: 0;
     top: 0;
-
     height: var(--pkg-line-thickness);
 
     background: linear-gradient(
@@ -87,7 +85,6 @@
     background-size: cover;
     background-position: 50% 50%;
     background-repeat: no-repeat;
-
     background-origin: border-box;
     background-clip: border-box;
 
@@ -172,7 +169,6 @@
     font-weight: 400;
     font-size: 24px;
     line-height: 1;
-
     text-transform: uppercase;
     text-align: center;
 
@@ -239,6 +235,7 @@
   &__content {
     min-height: 100%;
     padding: 0 20px 50px;
+
     text-align: center;
 
     display: flex;
@@ -248,7 +245,6 @@
 
     opacity: 0;
     transform: translateY(-8px);
-
     transition:
       opacity 320ms ease,
       transform 320ms ease;
@@ -258,6 +254,7 @@
     margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
+
     max-width: 280px;
 
     font-family:
@@ -270,7 +267,6 @@
     font-weight: 400;
     font-size: 12px;
     line-height: 1.75;
-
     text-transform: uppercase;
 
     color: rgba(255, 255, 255, 0.92);
@@ -279,6 +275,7 @@
   &__btn {
     width: 120px;
     height: 21px;
+
     margin: 47px auto 0;
 
     display: flex;
@@ -289,8 +286,8 @@
     padding: 0;
     border: 0;
     background: transparent;
-
     color: var(--pkg-accent);
+
     cursor: pointer;
     text-decoration: none;
 
@@ -355,10 +352,8 @@
   &__item[open] {
     .packages__summary {
       height: var(--pkg-open-head-h);
-
       padding-top: 53px;
       padding-bottom: 0;
-
       align-items: flex-start;
       justify-content: center;
     }
@@ -378,7 +373,6 @@
   // * ========== 768 ==========
   @media (min-width: 768px) {
     --pkg-line-thickness: 1px;
-
     --pkg-arc-w: 174px;
     --pkg-arc-h: 99px;
 
@@ -428,7 +422,6 @@
     &__btn {
       width: calc(550px + (150 * (100vw - 768px) / 256));
       margin: calc(92px + (12 * (100vw - 768px) / 256)) auto 0;
-
       justify-content: center;
     }
 
@@ -442,12 +435,13 @@
         BlinkMacSystemFont,
         "Segoe UI",
         sans-serif;
-
       font-weight: 600;
       font-size: 20px;
       line-height: 1.5;
+
       letter-spacing: 0.45em;
       text-transform: uppercase;
+
       color: currentColor;
     }
 
@@ -491,7 +485,6 @@
     &__btn {
       width: 700px;
       margin: 104px auto 0;
-
       justify-content: center;
     }
 
@@ -508,15 +501,10 @@
     --pkg-open-grow: 2.085;
 
     --pkg-open-arc-size: calc(130px + (44 * (100vw - 1440px) / 480));
-
-    /* Ліва зона під кнопку (щоб контент справа був клікабельний) */
     --pkg-open-body-left: calc(255px + (85 * (100vw - 1440px) / 480));
-
-    /* Центр лівої зони (сюди ставимо title + circle) */
     --pkg-open-head-center-x: calc(var(--pkg-open-body-left) / 2);
 
-    /* Зсув вниз тайтла/кола у відкритому стані (під рівень тексту) */
-    --pkg-open-head-shift-y: calc(14px + (4 * (100vw - 1440px) / 480));
+    --pkg-open-head-shift-y: calc(18px + (6 * (100vw - 1440px) / 480));
 
     --pkg-open-text-w: calc(360px + (119 * (100vw - 1440px) / 480));
     --pkg-open-btn-w: calc(236px + (78 * (100vw - 1440px) / 480));
@@ -552,8 +540,10 @@
       position: absolute;
       top: 0;
       left: 0;
+
       width: 100%;
       height: 100%;
+
       z-index: 4;
     }
 
@@ -568,6 +558,7 @@
       left: var(--pkg-open-body-left);
 
       height: 100% !important;
+
       overflow: hidden;
 
       display: flex;
@@ -577,6 +568,7 @@
       pointer-events: none;
 
       transition: opacity 240ms ease;
+
       z-index: 3;
     }
 
@@ -614,6 +606,7 @@
       height: 31px;
 
       margin: 35px 0 0;
+
       justify-content: flex-start;
       gap: 35px;
 
@@ -623,9 +616,11 @@
 
     &__btn-text {
       display: block;
+
       font-weight: 600;
       font-size: 20px;
       line-height: 1.5;
+
       letter-spacing: 0.45em;
       text-transform: uppercase;
     }
@@ -648,23 +643,39 @@
     &__item[open] {
       flex-grow: var(--pkg-open-grow);
 
+      display: flex;
+      flex-direction: row;
+
       --pkg-overlay-top: rgba(0, 0, 0, 0.5);
       --pkg-overlay-mid: rgba(0, 0, 0, 0.5);
       --pkg-overlay-bot: rgba(0, 0, 0, 0.5);
 
       .packages__header {
+        position: relative;
         width: var(--pkg-open-body-left);
+        flex: 0 0 var(--pkg-open-body-left);
+        height: 100%;
+      }
+
+      .packages__summary {
+        height: 100%;
+        padding-top: 0;
+        padding-bottom: 0;
+        align-items: center;
+        justify-content: center;
       }
 
       .packages__title {
         position: absolute;
-        left: var(--pkg-open-head-center-x);
+        left: 50%;
         top: 50%;
+
         transform: translate(-50%, -50%)
           translateY(var(--pkg-open-head-shift-y));
 
         color: var(--pkg-accent);
         text-align: center;
+
         will-change: auto;
       }
 
@@ -672,7 +683,7 @@
         opacity: 1;
 
         position: absolute;
-        left: var(--pkg-open-head-center-x);
+        left: 50%;
         top: 50%;
 
         width: var(--pkg-open-arc-size);
@@ -680,18 +691,34 @@
 
         transform: translate(-50%, -50%)
           translateY(var(--pkg-open-head-shift-y));
+
         overflow: visible;
       }
 
       .packages__arc::before {
-        top: 0;
+        content: "";
+        position: absolute;
+        inset: 0;
+
         width: 100%;
         height: 100%;
-        border-radius: 50%;
-        border-width: 2px;
+
+        border: 0;
+        border-radius: 0;
+        box-sizing: border-box;
+
+        background: no-repeat center / 100% 100%;
+        background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Cpath%20d='M50%202%20A48%2048%200%200%201%2050%2098'%20fill='none'%20stroke='rgba(255,255,255,0.4)'%20stroke-width='2'%20stroke-linecap='round'%20vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
       }
 
       .packages__body {
+        position: relative;
+        top: auto;
+        right: auto;
+        left: auto;
+
+        flex: 1 1 auto;
+
         opacity: 1;
         pointer-events: auto;
       }
@@ -714,7 +741,6 @@
   @media (min-width: 1920px) {
     --pkg-open-arc-size: 174px;
     --pkg-open-body-left: 340px;
-
     --pkg-open-text-w: 479px;
     --pkg-open-btn-w: 314px;
     --pkg-open-icon-w: 165px;
