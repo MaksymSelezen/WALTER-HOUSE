@@ -591,34 +591,24 @@
       top: 0;
       right: 0;
       left: var(--pkg-open-body-left);
-
       height: 100% !important;
-
       overflow: hidden;
-
       display: flex;
       align-items: center;
-
       opacity: 0;
       pointer-events: none;
-
       transition: opacity 240ms ease;
-
       z-index: 3;
     }
 
     &__content {
       min-height: auto;
       padding: 0;
-
       text-align: left;
-
       align-items: flex-start;
       justify-content: center;
-
       opacity: 0;
       transform: translateY(-8px);
-
       transition:
         opacity 320ms ease,
         transform 320ms ease;
@@ -643,7 +633,6 @@
       margin: 35px 0 0;
 
       justify-content: flex-start;
-      // gap: 35px;
 
       opacity: 1;
       transform: none;
