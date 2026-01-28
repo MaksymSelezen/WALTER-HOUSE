@@ -39,6 +39,8 @@
 
 //   --pkg-open-duration: 520ms;
 //   --pkg-open-ease: cubic-bezier(0.2, 0.85, 0.2, 1);
+//   --pkg-content-duration: 200ms;
+//   --pkg-content-ease: ease-out;
 //   --pkg-collapsed-h: calc(160px + (32 * (100vw - 320px) / 448));
 
 //   &__list {
@@ -151,11 +153,8 @@
 //     cursor: pointer;
 //     user-select: none;
 //     -webkit-tap-highlight-color: transparent;
-//     transition:
-//       height var(--pkg-open-duration) var(--pkg-open-ease),
-//       padding-top var(--pkg-open-duration) var(--pkg-open-ease),
-//       padding-bottom var(--pkg-open-duration) var(--pkg-open-ease);
-//     will-change: height, padding-top, padding-bottom;
+//     transition: none;
+//     will-change: auto;
 
 //     &:focus-visible {
 //       outline: 2px solid rgba(255, 255, 255, 0.6);
@@ -173,10 +172,8 @@
 //     position: relative;
 //     z-index: 3;
 //     transform: translate(0px, 0px);
-//     transition:
-//       transform 320ms ease,
-//       color 220ms ease;
-//     will-change: transform;
+//     transition: none;
+//     will-change: auto;
 //   }
 
 //   &__arc {
@@ -190,9 +187,7 @@
 //     overflow: hidden;
 //     z-index: 2;
 //     pointer-events: none;
-//     transition:
-//       opacity 240ms ease,
-//       transform 520ms cubic-bezier(0.2, 0.85, 0.2, 1);
+//     transition: none;
 
 //     &::before {
 //       content: "";
@@ -210,13 +205,12 @@
 //   &__body {
 //     position: relative;
 //     z-index: 2;
-//     height: 0;
 //     overflow: hidden;
 //     display: flex;
 //     align-items: center;
 //     justify-content: center;
-//     transition: height var(--pkg-open-duration) var(--pkg-open-ease);
-//     will-change: height;
+//     transition: none;
+//     will-change: auto;
 //   }
 
 //   &__content {
@@ -228,10 +222,10 @@
 //     align-items: center;
 //     justify-content: center;
 //     opacity: 0;
-//     transform: translateY(-8px);
+//     transform: translateY(8px);
 //     transition:
-//       opacity var(--pkg-open-duration) ease,
-//       transform var(--pkg-open-duration) ease;
+//       opacity var(--pkg-content-duration) var(--pkg-content-ease),
+//       transform var(--pkg-content-duration) var(--pkg-content-ease);
 //   }
 
 //   &__text {
@@ -277,9 +271,7 @@
 //     cursor: pointer;
 //     text-decoration: none;
 //     -webkit-tap-highlight-color: transparent;
-//     transition:
-//       transform 320ms cubic-bezier(0.2, 0.85, 0.2, 1),
-//       opacity 220ms ease;
+//     transition: none;
 
 //     &:focus-visible {
 //       outline: 2px solid rgba(255, 172, 48, 0.6);
@@ -306,8 +298,8 @@
 //     stroke-width: 1;
 //     stroke-linecap: round;
 //     stroke-linejoin: round;
-//     transition: transform 320ms cubic-bezier(0.2, 0.85, 0.2, 1);
-//     will-change: transform;
+//     transition: none;
+//     will-change: auto;
 //   }
 
 //   &__btn-icon path {
@@ -366,10 +358,6 @@
 //         padding-bottom: 0;
 //         align-items: center;
 //         justify-content: center;
-//       }
-
-//       .packages__content {
-//         transition-delay: 0ms;
 //       }
 //     }
 //   }
@@ -522,6 +510,8 @@
 //     --pkg-open-text-w: 479px;
 //     --pkg-open-btn-w: 314px;
 //     --pkg-open-icon-w: 165px;
+//     --pkg-open-content-offset: 82px;
+//     --pkg-open-content-shift-y: 66px;
 
 //     --pkg-open-head-gap: 59px;
 //     --pkg-open-head-shift-y: 0px;
@@ -538,8 +528,8 @@
 //       flex: 1 1 0;
 //       min-width: 0;
 //       height: 100vh;
-//       transition: flex-grow 520ms cubic-bezier(0.2, 0.85, 0.2, 1);
-//       will-change: flex-grow;
+//       transition: none;
+//       will-change: auto;
 //     }
 
 //     &__item--elite {
@@ -578,8 +568,10 @@
 //       align-items: center;
 //       opacity: 0;
 //       pointer-events: none;
-//       transition: opacity 240ms ease;
+//       transition: none;
 //       z-index: 3;
+//       padding-left: var(--pkg-open-content-offset);
+//       box-sizing: border-box;
 //     }
 
 //     &__content {
@@ -589,10 +581,10 @@
 //       align-items: flex-start;
 //       justify-content: center;
 //       opacity: 0;
-//       transform: translateY(-8px);
+//       transform: translateY(calc(var(--pkg-open-content-shift-y) + 8px));
 //       transition:
-//         opacity 320ms ease,
-//         transform 320ms ease;
+//         opacity var(--pkg-content-duration) var(--pkg-content-ease),
+//         transform var(--pkg-content-duration) var(--pkg-content-ease);
 //     }
 
 //     &__text {
@@ -730,8 +722,8 @@
 
 //       .packages__content {
 //         opacity: 1;
-//         transform: translateY(66px) translateX(-82px);
-//         transition-delay: 120ms;
+//         transform: translateY(var(--pkg-open-content-shift-y));
+//         transition-delay: 0ms;
 //       }
 
 //       .packages__btn--gallery {
@@ -757,6 +749,12 @@
 //     --pkg-open-text-w: 479px;
 //     --pkg-open-btn-w: 314px;
 //     --pkg-open-icon-w: 165px;
+//     --pkg-open-content-offset: 120px;
+//   }
+
+//   &,
+//   & * {
+//     scroll-behavior: auto;
 //   }
 
 //   @media (prefers-reduced-motion: reduce) {
@@ -1288,11 +1286,13 @@
     --pkg-open-btn-w: 314px;
     --pkg-open-icon-w: 165px;
 
+    --pkg-open-content-offset: 82px;
+    --pkg-open-content-shift-y: 0px;
+    --pkg-open-gallery-shift-y: 0px;
+    --pkg-open-services-shift-y: 0px;
+
     --pkg-open-head-gap: 59px;
     --pkg-open-head-shift-y: 0px;
-
-    --pkg-open-gallery-shift-y: 18px;
-    --pkg-open-services-shift-y: 18px;
 
     &__list {
       display: flex;
@@ -1339,22 +1339,39 @@
       left: var(--pkg-open-body-left);
       height: 100% !important;
       overflow: hidden;
+
       display: flex;
       align-items: center;
+
+      // ✅ center the content group horizontally inside the opened block
+      justify-content: center;
+
       opacity: 0;
       pointer-events: none;
       transition: none;
       z-index: 3;
+
+      // ✅ symmetric padding instead of left-only shift
+      padding: 0 var(--pkg-open-content-offset);
+
+      box-sizing: border-box;
     }
 
     &__content {
       min-height: auto;
       padding: 0;
+
+      // ✅ center the container itself inside the flex area
+      width: 100%;
+      max-width: max(var(--pkg-open-text-w), var(--pkg-open-btn-w));
+      margin: 0 auto;
+
       text-align: left;
       align-items: flex-start;
       justify-content: center;
+
       opacity: 0;
-      transform: translateY(calc(66px + 8px)) translateX(-82px);
+      transform: translateY(calc(var(--pkg-open-content-shift-y) + 8px));
       transition:
         opacity var(--pkg-content-duration) var(--pkg-content-ease),
         transform var(--pkg-content-duration) var(--pkg-content-ease);
@@ -1495,10 +1512,11 @@
 
       .packages__content {
         opacity: 1;
-        transform: translateY(66px) translateX(-82px);
+        transform: translateY(var(--pkg-open-content-shift-y));
         transition-delay: 0ms;
       }
 
+      // keep rules, but shifts are 0px now (group stays centered)
       .packages__btn--gallery {
         transform: translateY(var(--pkg-open-gallery-shift-y));
       }
@@ -1522,6 +1540,9 @@
     --pkg-open-text-w: 479px;
     --pkg-open-btn-w: 314px;
     --pkg-open-icon-w: 165px;
+
+    // ✅ still centered; just bigger symmetric padding
+    --pkg-open-content-offset: 120px;
   }
 
   &,
