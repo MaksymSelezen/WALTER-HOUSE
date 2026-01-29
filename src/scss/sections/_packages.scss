@@ -536,6 +536,16 @@
 
     --pkg-collapsed-title-shift-y: -15px;
 
+    --pkg-open-text-size: 18px;
+    --pkg-open-text-line-height: 1.6667;
+    --pkg-open-text-letter-spacing: 0.001em;
+    --pkg-open-btn-text-size: 20px;
+    --pkg-open-btn-text-letter-spacing: 0.45em;
+    --pkg-open-services-text-size: 14px;
+    --pkg-open-btn-height: 31px;
+    --pkg-open-btn-margin-top: 35px;
+    --pkg-open-desktop-only-margin-top: 69px;
+
     &__list {
       display: flex;
       min-height: 100vh;
@@ -624,16 +634,16 @@
       margin: 0;
       max-width: var(--pkg-open-text-w);
       font-weight: 600;
-      font-size: 18px;
-      line-height: 1.6667;
-      letter-spacing: 0.001em;
+      font-size: var(--pkg-open-text-size);
+      line-height: var(--pkg-open-text-line-height);
+      letter-spacing: var(--pkg-open-text-letter-spacing);
       color: #fff;
     }
 
     &__btn {
       width: var(--pkg-open-btn-w);
-      height: 31px;
-      margin: 35px 0 0;
+      height: var(--pkg-open-btn-height);
+      margin: var(--pkg-open-btn-margin-top) 0 0;
       justify-content: flex-start;
       opacity: 1;
       transform: none;
@@ -642,14 +652,14 @@
     &__btn-text {
       display: block;
       font-weight: 600;
-      font-size: 20px;
+      font-size: var(--pkg-open-btn-text-size);
       line-height: 1.5;
-      letter-spacing: 0.45em;
+      letter-spacing: var(--pkg-open-btn-text-letter-spacing);
       text-transform: uppercase;
     }
 
     &__btn-text--services {
-      font-size: 14px;
+      font-size: var(--pkg-open-services-text-size);
       max-width: 271px;
       white-space: nowrap;
     }
@@ -667,7 +677,7 @@
 
     &__desktop-only {
       display: block;
-      margin-top: 69px;
+      margin-top: var(--pkg-open-desktop-only-margin-top);
 
       .packages__btn {
         margin: 0;
@@ -748,7 +758,7 @@
         top: auto;
         right: auto;
         left: auto;
-        flex: 1 1 auto;
+
         opacity: 1;
         pointer-events: auto;
         display: flex !important;
@@ -785,18 +795,40 @@
 
   // * ========== 1440-1919 (fix full width, no "black strip") ==========
   @media (min-width: 1440px) and (max-width: 1919px) {
-    --pkg-open-grow: 2.4;
-    --pkg-open-body-left: clamp(260px, 20vw, 320px);
-    --pkg-open-text-w: clamp(300px, 22vw, 420px);
-    --pkg-open-btn-w: clamp(240px, 16vw, 300px);
-    --pkg-open-icon-w: clamp(120px, 8vw, 150px);
+    --pkg-open-grow: 1.9;
 
-    --pkg-open-content-offset: clamp(56px, 4.2vw, 96px);
-    --pkg-open-content-shift-x: -60px;
-    --pkg-open-content-shift-y: 56px;
+    &__title {
+      font-size: 26px;
+    }
 
-    --pkg-open-gallery-shift-y: 8px;
-    --pkg-open-services-shift-y: 8px;
+    --pkg-open-arc-size: 120px;
+
+    --pkg-open-body-left: clamp(240px, 18vw, 300px);
+
+    --pkg-open-text-w: clamp(340px, 25vw, 400px);
+
+    --pkg-open-btn-w: clamp(220px, 15vw, 280px);
+    --pkg-open-icon-w: clamp(110px, 7vw, 140px);
+
+    --pkg-open-content-offset: clamp(40px, 3.2vw, 72px);
+    --pkg-open-content-shift-x: -44px;
+    --pkg-open-content-shift-y: 46px;
+
+    --pkg-open-gallery-shift-y: 6px;
+    --pkg-open-services-shift-y: 6px;
+
+    --pkg-open-head-gap: 44px;
+
+    --pkg-open-text-size: 13px;
+    --pkg-open-text-line-height: 1.5;
+    --pkg-open-text-letter-spacing: 0.00075em;
+
+    --pkg-open-btn-text-size: 15px;
+    --pkg-open-btn-text-letter-spacing: 0.3375em;
+    --pkg-open-services-text-size: 10.5px;
+    --pkg-open-btn-height: 23.25px;
+    --pkg-open-btn-margin-top: 26.25px;
+    --pkg-open-desktop-only-margin-top: 51.75px;
 
     &__list {
       padding-right: 0;
@@ -817,7 +849,7 @@
     }
 
     &__text--vip-desktop .packages__text-line {
-      white-space: normal;
+      white-space: nowrap;
     }
 
     &__btn {

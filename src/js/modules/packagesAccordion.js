@@ -1,15 +1,35 @@
 export function initPackagesAccordion() {
+  //! Старт: пошук кореня і елементів
+  //Якщо на сторінці немає акордеону — функція не робить нічого.
+
   const root = document.querySelector("[data-packages-accordion]");
   if (!root) return;
+
+  // items — всі картки всередині акордеону
+  // triggers — всі заголовки/кнопки, по яких відкривати/закривати
 
   const items = Array.from(root.querySelectorAll(".packages__item"));
   const triggers = items
     .map((item) => item.querySelector(".packages__summary"))
     .filter(Boolean);
 
+  //! Таймери й “захист від гонок” (важлива частина)
+  // Навіщо WeakMap’и:
+  // Коли користувач швидко клікає туди-сюди, можуть залишитись:
+  // setTimeout на закриття
+  // requestAnimationFrame на відкриття
+  // WeakMap зберігає таймери прив’язано до конкретного item, щоб їх можна було:
+  // -скасувати
+  // -і не отримати “закрився не той блок” через старий таймер
+
   const closeTimers = new WeakMap();
   const rafTimers = new WeakMap();
   const transitionDuration = 220;
+
+  //! clearTimers(item) — чистить таймери для конкретної картки
+  // якщо був запланований setTimeout на закриття → скасовує
+  // якщо був requestAnimationFrame → скасовує
+  // таким чином кожна нова дія “обнуляє” хвости від попередньої
 
   const clearTimers = (item) => {
     const timer = closeTimers.get(item);
@@ -24,6 +44,14 @@ export function initPackagesAccordion() {
       rafTimers.delete(item);
     }
   };
+
+  //! setExpanded(item, expanded) — універсальна установка стану
+  // Ця функція:
+  // ставить aria-expanded на тригер
+  // ставить aria-hidden на панель
+  // показує/ховає панель через hidden + display
+  // додає/прибирає клас is-open на item
+  //* Сенс: один метод, який приводить DOM до правильного стану.
 
   const setExpanded = (item, expanded) => {
     const trigger = item.querySelector(".packages__summary");
@@ -44,6 +72,11 @@ export function initPackagesAccordion() {
     }
   };
 
+  //! Ініціалізація стану з HTML
+  // Тобто початковий стан береться з твоєї верстки:
+  // якщо в HTML у summary стоїть aria-expanded="true" → картка стартує відкрита
+  // якщо "false" або нема → закрита
+
   items.forEach((item) => {
     const trigger = item.querySelector(".packages__summary");
     const panel = item.querySelector(".packages__body");
@@ -52,6 +85,18 @@ export function initPackagesAccordion() {
     const expanded = trigger.getAttribute("aria-expanded") === "true";
     setExpanded(item, expanded);
   });
+
+  //! openItem(item) — відкрити картку
+
+  // Що робить:
+  // чистить таймери
+  // виставляє доступність:
+  // aria-expanded="true"
+  // aria-hidden="false"
+  // робить панель видимою:
+  // hidden = false
+  // display = "block"
+  // на наступному кадрі додає is - open
 
   const openItem = (item) => {
     const trigger = item.querySelector(".packages__summary");
@@ -64,12 +109,30 @@ export function initPackagesAccordion() {
     panel.hidden = false;
     panel.style.display = "block";
 
+    //! Навіщо requestAnimationFrame тут:
+    // Це часто потрібно, щоб CSS-анімації/transition нормально стартували:
+    // спочатку елемент “з’явився”
+    // потім на наступному кадрі додався клас → і transition пішов плавно
+
     const rafId = requestAnimationFrame(() => {
       item.classList.add("is-open");
       rafTimers.delete(item);
     });
     rafTimers.set(item, rafId);
   };
+
+  //!loseItem(item) — закрити картку
+  // Що робить:
+  // чистить таймери
+  // ставить:
+  // aria-expanded="false"
+  // aria-hidden="true"
+  // одразу прибирає is-open (щоб CSS запустив анімацію “закриття”)
+  // Потім є finalizeClose() — фінальний крок:
+  // реально ховає панель:
+  // panel.hidden = true
+  // display = "none"
+  // але тільки якщо item не встиг знову відкритися (перевірка is-open)
 
   const closeItem = (item) => {
     const trigger = item.querySelector(".packages__summary");
@@ -156,3 +219,11 @@ export function initPackagesAccordion() {
     trigger.click();
   });
 }
+
+//* Головні “за що відповідає” (коротко)
+// root/items/triggers — знаходить акордеон, картки й кнопки
+// WeakMap таймери — щоб не було багів при швидких кліках
+// setExpanded/init loop — приводить стартовий стан до HTML (aria-expanded)
+// openItem/closeItem — відкриття/закриття з анімаціями + accessibility
+// trigger click handler — правило “відкритий один”
+// root click handler — робить всю картку клікабельною без конфліктів з кнопками/лінками/виділенням
