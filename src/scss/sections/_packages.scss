@@ -783,6 +783,56 @@
     }
   }
 
+  // * ========== 1440-1919 (fix full width, no "black strip") ==========
+  @media (min-width: 1440px) and (max-width: 1919px) {
+    --pkg-open-grow: 2.4;
+    --pkg-open-body-left: clamp(260px, 20vw, 320px);
+    --pkg-open-text-w: clamp(300px, 22vw, 420px);
+    --pkg-open-btn-w: clamp(240px, 16vw, 300px);
+    --pkg-open-icon-w: clamp(120px, 8vw, 150px);
+
+    --pkg-open-content-offset: clamp(56px, 4.2vw, 96px);
+    --pkg-open-content-shift-x: -60px;
+    --pkg-open-content-shift-y: 56px;
+
+    --pkg-open-gallery-shift-y: 8px;
+    --pkg-open-services-shift-y: 8px;
+
+    &__list {
+      padding-right: 0;
+      box-sizing: border-box;
+    }
+
+    &__item--extra {
+      --pkg-collapsed-title-shift-x: clamp(-110px, -7vw, -72px);
+    }
+
+    &__text {
+      max-width: var(--pkg-open-text-w);
+    }
+
+    &__text--vip-desktop {
+      width: 100%;
+      max-width: var(--pkg-open-text-w);
+    }
+
+    &__text--vip-desktop .packages__text-line {
+      white-space: normal;
+    }
+
+    &__btn {
+      width: var(--pkg-open-btn-w);
+    }
+
+    &__btn-icon {
+      width: var(--pkg-open-icon-w);
+    }
+
+    &__btn--services .packages__btn-icon {
+      width: 64px;
+    }
+  }
+
   // * ========== 1920 ==========
   @media (min-width: 1920px) {
     --pkg-open-arc-size: 174px;
