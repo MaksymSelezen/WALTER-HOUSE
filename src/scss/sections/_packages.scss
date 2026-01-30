@@ -51,32 +51,21 @@ $pkg-bg-1920: (
 .packages {
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-
-  --pkg-row-h: 160px;
-  --pkg-arc-w: 130px;
-  --pkg-arc-h: 65px;
-
-  --pkg-active-width: 720px;
-  --pkg-active-width-1920: 980px;
-
-  &__list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
+  --pkg-row-h: 160px; //* висота рядка на мобілці
+  --pkg-arc-w: 130px; //* розміри дуги
+  --pkg-arc-h: 65px; //* розміри дуги
+  --pkg-active-width: 720px; //* ширина відкритої колонки на 1440
+  --pkg-active-width-1920: 980px; //* ширина відкр. кол. на 1920
 
   &__item {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-
     min-height: var(--pkg-row-h);
-
     background:
       linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
       var(--pkg-bg, none) center / cover no-repeat;
-
     border-bottom: 1px solid $color-line;
     color: $color-white;
 
@@ -99,13 +88,10 @@ $pkg-bg-1920: (
     background: transparent;
     color: inherit;
     cursor: pointer;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     position: relative;
-
     font-family: $ff-brand;
     font-size: 24px;
     line-height: 1;
@@ -132,34 +118,33 @@ $pkg-bg-1920: (
       position: absolute;
       inset: 0;
       border: 2px solid rgba(255, 255, 255, 0.4);
-      border-bottom: 0;
-      border-radius: var(--pkg-arc-w) var(--pkg-arc-w) 0 0;
+      border-top: 0;
+      border-radius: 0 0 var(--pkg-arc-w) var(--pkg-arc-w);
     }
   }
 
   &__panel {
-    padding: 0 20px 40px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 220ms ease;
+  }
 
+  &__panel-inner {
+    padding: 0 20px 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 28px;
-
-    &[hidden] {
-      display: none;
-    }
   }
 
   &__text {
     margin: 0;
     max-width: 280px;
-
     font-family: $ff-open-sans;
     font-weight: 600;
     font-size: 12px;
     line-height: 1.75;
     text-transform: uppercase;
-
     color: rgba(255, 255, 255, 0.92);
   }
 
@@ -175,13 +160,12 @@ $pkg-bg-1920: (
     align-items: center;
     justify-content: center;
     gap: 16px;
-
     color: $color-accent;
-    text-decoration: none;
     text-transform: uppercase;
 
     &--services {
       color: $color-white;
+      display: none;
     }
   }
 
@@ -219,7 +203,7 @@ $pkg-bg-1920: (
       font-size: 36px;
     }
 
-    &__panel {
+    &__panel-inner {
       padding: 0 109px 60px;
     }
 
@@ -265,7 +249,7 @@ $pkg-bg-1920: (
           min-height: 100vh;
         }
 
-        .packages__panel {
+        .packages__panel-inner {
           padding: 0 100px;
           align-items: flex-start;
           text-align: left;

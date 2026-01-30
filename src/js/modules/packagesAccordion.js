@@ -11,8 +11,14 @@ export function initPackagesAccordion() {
 
     trigger.setAttribute("aria-expanded", String(isOpen));
     panel.setAttribute("aria-hidden", String(!isOpen));
-    panel.hidden = !isOpen;
+
     item.classList.toggle("is-active", isOpen);
+
+    if (isOpen) {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    } else {
+      panel.style.maxHeight = null;
+    }
   };
 
   items.forEach((item) => {
