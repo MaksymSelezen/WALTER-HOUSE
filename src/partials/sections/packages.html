@@ -1,363 +1,97 @@
-<div class="screen__hero packages">
-  <div class="container screen__content">
-    <div class="packages__list" data-packages-accordion>
-      <!-- ELITE -->
-      <div class="packages__item packages__item--elite">
-        <h3 class="packages__header">
-          <button
-            class="packages__summary"
-            type="button"
-            id="packages-trigger-elite"
-            aria-expanded="false"
-            aria-controls="packages-panel-elite"
-          >
-            <span class="packages__title">ELITE</span>
-            <span class="packages__arc" aria-hidden="true"></span>
-          </button>
-        </h3>
+<section class="packages">
+  <ul class="packages__list" data-packages-accordion>
+    <li class="packages__item packages__item--elite">
+      <button class="packages__trigger" aria-expanded="false">
+        <span class="packages__title">ELITE</span>
+        <span class="packages__arc"></span>
+      </button>
 
-        <div
-          class="packages__body"
-          id="packages-panel-elite"
-          role="region"
-          aria-labelledby="packages-trigger-elite"
-        >
-          <div class="packages__content">
-            <p class="packages__text">
-              LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DO
-              EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT
-              ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS
-              NISI UT ALIQUIP EX EA COMMODO CONSEQUAT.
-            </p>
+      <div class="packages__panel" hidden>
+        <p class="packages__text">
+          LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DO
+          EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT ENIM AD
+          MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS NISI UT
+          ALIQUIP EX EA COMMODO CONSEQUAT.
+        </p>
 
-            <a
-              class="packages__btn packages__btn--gallery"
-              href="#"
-              aria-label="Open gallery"
-            >
-              <span class="packages__btn-text" data-i18n="packages.gallery"
-                >GALLERY</span
-              >
+        <div class="packages__actions">
+          <a class="packages__btn" href="#">
+            <span class="packages__btn-text">GALLERY</span>
+            <svg class="packages__btn-icon">
+              <use href="/icons/sprite.svg#icon-arrow"></use>
+            </svg>
+          </a>
 
-              <svg
-                class="packages__btn-icon packages__btn-icon--gallery"
-                width="135"
-                height="21"
-                viewBox="0 0 135 21"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <line
-                  x1="0.5"
-                  y1="10.5"
-                  x2="115.5"
-                  y2="10.5"
-                  stroke="currentColor"
-                  stroke-width="1"
-                  stroke-linecap="round"
-                  vector-effect="non-scaling-stroke"
-                />
-                <polyline
-                  points="116.5 2.5 134.5 10.5 116.5 18.5"
-                  stroke="currentColor"
-                  stroke-width="1"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  vector-effect="non-scaling-stroke"
-                />
-              </svg>
-            </a>
-
-            <div class="packages__desktop-only">
-              <a
-                class="packages__btn packages__btn--services"
-                href="#"
-                aria-label="Open list of services"
-              >
-                <span
-                  class="packages__btn-text packages__btn-text--services"
-                  data-i18n="packages.services"
-                  >LIST OF SERVICES</span
-                >
-
-                <svg
-                  class="packages__btn-icon packages__btn-icon--services"
-                  width="77"
-                  height="21"
-                  viewBox="0 0 77 21"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                  focusable="false"
-                >
-                  <line
-                    x1="0.5"
-                    y1="10.5"
-                    x2="57.5"
-                    y2="10.5"
-                    stroke="currentColor"
-                    stroke-width="1"
-                    stroke-linecap="round"
-                    vector-effect="non-scaling-stroke"
-                  />
-                  <polyline
-                    points="58.5 2.5 76.5 10.5 58.5 18.5"
-                    stroke="currentColor"
-                    stroke-width="1"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    vector-effect="non-scaling-stroke"
-                  />
-                </svg>
-              </a>
-            </div>
-          </div>
+          <a class="packages__btn packages__btn--services" href="#">
+            <span class="packages__btn-text">LIST OF SERVICES</span>
+            <svg class="packages__btn-icon">
+              <use href="/icons/sprite.svg#icon-arrow"></use>
+            </svg>
+          </a>
         </div>
       </div>
+    </li>
 
-      <!-- VIP -->
-      <div class="packages__item packages__item--vip">
-        <h3 class="packages__header">
-          <button
-            class="packages__summary"
-            type="button"
-            id="packages-trigger-vip"
-            aria-expanded="false"
-            aria-controls="packages-panel-vip"
-          >
-            <span class="packages__title">VIP</span>
-            <span class="packages__arc" aria-hidden="true"></span>
-          </button>
-        </h3>
+    <li class="packages__item packages__item--vip">
+      <button class="packages__trigger" aria-expanded="false">
+        <span class="packages__title">VIP</span>
+        <span class="packages__arc"></span>
+      </button>
 
-        <div
-          class="packages__body"
-          id="packages-panel-vip"
-          role="region"
-          aria-labelledby="packages-trigger-vip"
-        >
-          <div class="packages__content">
-            <p class="packages__text packages__text--vip-mobile">
-              LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DO
-              EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT
-              ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS
-              NISI UT ALIQUIP EX EA COMMODO CONSEQUAT.
-            </p>
+      <div class="packages__panel" hidden>
+        <p class="packages__text">
+          THE VIP STYLE INCLUDES AN EXTENDED SET OF WORKS. SUITABLE FOR THOSE
+          WHO WANTS TO GET THE PERFECT RESULT.
+        </p>
 
-            <p class="packages__text packages__text--vip-desktop">
-              <span class="packages__text-line"
-                >THE VIP STYLE INCLUDES AN EXTENDED SET OF WORKS.</span
-              >
-              <span class="packages__text-line"
-                >SUITABLE FOR THOSE WHO WANTS TO GET THE</span
-              >
-              <span class="packages__text-line">PERFECT RESULT.</span>
-            </p>
+        <div class="packages__actions">
+          <a class="packages__btn" href="#">
+            <span class="packages__btn-text">GALLERY</span>
+            <svg class="packages__btn-icon">
+              <use href="/icons/sprite.svg#icon-arrow"></use>
+            </svg>
+          </a>
 
-            <a
-              class="packages__btn packages__btn--gallery"
-              href="#"
-              aria-label="Open gallery"
-            >
-              <span class="packages__btn-text" data-i18n="packages.gallery"
-                >GALLERY</span
-              >
-
-              <svg
-                class="packages__btn-icon packages__btn-icon--gallery"
-                width="135"
-                height="21"
-                viewBox="0 0 135 21"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <line
-                  x1="0.5"
-                  y1="10.5"
-                  x2="115.5"
-                  y2="10.5"
-                  stroke="currentColor"
-                  stroke-width="1"
-                  stroke-linecap="round"
-                  vector-effect="non-scaling-stroke"
-                />
-                <polyline
-                  points="116.5 2.5 134.5 10.5 116.5 18.5"
-                  stroke="currentColor"
-                  stroke-width="1"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  vector-effect="non-scaling-stroke"
-                />
-              </svg>
-            </a>
-
-            <div class="packages__desktop-only">
-              <a
-                class="packages__btn packages__btn--services"
-                href="#"
-                aria-label="Open list of services"
-              >
-                <span
-                  class="packages__btn-text packages__btn-text--services"
-                  data-i18n="packages.services"
-                  >LIST OF SERVICES</span
-                >
-
-                <svg
-                  class="packages__btn-icon packages__btn-icon--services"
-                  width="77"
-                  height="21"
-                  viewBox="0 0 77 21"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                  focusable="false"
-                >
-                  <line
-                    x1="0.5"
-                    y1="10.5"
-                    x2="57.5"
-                    y2="10.5"
-                    stroke="currentColor"
-                    stroke-width="1"
-                    stroke-linecap="round"
-                    vector-effect="non-scaling-stroke"
-                  />
-                  <polyline
-                    points="58.5 2.5 76.5 10.5 58.5 18.5"
-                    stroke="currentColor"
-                    stroke-width="1"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    vector-effect="non-scaling-stroke"
-                  />
-                </svg>
-              </a>
-            </div>
-          </div>
+          <a class="packages__btn packages__btn--services" href="#">
+            <span class="packages__btn-text">LIST OF SERVICES</span>
+            <svg class="packages__btn-icon">
+              <use href="/icons/sprite.svg#icon-arrow"></use>
+            </svg>
+          </a>
         </div>
       </div>
+    </li>
 
-      <!-- EXTRA -->
-      <div class="packages__item packages__item--extra">
-        <h3 class="packages__header">
-          <button
-            class="packages__summary"
-            type="button"
-            id="packages-trigger-extra"
-            aria-expanded="false"
-            aria-controls="packages-panel-extra"
-          >
-            <span class="packages__title">EXTRA</span>
-            <span class="packages__arc" aria-hidden="true"></span>
-          </button>
-        </h3>
+    <li class="packages__item packages__item--extra">
+      <button class="packages__trigger" aria-expanded="false">
+        <span class="packages__title">EXTRA</span>
+        <span class="packages__arc"></span>
+      </button>
 
-        <div
-          class="packages__body"
-          id="packages-panel-extra"
-          role="region"
-          aria-labelledby="packages-trigger-extra"
-        >
-          <div class="packages__content">
-            <p class="packages__text">
-              LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DO
-              EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT
-              ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS
-              NISI UT ALIQUIP EX EA COMMODO CONSEQUAT.
-            </p>
+      <div class="packages__panel" hidden>
+        <p class="packages__text">
+          LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DO
+          EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. UT ENIM AD
+          MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS NISI UT
+          ALIQUIP EX EA COMMODO CONSEQUAT.
+        </p>
 
-            <a
-              class="packages__btn packages__btn--gallery"
-              href="#"
-              aria-label="Open gallery"
-            >
-              <span class="packages__btn-text" data-i18n="packages.gallery"
-                >GALLERY</span
-              >
+        <div class="packages__actions">
+          <a class="packages__btn" href="#">
+            <span class="packages__btn-text">GALLERY</span>
+            <svg class="packages__btn-icon">
+              <use href="/icons/sprite.svg#icon-arrow"></use>
+            </svg>
+          </a>
 
-              <svg
-                class="packages__btn-icon packages__btn-icon--gallery"
-                width="135"
-                height="21"
-                viewBox="0 0 135 21"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <line
-                  x1="0.5"
-                  y1="10.5"
-                  x2="115.5"
-                  y2="10.5"
-                  stroke="currentColor"
-                  stroke-width="1"
-                  stroke-linecap="round"
-                  vector-effect="non-scaling-stroke"
-                />
-                <polyline
-                  points="116.5 2.5 134.5 10.5 116.5 18.5"
-                  stroke="currentColor"
-                  stroke-width="1"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  vector-effect="non-scaling-stroke"
-                />
-              </svg>
-            </a>
-
-            <div class="packages__desktop-only">
-              <a
-                class="packages__btn packages__btn--services"
-                href="#"
-                aria-label="Open list of services"
-              >
-                <span
-                  class="packages__btn-text packages__btn-text--services"
-                  data-i18n="packages.services"
-                  >LIST OF SERVICES</span
-                >
-
-                <svg
-                  class="packages__btn-icon packages__btn-icon--services"
-                  width="77"
-                  height="21"
-                  viewBox="0 0 77 21"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                  focusable="false"
-                >
-                  <line
-                    x1="0.5"
-                    y1="10.5"
-                    x2="57.5"
-                    y2="10.5"
-                    stroke="currentColor"
-                    stroke-width="1"
-                    stroke-linecap="round"
-                    vector-effect="non-scaling-stroke"
-                  />
-                  <polyline
-                    points="58.5 2.5 76.5 10.5 58.5 18.5"
-                    stroke="currentColor"
-                    stroke-width="1"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    vector-effect="non-scaling-stroke"
-                  />
-                </svg>
-              </a>
-            </div>
-          </div>
+          <a class="packages__btn packages__btn--services" href="#">
+            <span class="packages__btn-text">LIST OF SERVICES</span>
+            <svg class="packages__btn-icon">
+              <use href="/icons/sprite.svg#icon-arrow"></use>
+            </svg>
+          </a>
         </div>
       </div>
-    </div>
-  </div>
-</div>
+    </li>
+  </ul>
+</section>
