@@ -49,6 +49,11 @@
       }
     }
   },
+
+  "gallery": {
+    "text": "GALLERY"
+  },
+
   "callModal": {
     "title": "request for a call",
     "closeAria": "Close modal",
