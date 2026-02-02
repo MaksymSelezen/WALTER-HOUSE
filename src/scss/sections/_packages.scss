@@ -108,7 +108,7 @@ $pkg-bg-1920: (
   &__arc {
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 70%;
     width: var(--pkg-arc-w);
     height: var(--pkg-arc-h);
     transform: translate(-50%, -50%);
@@ -136,7 +136,7 @@ $pkg-bg-1920: (
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 28px;
+    gap: 47px;
   }
 
   &__text {
@@ -144,10 +144,16 @@ $pkg-bg-1920: (
     max-width: 280px;
     font-family: $ff-open-sans;
     font-weight: 600;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1.75;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.92);
+  }
+
+  &__item--vip {
+    .packages__text--vip-desktop {
+      display: none;
+    }
   }
 
   &__actions {
@@ -176,6 +182,8 @@ $pkg-bg-1920: (
     font-weight: 600;
     font-size: 14px;
     letter-spacing: 0.45em;
+
+    display: none;
   }
 
   &__btn-icon {
@@ -217,6 +225,7 @@ $pkg-bg-1920: (
 
     &__btn-text {
       font-size: 20px;
+      display: inline-block;
     }
   }
 }
@@ -265,12 +274,28 @@ $pkg-bg-1920: (
       line-height: 1.66;
     }
 
+    .packages {
+      &__item--vip {
+        .packages__text--vip-mobile {
+          display: none;
+        }
+
+        .packages__text--vip-desktop {
+          display: block;
+        }
+      }
+    }
+
     &__actions {
       align-items: flex-start;
     }
 
     &__btn {
       justify-content: flex-start;
+
+      &--services {
+        display: inline-flex;
+      }
     }
   }
 }
