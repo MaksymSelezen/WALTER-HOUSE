@@ -1,47 +1,59 @@
+//! експорт і виклик функції у main.js
+//! пошук класу "data-packages-accordion" і вихід якщо його немає
+
 export function initPackagesAccordion() {
   const root = document.querySelector("[data-packages-accordion]");
   if (!root) return;
 
-  const items = Array.from(root.querySelectorAll(".packages__item"));
+  //! пошук елементів -> ...root (spread оператор) перетворення NodeList на масив ->
+  //! -> перебираємо масив через map() і перетворюємо li на об'єкт ->
+  //! -> методом filter() залишаємо елементи, для яких умова true
 
-  const setState = (item, isOpen) => {
-    const trigger = item.querySelector(".packages__trigger");
-    const panel = item.querySelector(".packages__panel");
-    if (!trigger || !panel) return;
+  const items = [...root.querySelectorAll(".packages__item")]
+    .map((item) => ({
+      item,
+      trigger: item.querySelector(".packages__trigger"),
+      panel: item.querySelector(".packages__panel"),
+    }))
+    .filter((x) => x.trigger && x.panel);
 
-    trigger.setAttribute("aria-expanded", String(isOpen));
-    panel.setAttribute("aria-hidden", String(!isOpen));
+  //! функція вмикання / вимикання item
+  //! 1) Деструктуризація параметра - перший аргумент об'єкт дістає item, trigger, panel. Open - буль (true / false)
+  //! 2) setAttribute(name, value) — ставить атрибут в HTML. Атрибути в HTML - це текст, тому String(open)
+  //! 3) classList.toggle("is-active", open) - ставить / знімає клас "is-active"
+  //! 4) panel.style.maxHeight - ставить висоту в px.
 
-    item.classList.toggle("is-active", isOpen);
-
-    if (isOpen) {
-      panel.style.maxHeight = panel.scrollHeight + "px";
-    } else {
-      panel.style.maxHeight = null;
-    }
+  const setState = ({ item, trigger, panel }, open) => {
+    trigger.setAttribute("aria-expanded", String(open));
+    panel.setAttribute("aria-hidden", String(!open));
+    item.classList.toggle("is-active", open);
+    panel.style.maxHeight = open ? panel.scrollHeight + "px" : null;
   };
 
-  items.forEach((item) => {
-    const trigger = item.querySelector(".packages__trigger");
-    const isOpen = trigger?.getAttribute("aria-expanded") === "true";
-    setState(item, isOpen);
-  });
+  //! Синхронізація стану. Метод проходиться по кожному елементу і якщо true - відкриває item,
+  //! якщо false - закриває
 
-  root.addEventListener("click", (event) => {
-    const item = event.target.closest(".packages__item");
-    if (!item || !root.contains(item)) return;
+  items.forEach((x) =>
+    setState(x, x.trigger.getAttribute("aria-expanded") === "true"),
+  );
 
-    if (event.target.closest("a")) return;
+  //! Обробник кліків: addEventListener
+  //! При кліку в будь яке місце створюється об'єкт події "е"
+  //! e.target - елемент по якому був клік. closest() піднімається вгору по DOM i повертає елемент, який підходить під селектор
+  //! if (e.target.closest("a")) return; - не чіпає посилання
 
-    const trigger = item.querySelector(".packages__trigger");
-    if (!trigger) return;
+  root.addEventListener("click", (e) => {
+    if (e.target.closest("a")) return;
 
-    const isOpen = trigger.getAttribute("aria-expanded") === "true";
+    const li = e.target.closest(".packages__item");
+    const current = items.find((x) => x.item === li);
+    if (!current) return;
 
-    items.forEach((entry) => {
-      if (entry !== item) setState(entry, false);
-    });
+    //! Дізнається чи відкритий стан / закритий
+    const isOpen = current.trigger.getAttribute("aria-expanded") === "true";
 
-    setState(item, !isOpen);
+    //! Закриває інші панелі і перемикає на поточну
+    items.forEach((x) => x !== current && setState(x, false));
+    setState(current, !isOpen);
   });
 }

@@ -50,7 +50,9 @@ $pkg-bg-1920: (
 
 .packages {
   margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
+  margin-right: calc(
+    50% - 50vw
+  ); //* full-bleed розтягнення на всю ширину екрану
   --pkg-row-h: 160px; //* висота рядка на мобілці
   --pkg-arc-w: 130px; //* розміри дуги
   --pkg-arc-h: 65px; //* розміри дуги
@@ -227,10 +229,10 @@ $pkg-bg-1920: (
     }
 
     &__item {
-      flex: 1 1 0;
+      flex: 1 1 0; //* grow shrink, basis
       min-height: 100vh;
-      border-bottom: 0;
-      border-right: 1px solid $color-line;
+      border-bottom: 0; //* прибираємо мобільні лінії
+      border-right: 1px solid $color-line; //* лінія між блоками
 
       @include pkg-bg($pkg-bg-1920);
 
