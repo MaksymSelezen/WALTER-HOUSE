@@ -18,33 +18,14 @@ $pkg-bg-1920: (
   extra: "slide-2-3-1920.jpg",
 );
 
-@mixin pkg-bg($map) {
-  @each $name, $file in $map {
+@mixin pkg-bg($closedMap, $openMap) {
+  @each $name, $fileClosed in $closedMap {
+    $fileOpen: map-get($openMap, $name);
+
     &--#{$name} {
-      --pkg-bg: url("../../assets/images/slides/#{$file}");
+      --pkg-bg: url("../../assets/images/slides/#{$fileClosed}");
+      --pkg-bg-open: url("../../assets/images/slides/#{$fileOpen}");
     }
-  }
-}
-
-.screen--packages {
-  padding: 0;
-  background: none;
-  color: $color-white;
-  position: relative;
-  min-height: 100vh;
-
-  .screen__content {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .header {
-    position: absolute;
-    top: -4px;
-    left: 0;
-    width: 100%;
-    z-index: 250;
-    pointer-events: auto;
   }
 }
 
@@ -97,11 +78,14 @@ $pkg-bg-1920: (
     align-items: center;
     text-align: center;
     min-height: var(--pkg-row-h);
+
     background:
       linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
       var(--pkg-bg, none) center / cover no-repeat;
 
-    @include pkg-bg($pkg-bg-320);
+    transition: min-height 800ms cubic-bezier(0.2, 0.9, 0.2, 1);
+
+    @include pkg-bg($pkg-bg-320, $pkg-bg-1920);
 
     &::after {
       content: "";
@@ -118,6 +102,8 @@ $pkg-bg-1920: (
     }
 
     &.is-active {
+      --pkg-bg: var(--pkg-bg-open);
+
       min-height: 480px;
 
       .packages__arc {
@@ -172,7 +158,7 @@ $pkg-bg-1920: (
   &__panel {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 220ms ease;
+    transition: max-height 800ms cubic-bezier(0.2, 0.9, 0.2, 1);
   }
 
   &__panel-inner {
@@ -181,6 +167,18 @@ $pkg-bg-1920: (
     flex-direction: column;
     align-items: center;
     gap: 47px;
+
+    opacity: 0;
+    transform: translateY(-6px);
+    transition:
+      opacity 240ms ease,
+      transform 240ms ease;
+  }
+
+  &__item.is-active .packages__panel-inner {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 120ms;
   }
 
   &__text {
@@ -209,7 +207,7 @@ $pkg-bg-1920: (
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 16px;
+    gap: 36px;
     color: $color-accent;
     text-transform: uppercase;
 
@@ -236,6 +234,8 @@ $pkg-bg-1920: (
   }
 }
 
+//* ========== 768 ==========
+
 @media (min-width: $bp-768) {
   .packages {
     --pkg-row-h: 192px;
@@ -245,7 +245,7 @@ $pkg-bg-1920: (
     --pkg-divider-h: var(--pkg-line-thickness); //* оновлення висоти для дівідер
 
     &__item {
-      @include pkg-bg($pkg-bg-768);
+      @include pkg-bg($pkg-bg-768, $pkg-bg-1920);
 
       &.is-active {
         min-height: 576px;
@@ -257,24 +257,30 @@ $pkg-bg-1920: (
     }
 
     &__panel-inner {
-      padding: 0 109px 60px;
+      padding: 20px 109px 100px;
+      gap: 92px;
     }
 
     &__text {
-      max-width: 520px;
+      max-width: 550px;
       font-size: 16px;
       line-height: 1.5;
-      margin-top: 20px;
     }
 
     &__btn-text {
       font-size: 20px;
       display: inline-block;
     }
+
+    &__btn-icon {
+      width: 135px;
+    }
   }
 }
 
-@media (min-width: $bp-1440) {
+//* ========== 1920 ==========
+
+@media (min-width: $bp-1920) {
   .packages {
     --pkg-vline-w: 2px;
     --pkg-vline-h: 100vh;
@@ -298,12 +304,19 @@ $pkg-bg-1920: (
     &__item {
       flex: 1 1 0; //* grow shrink, basis
       min-height: 100vh;
+      justify-content: center;
 
       &:last-child::after {
         content: none;
       }
 
-      @include pkg-bg($pkg-bg-1920);
+      @include pkg-bg($pkg-bg-1920, $pkg-bg-1920);
+
+      &.is-active .packages__arc {
+        top: 50%;
+        left: calc(50% + 50px);
+        transform: translate(-50%, -50%) rotate(-90deg);
+      }
 
       &.is-active {
         flex: 0 0 var(--pkg-active-width);
@@ -312,8 +325,7 @@ $pkg-bg-1920: (
         justify-content: center;
 
         .packages__trigger {
-          width: 240px;
-          min-height: 100vh;
+          width: 216px;
         }
 
         .packages__panel-inner {
@@ -350,14 +362,6 @@ $pkg-bg-1920: (
       &--services {
         display: inline-flex;
       }
-    }
-  }
-}
-
-@media (min-width: $bp-1920) {
-  .packages {
-    &__item.is-active {
-      flex-basis: var(--pkg-active-width-1920);
     }
   }
 }
