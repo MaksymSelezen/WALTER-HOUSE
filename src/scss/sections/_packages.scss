@@ -49,17 +49,49 @@ $pkg-bg-1920: (
 }
 
 .packages {
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(
-    50% - 50vw
-  ); //* full-bleed розтягнення на всю ширину екрану
+  margin-left: calc(50% - 50vw); //* full-bleed розтягнення на всю ширину екрану
+  margin-right: calc(50% - 50vw);
+  color: $color-white;
+
   --pkg-row-h: 160px; //* висота рядка на мобілці
   --pkg-arc-w: 130px; //* розміри дуги
   --pkg-arc-h: 65px; //* розміри дуги
+
   --pkg-active-width: 720px; //* ширина відкритої колонки на 1440
   --pkg-active-width-1920: 980px; //* ширина відкр. кол. на 1920
 
+  --pkg-line-fade: rgba(255, 255, 255, 0);
+  --pkg-line-core: #fff;
+  --pkg-line-stop: 52%;
+  --pkg-line-thickness: 2px;
+  --pkg-vline-w: 1px;
+  --pkg-vline-h: clamp(140px, 22vh, 190px);
+  --pkg-vline-shift-y: 0;
+  --pkg-line-bg-h: linear-gradient(
+    to right,
+    var(--pkg-line-fade) 0%,
+    var(--pkg-line-core) var(--pkg-line-stop),
+    var(--pkg-line-fade) 100%
+  );
+  --pkg-line-bg-v: linear-gradient(
+    to bottom,
+    var(--pkg-line-fade) 0%,
+    var(--pkg-line-core) var(--pkg-line-stop),
+    var(--pkg-line-fade) 100%
+  );
+
+  //* змінні для горизонтальних ліній
+  --pkg-divider-left: 0;
+  --pkg-divider-right: 0;
+  --pkg-divider-top: auto;
+  --pkg-divider-bottom: 0;
+  --pkg-divider-w: auto;
+  --pkg-divider-h: var(--pkg-line-thickness);
+  --pkg-divider-transform: none;
+  --pkg-divider-bg: var(--pkg-line-bg-h);
+
   &__item {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -68,10 +100,22 @@ $pkg-bg-1920: (
     background:
       linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
       var(--pkg-bg, none) center / cover no-repeat;
-    border-bottom: 1px solid $color-line;
-    color: $color-white;
 
     @include pkg-bg($pkg-bg-320);
+
+    &::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      left: var(--pkg-divider-left);
+      right: var(--pkg-divider-right);
+      top: var(--pkg-divider-top);
+      bottom: var(--pkg-divider-bottom);
+      width: var(--pkg-divider-w);
+      height: var(--pkg-divider-h);
+      transform: var(--pkg-divider-transform);
+      background: var(--pkg-divider-bg);
+    }
 
     &.is-active {
       min-height: 480px;
@@ -132,7 +176,7 @@ $pkg-bg-1920: (
   }
 
   &__panel-inner {
-    padding: 0 20px 40px;
+    padding: 0 20px 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -150,10 +194,8 @@ $pkg-bg-1920: (
     color: rgba(255, 255, 255, 0.92);
   }
 
-  &__item--vip {
-    .packages__text--vip-desktop {
-      display: none;
-    }
+  .packages__text--vip-desktop {
+    display: none;
   }
 
   &__actions {
@@ -182,13 +224,12 @@ $pkg-bg-1920: (
     font-weight: 600;
     font-size: 14px;
     letter-spacing: 0.45em;
-
     display: none;
   }
 
   &__btn-icon {
-    width: 142px;
-    height: 32px;
+    width: 120px;
+    height: 21px;
     fill: none;
     stroke: currentColor;
     flex: 0 0 auto;
@@ -200,6 +241,8 @@ $pkg-bg-1920: (
     --pkg-row-h: 192px;
     --pkg-arc-w: 174px;
     --pkg-arc-h: 99px;
+    --pkg-line-thickness: 1px;
+    --pkg-divider-h: var(--pkg-line-thickness); //* оновлення висоти для дівідер
 
     &__item {
       @include pkg-bg($pkg-bg-768);
@@ -221,6 +264,7 @@ $pkg-bg-1920: (
       max-width: 520px;
       font-size: 16px;
       line-height: 1.5;
+      margin-top: 20px;
     }
 
     &__btn-text {
@@ -232,6 +276,20 @@ $pkg-bg-1920: (
 
 @media (min-width: $bp-1440) {
   .packages {
+    --pkg-vline-w: 2px;
+    --pkg-vline-h: 100vh;
+    --pkg-vline-shift-y: 12px;
+
+    //* горизонтальна лінія -> у вертикальну
+    --pkg-divider-left: auto;
+    --pkg-divider-right: 0;
+    --pkg-divider-top: calc(50% + var(--pkg-vline-shift-y));
+    --pkg-divider-bottom: auto;
+    --pkg-divider-w: var(--pkg-vline-w);
+    --pkg-divider-h: var(--pkg-vline-h);
+    --pkg-divider-transform: translateY(-50%);
+    --pkg-divider-bg: var(--pkg-line-bg-v);
+
     &__list {
       display: flex;
       min-height: 100vh;
@@ -240,14 +298,12 @@ $pkg-bg-1920: (
     &__item {
       flex: 1 1 0; //* grow shrink, basis
       min-height: 100vh;
-      border-bottom: 0; //* прибираємо мобільні лінії
-      border-right: 1px solid $color-line; //* лінія між блоками
+
+      &:last-child::after {
+        content: none;
+      }
 
       @include pkg-bg($pkg-bg-1920);
-
-      &:last-child {
-        border-right: 0;
-      }
 
       &.is-active {
         flex: 0 0 var(--pkg-active-width);
@@ -274,15 +330,13 @@ $pkg-bg-1920: (
       line-height: 1.66;
     }
 
-    .packages {
-      &__item--vip {
-        .packages__text--vip-mobile {
-          display: none;
-        }
+    &__item--vip {
+      .packages__text--vip-mobile {
+        display: none;
+      }
 
-        .packages__text--vip-desktop {
-          display: block;
-        }
+      .packages__text--vip-desktop {
+        display: block;
       }
     }
 
