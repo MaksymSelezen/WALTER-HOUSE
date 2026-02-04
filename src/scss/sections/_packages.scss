@@ -291,6 +291,8 @@ $pkg-bg-1920: (
 
 @media (min-width: $bp-1440) {
   .packages {
+    --pkg-arc-w: 130px;
+    --pkg-arc-h: 70px;
     --pkg-vline-w: 1px;
     --pkg-vline-h: 100vh;
     --pkg-vline-shift-y: 10px;
@@ -315,6 +317,10 @@ $pkg-bg-1920: (
       470px
     );
 
+    &__title {
+      font-size: 28px;
+    }
+
     &__list {
       display: flex;
       min-height: 100vh;
@@ -334,7 +340,6 @@ $pkg-bg-1920: (
       min-height: 100vh;
       justify-content: center;
       min-width: 0;
-
       transition: flex-basis 800ms cubic-bezier(0.2, 0.9, 0.2, 1);
 
       &:last-child::after {
@@ -401,7 +406,7 @@ $pkg-bg-1920: (
     }
 
     &__btn--services .packages__btn-text {
-      font-size: 12px;
+      font-size: 14px;
       white-space: nowrap;
     }
   }
@@ -411,6 +416,9 @@ $pkg-bg-1920: (
 
 @media (min-width: $bp-1920) {
   .packages {
+    --pkg-arc-w: 174px;
+    --pkg-arc-h: 99px;
+
     --pkg-vline-w: 2px;
     --pkg-vline-h: 100vh;
     --pkg-vline-shift-y: 12px;
@@ -426,6 +434,10 @@ $pkg-bg-1920: (
     --pkg-col-closed: 640px; //* фіксована ширина закритої картки
     --pkg-col-open: 980px; //* ширина відкритої
     --pkg-col-other: 470px; //* ширина закритої картки, коли відкрита інша
+
+    &__title {
+      font-size: 36px;
+    }
 
     &__list {
       display: flex;
