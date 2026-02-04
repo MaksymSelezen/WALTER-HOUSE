@@ -18,6 +18,9 @@ $pkg-bg-1920: (
   extra: "slide-2-3-1920.jpg",
 );
 
+$pkg-dur: 800ms;
+$pkg-ease: cubic-bezier(0.2, 0.9, 0.2, 1);
+
 @mixin pkg-bg($closedMap, $openMap) {
   @each $name, $fileClosed in $closedMap {
     $fileOpen: map-get($openMap, $name);
@@ -37,8 +40,6 @@ $pkg-bg-1920: (
   --pkg-row-h: 160px; //* висота рядка на мобілці
   --pkg-arc-w: 130px; //* розміри дуги
   --pkg-arc-h: 65px; //* розміри дуги
-  --pkg-active-width: 720px; //* ширина відкритої колонки на 1440
-  --pkg-active-width-1920: 980px; //* ширина відкр. кол. на 1920
   --pkg-line-fade: rgba(255, 255, 255, 0);
   --pkg-line-core: #fff;
   --pkg-line-stop: 52%;
@@ -58,7 +59,6 @@ $pkg-bg-1920: (
     var(--pkg-line-core) var(--pkg-line-stop),
     var(--pkg-line-fade) 100%
   );
-
   //* змінні для горизонтальних ліній
   --pkg-divider-left: 0;
   --pkg-divider-right: 0;
@@ -79,7 +79,7 @@ $pkg-bg-1920: (
     background:
       linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
       var(--pkg-bg, none) center / cover no-repeat;
-    transition: min-height 800ms cubic-bezier(0.2, 0.9, 0.2, 1);
+    transition: min-height $pkg-dur $pkg-ease;
 
     @include pkg-bg($pkg-bg-320, $pkg-bg-1920);
 
@@ -153,7 +153,7 @@ $pkg-bg-1920: (
   &__panel {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 800ms cubic-bezier(0.2, 0.9, 0.2, 1);
+    transition: max-height $pkg-dur $pkg-ease;
   }
 
   &__panel-inner {
@@ -169,7 +169,7 @@ $pkg-bg-1920: (
       transform 240ms ease;
   }
 
-  &__item.is-active .packages__panel-inner {
+  &__item.is-active &__panel-inner {
     opacity: 1;
     transform: translateY(0);
     transition-delay: 120ms;
@@ -186,7 +186,7 @@ $pkg-bg-1920: (
     color: rgba(255, 255, 255, 0.92);
   }
 
-  .packages__text--vip-desktop {
+  &__text--vip-desktop {
     display: none;
   }
 
@@ -229,14 +229,12 @@ $pkg-bg-1920: (
 }
 
 //* ========== 768 ==========
-
 @media (min-width: $bp-768) {
   .packages {
     --pkg-row-h: 192px;
     --pkg-arc-w: 174px;
     --pkg-arc-h: 99px;
     --pkg-line-thickness: 1px;
-    --pkg-divider-h: var(--pkg-line-thickness); //* оновлення висоти для дівідер
 
     &__item {
       @include pkg-bg($pkg-bg-768, $pkg-bg-1920);
@@ -246,7 +244,7 @@ $pkg-bg-1920: (
       }
     }
 
-    &__trigger {
+    &__title {
       font-size: 36px;
     }
 
@@ -262,8 +260,8 @@ $pkg-bg-1920: (
     }
 
     &__btn-text {
-      font-size: 20px;
       display: inline-block;
+      font-size: 20px;
     }
 
     &__btn-icon {
@@ -273,7 +271,6 @@ $pkg-bg-1920: (
 }
 
 //* ========== 1024 ==========
-
 @media (min-width: $bp-1024) {
   .packages {
     &__panel-inner {
@@ -288,15 +285,11 @@ $pkg-bg-1920: (
 }
 
 //* ========== 1440 ==========
-
 @media (min-width: $bp-1440) {
   .packages {
-    --pkg-arc-w: 130px;
     --pkg-arc-h: 70px;
-    --pkg-vline-w: 1px;
     --pkg-vline-h: 100vh;
     --pkg-vline-shift-y: 10px;
-
     --pkg-divider-left: auto;
     --pkg-divider-right: 0;
     --pkg-divider-top: calc(50% + var(--pkg-vline-shift-y));
@@ -316,6 +309,7 @@ $pkg-bg-1920: (
       calc(360px + (100vw - 1440px) * 0.2291667),
       470px
     );
+    --pkg-arc-shift-x: 40px;
 
     &__title {
       font-size: 28px;
@@ -325,14 +319,22 @@ $pkg-bg-1920: (
       display: flex;
       min-height: 100vh;
       justify-content: center;
-    }
 
-    .packages__list.has-active > .packages__item {
-      flex: 0 0 var(--pkg-col-other);
-    }
+      &.has-active > .packages__item {
+        flex: 0 0 var(--pkg-col-other);
+      }
 
-    .packages__list.has-active > .packages__item.is-active {
-      flex: 0 0 var(--pkg-col-open);
+      &.has-active > .packages__item.is-active {
+        flex: 0 0 var(--pkg-col-open);
+      }
+
+      &.has-active > .packages__item.is-active.packages__item--elite {
+        padding-left: 90px;
+      }
+
+      &.has-active > .packages__item.is-active.packages__item--extra {
+        padding-right: 90px;
+      }
     }
 
     &__item {
@@ -340,17 +342,18 @@ $pkg-bg-1920: (
       min-height: 100vh;
       justify-content: center;
       min-width: 0;
-      transition: flex-basis 800ms cubic-bezier(0.2, 0.9, 0.2, 1);
+      transition: flex-basis $pkg-dur $pkg-ease;
+      background:
+        linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
+        var(--pkg-bg-open, var(--pkg-bg, none)) center / cover no-repeat;
 
       &:last-child::after {
         content: none;
       }
 
-      @include pkg-bg($pkg-bg-1920, $pkg-bg-1920);
-
       &.is-active .packages__arc {
         top: 50%;
-        left: calc(50% + 40px);
+        left: calc(50% + var(--pkg-arc-shift-x));
         transform: translate(-50%, -50%) rotate(-90deg);
       }
 
@@ -402,130 +405,45 @@ $pkg-bg-1920: (
         display: inline-flex;
         width: 77px;
         gap: 30px;
-      }
-    }
 
-    &__btn--services .packages__btn-text {
-      font-size: 14px;
-      white-space: nowrap;
+        .packages__btn-text {
+          font-size: 14px;
+          white-space: nowrap;
+        }
+      }
     }
   }
 }
 
 //* ========== 1920 ==========
-
 @media (min-width: $bp-1920) {
   .packages {
     --pkg-arc-w: 174px;
     --pkg-arc-h: 99px;
-
     --pkg-vline-w: 2px;
-    --pkg-vline-h: 100vh;
     --pkg-vline-shift-y: 12px;
-    //* горизонтальна лінія -> у вертикальну
-    --pkg-divider-left: auto;
-    --pkg-divider-right: 0;
-    --pkg-divider-top: calc(50% + var(--pkg-vline-shift-y));
-    --pkg-divider-bottom: auto;
-    --pkg-divider-w: var(--pkg-vline-w);
-    --pkg-divider-h: var(--pkg-vline-h);
-    --pkg-divider-transform: translateY(-50%);
-    --pkg-divider-bg: var(--pkg-line-bg-v);
     --pkg-col-closed: 640px; //* фіксована ширина закритої картки
     --pkg-col-open: 980px; //* ширина відкритої
     --pkg-col-other: 470px; //* ширина закритої картки, коли відкрита інша
+    --pkg-arc-shift-x: 50px;
 
     &__title {
       font-size: 36px;
     }
 
-    &__list {
-      display: flex;
-      min-height: 100vh;
-      justify-content: center;
-    }
-
-    .packages__list.has-active > .packages__item {
-      flex: 0 0 var(--pkg-col-other); //* 470px для всіх, коли є active
-    }
-
-    .packages__list.has-active > .packages__item.is-active {
-      flex: 0 0 var(--pkg-col-open); //* 980px для активної
-    }
-
-    &__item {
-      flex: 0 0 var(--pkg-col-closed); //* 640px коли всі закриті
-      min-height: 100vh;
-      justify-content: center;
-      min-width: 0;
-      transition: flex-basis 800ms cubic-bezier(0.2, 0.9, 0.2, 1); //* плавність для ширини
-
-      &:last-child::after {
-        content: none;
-      }
-
-      @include pkg-bg($pkg-bg-1920, $pkg-bg-1920);
-
-      &.is-active .packages__arc {
-        top: 50%;
-        left: calc(50% + 50px);
-        transform: translate(-50%, -50%) rotate(-90deg);
-      }
-
-      &.is-active {
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        color: $color-accent;
-
-        .packages__trigger {
-          width: 216px;
-        }
-
-        .packages__panel-inner {
-          padding: 0 60px;
-          align-items: flex-start;
-          text-align: left;
-          gap: 35px;
-        }
-      }
-    }
-
     &__text {
       max-width: 479px;
       font-size: 18px;
-      line-height: 1.66;
     }
 
-    &__item--vip {
-      .packages__text--vip-mobile {
-        display: none;
+    &__item.is-active {
+      .packages__trigger {
+        width: 216px;
       }
 
-      .packages__text--vip-desktop {
-        display: block;
+      .packages__panel-inner {
+        padding: 0 60px;
       }
-    }
-
-    &__actions {
-      align-items: flex-start;
-      gap: 69px;
-    }
-
-    &__btn {
-      justify-content: flex-start;
-      gap: 40px;
-
-      &--services {
-        display: inline-flex;
-        width: 77px;
-        gap: 30px;
-      }
-    }
-
-    &__btn--services .packages__btn-text {
-      font-size: 14px;
-      white-space: nowrap;
     }
   }
 }
