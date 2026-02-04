@@ -37,6 +37,15 @@ export function initPackagesAccordion() {
     setState(x, x.trigger.getAttribute("aria-expanded") === "true"),
   );
 
+  //! Синхронізація класу на ul для керування ширинами в CSS (1920)
+  //! Додає клас .has-active
+
+  const syncHasActive = () => {
+    const anyOpen = items.some((x) => x.item.classList.contains("is-active"));
+    root.classList.toggle("has-active", anyOpen);
+  };
+  syncHasActive();
+
   //! Обробник кліків: addEventListener
   //! При кліку в будь яке місце створюється об'єкт події "е"
   //! e.target - елемент по якому був клік. closest() піднімається вгору по DOM i повертає елемент, який підходить під селектор
@@ -55,5 +64,8 @@ export function initPackagesAccordion() {
     //! Закриває інші панелі і перемикає на поточну
     items.forEach((x) => x !== current && setState(x, false));
     setState(current, !isOpen);
+
+    // після будь-якої зміни стану оновлюємо клас .has-active на <ul>
+    syncHasActive();
   });
 }
