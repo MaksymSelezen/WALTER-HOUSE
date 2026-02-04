@@ -37,10 +37,8 @@ $pkg-bg-1920: (
   --pkg-row-h: 160px; //* висота рядка на мобілці
   --pkg-arc-w: 130px; //* розміри дуги
   --pkg-arc-h: 65px; //* розміри дуги
-
   --pkg-active-width: 720px; //* ширина відкритої колонки на 1440
   --pkg-active-width-1920: 980px; //* ширина відкр. кол. на 1920
-
   --pkg-line-fade: rgba(255, 255, 255, 0);
   --pkg-line-core: #fff;
   --pkg-line-stop: 52%;
@@ -78,11 +76,9 @@ $pkg-bg-1920: (
     align-items: center;
     text-align: center;
     min-height: var(--pkg-row-h);
-
     background:
       linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
       var(--pkg-bg, none) center / cover no-repeat;
-
     transition: min-height 800ms cubic-bezier(0.2, 0.9, 0.2, 1);
 
     @include pkg-bg($pkg-bg-320, $pkg-bg-1920);
@@ -103,7 +99,6 @@ $pkg-bg-1920: (
 
     &.is-active {
       --pkg-bg: var(--pkg-bg-open);
-
       min-height: 480px;
 
       .packages__arc {
@@ -167,7 +162,6 @@ $pkg-bg-1920: (
     flex-direction: column;
     align-items: center;
     gap: 47px;
-
     opacity: 0;
     transform: translateY(-6px);
     transition:
@@ -278,6 +272,141 @@ $pkg-bg-1920: (
   }
 }
 
+//* ========== 1024 ==========
+
+@media (min-width: $bp-1024) {
+  .packages {
+    &__panel-inner {
+      padding: 20px clamp(109px, 14vw, 220px) 110px;
+      gap: clamp(92px, 10vw, 120px);
+    }
+
+    &__text {
+      max-width: 640px;
+    }
+  }
+}
+
+//* ========== 1440 ==========
+
+@media (min-width: $bp-1440) {
+  .packages {
+    --pkg-vline-w: 1px;
+    --pkg-vline-h: 100vh;
+    --pkg-vline-shift-y: 10px;
+
+    --pkg-divider-left: auto;
+    --pkg-divider-right: 0;
+    --pkg-divider-top: calc(50% + var(--pkg-vline-shift-y));
+    --pkg-divider-bottom: auto;
+    --pkg-divider-w: var(--pkg-vline-w);
+    --pkg-divider-h: var(--pkg-vline-h);
+    --pkg-divider-transform: translateY(-50%);
+    --pkg-divider-bg: var(--pkg-line-bg-v);
+    --pkg-col-closed: calc(100vw / 3); //* ширина колонки
+    --pkg-col-open: clamp(
+      720px,
+      calc(720px + (100vw - 1440px) * 0.5416667),
+      980px
+    );
+    --pkg-col-other: clamp(
+      360px,
+      calc(360px + (100vw - 1440px) * 0.2291667),
+      470px
+    );
+
+    &__list {
+      display: flex;
+      min-height: 100vh;
+      justify-content: center;
+    }
+
+    .packages__list.has-active > .packages__item {
+      flex: 0 0 var(--pkg-col-other);
+    }
+
+    .packages__list.has-active > .packages__item.is-active {
+      flex: 0 0 var(--pkg-col-open);
+    }
+
+    &__item {
+      flex: 0 0 var(--pkg-col-closed);
+      min-height: 100vh;
+      justify-content: center;
+      min-width: 0;
+
+      transition: flex-basis 800ms cubic-bezier(0.2, 0.9, 0.2, 1);
+
+      &:last-child::after {
+        content: none;
+      }
+
+      @include pkg-bg($pkg-bg-1920, $pkg-bg-1920);
+
+      &.is-active .packages__arc {
+        top: 50%;
+        left: calc(50% + 40px);
+        transform: translate(-50%, -50%) rotate(-90deg);
+      }
+
+      &.is-active {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        color: $color-accent;
+
+        .packages__trigger {
+          width: 200px;
+        }
+
+        .packages__panel-inner {
+          padding: 0 50px;
+          align-items: flex-start;
+          text-align: left;
+          gap: 35px;
+        }
+      }
+    }
+
+    &__text {
+      max-width: 460px;
+      font-size: 16px;
+      line-height: 1.66;
+    }
+
+    &__item--vip {
+      .packages__text--vip-mobile {
+        display: none;
+      }
+
+      .packages__text--vip-desktop {
+        display: block;
+      }
+    }
+
+    &__actions {
+      align-items: flex-start;
+      gap: 69px;
+    }
+
+    &__btn {
+      justify-content: flex-start;
+      gap: 40px;
+
+      &--services {
+        display: inline-flex;
+        width: 77px;
+        gap: 30px;
+      }
+    }
+
+    &__btn--services .packages__btn-text {
+      font-size: 12px;
+      white-space: nowrap;
+    }
+  }
+}
+
 //* ========== 1920 ==========
 
 @media (min-width: $bp-1920) {
@@ -285,7 +414,6 @@ $pkg-bg-1920: (
     --pkg-vline-w: 2px;
     --pkg-vline-h: 100vh;
     --pkg-vline-shift-y: 12px;
-
     //* горизонтальна лінія -> у вертикальну
     --pkg-divider-left: auto;
     --pkg-divider-right: 0;
@@ -295,7 +423,6 @@ $pkg-bg-1920: (
     --pkg-divider-h: var(--pkg-vline-h);
     --pkg-divider-transform: translateY(-50%);
     --pkg-divider-bg: var(--pkg-line-bg-v);
-
     --pkg-col-closed: 640px; //* фіксована ширина закритої картки
     --pkg-col-open: 980px; //* ширина відкритої
     --pkg-col-other: 470px; //* ширина закритої картки, коли відкрита інша
@@ -337,15 +464,17 @@ $pkg-bg-1920: (
         flex-direction: row;
         align-items: center;
         justify-content: center;
+        color: $color-accent;
 
         .packages__trigger {
           width: 216px;
         }
 
         .packages__panel-inner {
-          padding: 0 100px;
+          padding: 0 60px;
           align-items: flex-start;
           text-align: left;
+          gap: 35px;
         }
       }
     }
@@ -368,14 +497,23 @@ $pkg-bg-1920: (
 
     &__actions {
       align-items: flex-start;
+      gap: 69px;
     }
 
     &__btn {
       justify-content: flex-start;
+      gap: 40px;
 
       &--services {
         display: inline-flex;
+        width: 77px;
+        gap: 30px;
       }
+    }
+
+    &__btn--services .packages__btn-text {
+      font-size: 14px;
+      white-space: nowrap;
     }
   }
 }
