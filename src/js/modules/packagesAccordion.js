@@ -1,4 +1,3 @@
-//! експорт і виклик функції у main.js
 //! пошук класу "data-packages-accordion" і вихід якщо його немає
 
 export function initPackagesAccordion() {
@@ -31,7 +30,7 @@ export function initPackagesAccordion() {
   };
 
   //! Синхронізація стану. Метод проходиться по кожному елементу і якщо true - відкриває item,
-  //! якщо false - закриває
+  //! якщо false - закриває ---- щоб не було відкрито декілька карток
 
   items.forEach((x) =>
     setState(x, x.trigger.getAttribute("aria-expanded") === "true"),
@@ -69,3 +68,4 @@ export function initPackagesAccordion() {
     syncHasActive();
   });
 }
+

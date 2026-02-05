@@ -33,34 +33,32 @@ $pkg-ease: cubic-bezier(0.2, 0.9, 0.2, 1);
 }
 
 .packages {
-  margin-left: calc(50% - 50vw); //* full-bleed розтягнення на всю ширину екрану
-  margin-right: calc(50% - 50vw);
   color: $color-white;
-
   --pkg-row-h: 160px; //* висота рядка на мобілці
   --pkg-arc-w: 130px; //* розміри дуги
   --pkg-arc-h: 65px; //* розміри дуги
-  --pkg-line-fade: rgba(255, 255, 255, 0);
-  --pkg-line-core: #fff;
-  --pkg-line-stop: 52%;
-  --pkg-line-thickness: 2px;
-  --pkg-vline-w: 1px;
-  --pkg-vline-h: clamp(140px, 22vh, 190px);
-  --pkg-vline-shift-y: 0;
+
+  //* змінні для горизонтальних ліній
+  --pkg-line-fade: rgba(255, 255, 255, 0); //* прозорі краї лінії
+  --pkg-line-core: #fff; //* центр
+  --pkg-line-stop: 52%; //* початок центру
+  --pkg-line-thickness: 2px; //* товщина
+  --pkg-vline-w: 1px; //* товщина вертикал лінії
+  --pkg-vline-h: clamp(140px, 22vh, 190px); //* висота
+  --pkg-vline-shift-y: 0; //* зсув по вертикалі
   --pkg-line-bg-h: linear-gradient(
     to right,
     var(--pkg-line-fade) 0%,
     var(--pkg-line-core) var(--pkg-line-stop),
     var(--pkg-line-fade) 100%
-  );
+  ); //* фон для горизонт. лінії
   --pkg-line-bg-v: linear-gradient(
     to bottom,
     var(--pkg-line-fade) 0%,
     var(--pkg-line-core) var(--pkg-line-stop),
     var(--pkg-line-fade) 100%
-  );
-  //* змінні для горизонтальних ліній
-  --pkg-divider-left: 0;
+  ); //* фон для вертикал. лінії
+  --pkg-divider-left: 0; //* розміщення горизонт лінії -> 1440+ стане вертикально
   --pkg-divider-right: 0;
   --pkg-divider-top: auto;
   --pkg-divider-bottom: 0;
@@ -79,7 +77,7 @@ $pkg-ease: cubic-bezier(0.2, 0.9, 0.2, 1);
     background:
       linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
       var(--pkg-bg, none) center / cover no-repeat;
-    transition: min-height $pkg-dur $pkg-ease;
+    transition: min-height $pkg-dur $pkg-ease; //* зміна розміру картки
 
     @include pkg-bg($pkg-bg-320, $pkg-bg-1920);
 
@@ -153,7 +151,7 @@ $pkg-ease: cubic-bezier(0.2, 0.9, 0.2, 1);
   &__panel {
     max-height: 0;
     overflow: hidden;
-    transition: max-height $pkg-dur $pkg-ease;
+    transition: max-height $pkg-dur $pkg-ease; //* плавна зміна розміру контенту в картці
   }
 
   &__panel-inner {
@@ -163,7 +161,6 @@ $pkg-ease: cubic-bezier(0.2, 0.9, 0.2, 1);
     align-items: center;
     gap: 47px;
     opacity: 0;
-    transform: translateY(-6px);
     transition:
       opacity 240ms ease,
       transform 240ms ease;
@@ -171,8 +168,7 @@ $pkg-ease: cubic-bezier(0.2, 0.9, 0.2, 1);
 
   &__item.is-active &__panel-inner {
     opacity: 1;
-    transform: translateY(0);
-    transition-delay: 120ms;
+    transition-delay: 120ms; //* поява контенту через 120мс
   }
 
   &__text {
@@ -275,7 +271,11 @@ $pkg-ease: cubic-bezier(0.2, 0.9, 0.2, 1);
   .packages {
     &__panel-inner {
       padding: 20px clamp(109px, 14vw, 220px) 110px;
-      gap: clamp(92px, 10vw, 120px);
+      gap: clamp(
+        92px,
+        10vw,
+        120px
+      ); //*мін, % ширини екрану, макс - clamp(min, preferred, max)
     }
 
     &__text {
@@ -309,7 +309,7 @@ $pkg-ease: cubic-bezier(0.2, 0.9, 0.2, 1);
       calc(360px + (100vw - 1440px) * 0.2291667),
       470px
     );
-    --pkg-arc-shift-x: 40px;
+    --pkg-arc-shift-x: 40px; //* зсув дуги
 
     &__title {
       font-size: 28px;
