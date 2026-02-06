@@ -54,6 +54,10 @@
     "text": "GALLERY"
   },
 
+  "services": {
+    "text": "LIST OF SERVICES"
+  },
+
   "callModal": {
     "title": "request for a call",
     "closeAria": "Close modal",

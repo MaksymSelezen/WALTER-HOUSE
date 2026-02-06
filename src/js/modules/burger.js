@@ -4,160 +4,112 @@ const FOCUSABLE =
 export function initBurgerMenu() {
   const menu = document.querySelector("[data-menu]");
   if (!menu) return;
-
+  const body = document.body;
   const openers = document.querySelectorAll("[data-menu-open]");
-  const menuBody = menu.querySelector(".burger-menu__body") || menu;
-
+  const panel = menu.querySelector(".burger-menu__panel") || menu;
   let isOpen = false;
-  let lastActiveElement = null;
+  let lastActive = null;
+  let keyHandler = null;
 
-  let removeTrap = null;
-  let removeEsc = null;
+  const setAria = (value) =>
+    openers.forEach((btn) => btn.setAttribute("aria-expanded", String(value)));
 
-  // ---------- Scroll lock (+ body class for header fixed in CSS) ----------
   const lockScroll = () => {
     const scrollY = window.scrollY || window.pageYOffset;
-    document.body.dataset.scrollY = String(scrollY);
-
-    document.body.classList.add("menu-open");
-
-    document.body.style.position = "fixed";
-    document.body.style.top = `-${scrollY}px`;
-    document.body.style.left = "0";
-    document.body.style.right = "0";
-    document.body.style.width = "100%";
+    body.dataset.scrollY = String(scrollY);
+    body.classList.add("is-menu-open");
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.left = "0";
+    body.style.right = "0";
+    body.style.width = "100%";
   };
 
   const unlockScroll = () => {
-    const scrollY = Number(document.body.dataset.scrollY || 0);
-
-    document.body.classList.remove("menu-open");
-
-    document.body.style.position = "";
-    document.body.style.top = "";
-    document.body.style.left = "";
-    document.body.style.right = "";
-    document.body.style.width = "";
-
-    delete document.body.dataset.scrollY;
+    const scrollY = Number(body.dataset.scrollY || 0);
+    body.classList.remove("is-menu-open");
+    body.style.position = "";
+    body.style.top = "";
+    body.style.left = "";
+    body.style.right = "";
+    body.style.width = "";
+    delete body.dataset.scrollY;
     window.scrollTo(0, scrollY);
   };
 
-  // ---------- Focus trap ----------
-  const trapFocus = () => {
+  const addKeyHandler = () => {
     const focusables = Array.from(menu.querySelectorAll(FOCUSABLE)).filter(
-      (el) => !el.hasAttribute("disabled") && el.tabIndex !== -1
+      (el) => !el.hasAttribute("disabled") && el.tabIndex !== -1,
     );
-
     const first = focusables[0];
     const last = focusables[focusables.length - 1];
-
-    const onKeyDown = (e) => {
-      if (e.key !== "Tab") return;
-
-      if (!focusables.length) {
-        e.preventDefault();
-        menuBody.focus();
+    keyHandler = (event) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeMenu();
         return;
       }
-
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
+      if (event.key !== "Tab") return;
+      if (!focusables.length) {
+        event.preventDefault();
+        panel.focus();
+        return;
+      }
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
         last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
         first.focus();
       }
     };
-
-    document.addEventListener("keydown", onKeyDown);
-
-    (first || menuBody).focus();
-
-    return () => document.removeEventListener("keydown", onKeyDown);
+    document.addEventListener("keydown", keyHandler);
+    (first || panel).focus();
   };
 
-  // ---------- ESC close ----------
-  const bindEscClose = () => {
-    const onKeyDown = (e) => {
-      if (e.key === "Escape") closeMenu();
-    };
-    document.addEventListener("keydown", onKeyDown);
-    return () => document.removeEventListener("keydown", onKeyDown);
+  const removeKeyHandler = () => {
+    if (keyHandler) document.removeEventListener("keydown", keyHandler);
+    keyHandler = null;
   };
 
-  // ---------- Helpers ----------
-  const setAriaExpanded = (value) => {
-    openers.forEach((btn) => btn.setAttribute("aria-expanded", String(value)));
-  };
-
-  const openMenu = (opener = null) => {
+  const openMenu = (opener) => {
     if (isOpen) return;
-
     isOpen = true;
-    lastActiveElement = opener || document.activeElement;
-
-    menu.classList.add("is-open");
+    lastActive = opener || document.activeElement;
     menu.setAttribute("aria-hidden", "false");
-
-    setAriaExpanded(true);
+    setAria(true);
     lockScroll();
-
-    if (!menuBody.hasAttribute("tabindex")) {
-      menuBody.setAttribute("tabindex", "-1");
-    }
-
-    removeTrap = trapFocus();
-    removeEsc = bindEscClose();
+    if (!panel.hasAttribute("tabindex")) panel.setAttribute("tabindex", "-1");
+    addKeyHandler();
   };
 
   const closeMenu = () => {
     if (!isOpen) return;
-
     isOpen = false;
-
-    menu.classList.remove("is-open");
     menu.setAttribute("aria-hidden", "true");
-
-    setAriaExpanded(false);
+    setAria(false);
+    removeKeyHandler();
     unlockScroll();
-
-    if (removeTrap) removeTrap();
-    if (removeEsc) removeEsc();
-    removeTrap = null;
-    removeEsc = null;
-
-    if (lastActiveElement && typeof lastActiveElement.focus === "function") {
-      lastActiveElement.focus();
-    }
-    lastActiveElement = null;
+    if (lastActive && typeof lastActive.focus === "function")
+      lastActive.focus();
+    lastActive = null;
   };
 
-  const toggleMenu = (opener) => {
-    if (isOpen) closeMenu();
-    else openMenu(opener);
-  };
-
-  // ---------- Events ----------
+  const toggleMenu = (opener) => (isOpen ? closeMenu() : openMenu(opener));
   openers.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
+    btn.addEventListener("click", (event) => {
+      event.preventDefault();
       toggleMenu(btn);
     });
   });
-
-  menu.addEventListener("click", (e) => {
-    const closeEl = e.target.closest("[data-menu-close]");
+  menu.addEventListener("click", (event) => {
+    const closeEl = event.target.closest("[data-menu-close]");
     if (!closeEl) return;
-    e.preventDefault();
+    event.preventDefault();
     closeMenu();
   });
-
   const mq = window.matchMedia("(min-width: 768px)");
-  const onMqChange = (e) => {
-    if (e.matches) closeMenu();
-  };
-
+  const onMqChange = (event) => event.matches && closeMenu();
   mq.addEventListener?.("change", onMqChange);
   mq.addListener?.(onMqChange);
 }
