@@ -1,8 +1,8 @@
-<div class="burger-menu" id="mobile-menu" aria-hidden="true" data-menu>
-  <div class="burger-menu__overlay" data-menu-close aria-hidden="true"></div>
+<div class="nav-drawer" id="mobile-menu" aria-hidden="true" data-menu>
+  <div class="nav-drawer__overlay" data-menu-close aria-hidden="true"></div>
 
   <div
-    class="burger-menu__panel"
+    class="nav-drawer__panel"
     role="dialog"
     aria-modal="true"
     aria-label="Site menu"
@@ -10,95 +10,92 @@
   >
     {{> header}}
 
-    <div class="burger-menu__content">
-      <nav class="burger-menu__nav" aria-label="Mobile navigation">
-        <ul class="burger-menu__list">
-          <li class="burger-menu__item">
-            <a class="burger-menu__link" href="#styles" data-menu-close>
+    <div class="nav-drawer__body">
+      <nav class="nav-drawer__nav" aria-label="Mobile navigation">
+        <ul class="nav-drawer__list">
+          <li class="nav-drawer__item">
+            <a class="nav-drawer__link" href="#styles" data-menu-close>
               <span
-                class="burger-menu__link-content"
+                class="nav-drawer__link-text"
                 data-i18n="burgerMenu.nav.styles"
                 >styles of rennovation</span
               >
-
-              <span class="burger-menu__link-arrow" aria-hidden="true">
-                <svg class="burger-menu__link-arrow-icon">
+              <span class="nav-drawer__link-arrow" aria-hidden="true">
+                <svg class="nav-drawer__link-arrow-icon">
                   <use href="./icons/sprite.svg#icon-arrow"></use>
                 </svg>
               </span>
             </a>
           </li>
 
-          <li class="burger-menu__item">
-            <a class="burger-menu__link" href="#costs" data-menu-close>
+          <li class="nav-drawer__item">
+            <a class="nav-drawer__link" href="#costs" data-menu-close>
               <span
-                class="burger-menu__link-content"
+                class="nav-drawer__link-text"
                 data-i18n="burgerMenu.nav.costs"
                 >Costs</span
               >
-
-              <span class="burger-menu__link-arrow" aria-hidden="true">
-                <svg class="burger-menu__link-arrow-icon">
+              <span class="nav-drawer__link-arrow" aria-hidden="true">
+                <svg class="nav-drawer__link-arrow-icon">
                   <use href="./icons/sprite.svg#icon-arrow"></use>
                 </svg>
               </span>
             </a>
           </li>
 
-          <li class="burger-menu__item">
-            <a class="burger-menu__link" href="#steps" data-menu-close>
-              <span class="burger-menu__link-text burger-menu__link-content">
+          <li class="nav-drawer__item">
+            <a class="nav-drawer__link" href="#steps" data-menu-close>
+              <span
+                class="nav-drawer__link-text nav-drawer__link-text--stacked"
+              >
                 <span
-                  class="burger-menu__link-text-line"
+                  class="nav-drawer__link-line"
                   data-i18n="burgerMenu.nav.steps.line1"
                   >5 STEPS</span
                 >
                 <span
-                  class="burger-menu__link-text-line"
+                  class="nav-drawer__link-line"
                   data-i18n="burgerMenu.nav.steps.line2"
                   >TO WALTER</span
                 >
                 <span
-                  class="burger-menu__link-text-line"
+                  class="nav-drawer__link-line"
                   data-i18n="burgerMenu.nav.steps.line3"
                   >HOUSE</span
                 >
               </span>
-
-              <span class="burger-menu__link-arrow" aria-hidden="true">
-                <svg class="burger-menu__link-arrow-icon">
+              <span class="nav-drawer__link-arrow" aria-hidden="true">
+                <svg class="nav-drawer__link-arrow-icon">
                   <use href="./icons/sprite.svg#icon-arrow"></use>
                 </svg>
               </span>
             </a>
           </li>
 
-          <li class="burger-menu__item">
-            <a class="burger-menu__link" href="#services" data-menu-close>
+          <li class="nav-drawer__item">
+            <a class="nav-drawer__link" href="#services" data-menu-close>
               <span
-                class="burger-menu__link-content"
+                class="nav-drawer__link-text"
                 data-i18n="burgerMenu.nav.services"
                 >Additional services</span
               >
-
-              <span class="burger-menu__link-arrow" aria-hidden="true">
-                <svg class="burger-menu__link-arrow-icon">
+              <span class="nav-drawer__link-arrow" aria-hidden="true">
+                <svg class="nav-drawer__link-arrow-icon">
                   <use href="./icons/sprite.svg#icon-arrow"></use>
                 </svg>
               </span>
             </a>
           </li>
 
-          <li class="burger-menu__item burger-menu__item--blog">
-            <a class="burger-menu__link" href="#blog" data-menu-close>
+          <li class="nav-drawer__item nav-drawer__item--blog">
+            <a class="nav-drawer__link" href="#blog" data-menu-close>
               <span
-                class="burger-menu__link-content"
+                class="nav-drawer__link-text"
                 data-i18n="burgerMenu.nav.blog"
                 >Blog</span
               >
-
-              <span class="burger-menu__link-arrow" aria-hidden="true">
-                <svg class="burger-menu__link-arrow-icon">
+              <span class="nav-drawer__link-arrow" aria-hidden="true">
+                <svg class="nav-drawer__link-arrow-icon">
                   <use href="./icons/sprite.svg#icon-arrow"></use>
                 </svg>
               </span>
@@ -107,10 +104,10 @@
         </ul>
       </nav>
 
-      <section class="burger-menu__footer" aria-label="Contacts panel">
-        <div class="burger-menu__cta">
+      <section class="nav-drawer__footer" aria-label="Contacts panel">
+        <div class="nav-drawer__cta">
           <img
-            class="burger-menu__cta-logo"
+            class="nav-drawer__cta-logo"
             src="./assets/images/slides/logo.png"
             width="68"
             height="54"
@@ -118,7 +115,7 @@
             loading="eager"
           />
 
-          <p class="burger-menu__cta-text">
+          <p class="nav-drawer__cta-text">
             <span data-i18n="burgerMenu.cta.text.line1"
               >Turnkey construction</span
             >
@@ -127,14 +124,14 @@
           </p>
 
           <a
-            class="burger-menu__cta-action"
+            class="nav-drawer__cta-action"
             href="#project-form"
             aria-label="Discuss a project"
             data-i18n-aria-label="burgerMenu.cta.actionAria"
             data-menu-close
           >
             <svg
-              class="burger-menu__cta-icon"
+              class="nav-drawer__cta-icon"
               viewBox="0 0 248 21"
               preserveAspectRatio="none"
               aria-hidden="true"
@@ -145,13 +142,13 @@
           </a>
         </div>
 
-        <span class="burger-menu__divider" aria-hidden="true"></span>
+        <span class="nav-drawer__divider" aria-hidden="true"></span>
 
-        <address class="burger-menu__contacts">
-          <ul class="burger-menu__contacts-list">
-            <li class="burger-menu__contacts-item">
+        <address class="nav-drawer__contacts">
+          <ul class="nav-drawer__contacts-list">
+            <li class="nav-drawer__contacts-item">
               <svg
-                class="burger-menu__contacts-icon"
+                class="nav-drawer__contacts-icon"
                 width="18"
                 height="25"
                 aria-hidden="true"
@@ -160,16 +157,16 @@
               </svg>
 
               <p
-                class="burger-menu__contacts-text"
+                class="nav-drawer__contacts-text"
                 data-i18n="burgerMenu.contacts.address"
               >
                 Kiev, st. Getman Street 101
               </p>
             </li>
 
-            <li class="burger-menu__contacts-item">
+            <li class="nav-drawer__contacts-item">
               <svg
-                class="burger-menu__contacts-icon"
+                class="nav-drawer__contacts-icon"
                 width="21"
                 height="21"
                 aria-hidden="true"
@@ -177,19 +174,19 @@
                 <use href="./icons/sprite.svg#icon-clock"></use>
               </svg>
 
-              <p class="burger-menu__contacts-text">
+              <p class="nav-drawer__contacts-text">
                 <span data-i18n="burgerMenu.contacts.hours.line1"
                   >Mon-Fri: 9:00 - 19:00,</span
-                ><br class="burger-menu__contacts-br" />
+                ><br class="nav-drawer__contacts-br" />
                 <span data-i18n="burgerMenu.contacts.hours.line2"
                   >Sat: 10:00 - 17:00</span
                 >
               </p>
             </li>
 
-            <li class="burger-menu__contacts-item">
+            <li class="nav-drawer__contacts-item">
               <svg
-                class="burger-menu__contacts-icon"
+                class="nav-drawer__contacts-icon"
                 width="25"
                 height="18"
                 aria-hidden="true"
@@ -197,14 +194,14 @@
                 <use href="./icons/sprite.svg#icon-mail"></use>
               </svg>
 
-              <a class="burger-menu__contacts-link" href="mailto:info@dhs.com">
+              <a class="nav-drawer__contacts-link" href="mailto:info@dhs.com">
                 info@dhs.com
               </a>
             </li>
 
-            <li class="burger-menu__contacts-item">
+            <li class="nav-drawer__contacts-item">
               <svg
-                class="burger-menu__contacts-icon"
+                class="nav-drawer__contacts-icon"
                 width="19"
                 height="19"
                 aria-hidden="true"
@@ -212,7 +209,7 @@
                 <use href="./icons/sprite.svg#icon-phone"></use>
               </svg>
 
-              <a class="burger-menu__contacts-link" href="tel:+380971234567">
+              <a class="nav-drawer__contacts-link" href="tel:+380971234567">
                 +38 (097) 123 45 67
               </a>
             </li>

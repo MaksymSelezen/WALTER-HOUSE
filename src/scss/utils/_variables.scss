@@ -4,8 +4,18 @@ $color-white-muted: rgba(255, 255, 255, 0.5);
 $color-line: rgba(255, 255, 255, 0.25);
 $color-overlay: rgba(0, 0, 0, 0.45);
 
-$ff-open-sans: "Open Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-$ff-roboto: "Roboto", system-ui, -apple-system, "Segoe UI", sans-serif;
+$ff-open-sans:
+  "Open Sans",
+  system-ui,
+  -apple-system,
+  "Segoe UI",
+  sans-serif;
+$ff-roboto:
+  "Roboto",
+  system-ui,
+  -apple-system,
+  "Segoe UI",
+  sans-serif;
 $ff-brand: "Bruno Ace SC", sans-serif;
 
 $bp-768: 768px;
