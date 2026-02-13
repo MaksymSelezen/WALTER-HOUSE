@@ -142,7 +142,7 @@
     top: 565px;
 
     width: 1px;
-    height: var(--social-notch-height, 154px);
+    height: 154px;
     background: rgba(255, 255, 255, 0.25);
 
     pointer-events: none;
@@ -155,7 +155,7 @@
     position: absolute;
     left: 70px;
     top: calc(
-      565px + var(--social-notch-height, 154px) +
+      625px + var(--social-notch-height, 154px) +
         var(--social-list-offset, 60px)
     );
     bottom: auto;
@@ -165,14 +165,6 @@
     list-style: none;
 
     pointer-events: auto;
-  }
-
-  .social__list > li:nth-child(3) {
-    transform: translateY(-10px);
-  }
-
-  .social__list > li:nth-child(4) {
-    transform: translateY(-15px);
   }
 
   .social__link {

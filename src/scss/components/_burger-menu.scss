@@ -145,7 +145,7 @@
   &__divider {
     display: block;
     height: 1px;
-    margin: 22px -30px 55px -34px; //* лінія на всю ширину блоку
+    margin: 22px -30px 55px -34px;
     background: rgba(0, 0, 0, 0.15);
   }
 
@@ -153,6 +153,7 @@
     font-weight: 300;
     font-size: 14px;
     font-family: $ff-open-sans;
+    font-style: normal;
   }
 
   &__contacts-list {
@@ -195,6 +196,11 @@ body.is-menu-open .nav-drawer__footer {
   opacity: 1;
 }
 
+.nav-drawer .social {
+  display: none;
+}
+
+// * ========== 768 ==========
 @media (min-width: $bp-768) {
   .nav-drawer {
     .header {
@@ -260,7 +266,12 @@ body.is-menu-open .nav-drawer__footer {
   }
 }
 
+// * ========== 1440 ==========
 @media (min-width: $bp-1440) {
+  .nav-drawer .social {
+    display: block;
+  }
+
   .nav-drawer {
     .header {
       border-bottom: 0;
@@ -384,6 +395,7 @@ body.is-menu-open .nav-drawer__footer {
   }
 }
 
+// * ========== 1920 ==========
 @media (min-width: $bp-1920) {
   .nav-drawer {
     &__nav {
