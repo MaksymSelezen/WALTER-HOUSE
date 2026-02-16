@@ -291,6 +291,12 @@ body.is-menu-open .nav-drawer__footer {
     &__list {
       height: 100%;
       flex-direction: row;
+      max-width: 1200px;
+    }
+
+    &__link {
+      min-width: 286px;
+      font-size: 26px;
     }
 
     &__item {
@@ -298,8 +304,11 @@ body.is-menu-open .nav-drawer__footer {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 312px;
-      height: 250px;
+
+      min-width: 0;
+      flex: 1 1 0;
+
+      height: 220px;
 
       &:not(:last-child) {
         background: linear-gradient(
@@ -415,10 +424,10 @@ body.is-menu-open .nav-drawer__footer {
 
     &__footer {
       position: relative;
-      z-index: 30;
       margin-inline: auto;
       width: min(1564px, calc(100% - (2 * clamp(60px, 9.22vw, 178px))));
-      padding: 54px 60px 42px 54px;
+      // padding: 54px 60px 42px 54px;
+      padding: 44px 40px;
     }
 
     &__cta {
@@ -481,81 +490,17 @@ body.is-menu-open .nav-drawer__footer {
       max-width: 1560px;
     }
 
+    &__link {
+      min-width: 312px;
+      font-size: 30px;
+    }
+
     .nav-drawer__cta-text br {
       display: none;
     }
 
     &__cta-icon {
       max-width: 646px;
-    }
-  }
-}
-
-// * ========== 1440-1919 FIX ==========
-@media (min-width: $bp-1440) and (max-width: 1919px) {
-  .nav-drawer {
-    &__panel {
-      overflow-y: auto;
-      overflow-x: hidden;
-    }
-
-    &__list {
-      width: 100%;
-      max-width: 1200px;
-      margin-inline: auto;
-      padding-inline: 80px;
-      box-sizing: border-box;
-    }
-
-    &__item {
-      width: auto;
-      flex: 1 1 0;
-      min-width: 0;
-      height: 220px;
-
-      &:not(:last-child) {
-        background-size: 2px 220px;
-      }
-    }
-
-    &__link-text {
-      overflow-wrap: anywhere;
-    }
-
-    &__footer {
-      width: min(1200px, calc(100% - 80px));
-      max-width: 100%;
-      padding: 44px 40px;
-      box-sizing: border-box;
-    }
-
-    &__cta {
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 18px 30px;
-    }
-
-    &__cta-text {
-      margin-right: 0;
-      text-align: left;
-    }
-
-    &__contacts-list {
-      flex-wrap: wrap;
-      justify-content: flex-start;
-      gap: 22px 36px;
-      margin: 30px 0 0;
-    }
-
-    &__contacts-item {
-      flex: 1 1 320px;
-      min-width: 0;
-      gap: 20px;
-    }
-
-    &__contacts-text,
-    &__contacts-link {
-      white-space: normal;
     }
   }
 }
