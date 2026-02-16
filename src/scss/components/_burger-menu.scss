@@ -366,11 +366,6 @@ body.is-menu-open .nav-drawer__footer {
       &:focus-within:not(:last-child)::after {
         opacity: 1;
       }
-
-      &:hover:not(:last-child),
-      &:focus-within:not(:last-child) {
-        background-image: none;
-      }
     }
 
     @supports selector(:has(*)) {
@@ -378,11 +373,6 @@ body.is-menu-open .nav-drawer__footer {
         &:has(+ .nav-drawer__item:hover):not(:last-child)::after,
         &:has(+ .nav-drawer__item:focus-within):not(:last-child)::after {
           opacity: 1;
-        }
-
-        &:has(+ .nav-drawer__item:hover):not(:last-child),
-        &:has(+ .nav-drawer__item:focus-within):not(:last-child) {
-          background-image: none;
         }
       }
     }
@@ -426,7 +416,6 @@ body.is-menu-open .nav-drawer__footer {
       position: relative;
       margin-inline: auto;
       width: min(1564px, calc(100% - (2 * clamp(60px, 9.22vw, 178px))));
-      // padding: 54px 60px 42px 54px;
       padding: 44px 40px;
     }
 
