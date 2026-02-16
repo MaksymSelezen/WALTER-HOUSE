@@ -275,6 +275,7 @@ body.is-menu-open .nav-drawer__footer {
   .nav-drawer {
     .header {
       border-bottom: 0;
+      z-index: 20;
     }
 
     &__panel {
@@ -310,11 +311,77 @@ body.is-menu-open .nav-drawer__footer {
           no-repeat right calc(50% + 12px);
         background-size: 2px 250px;
       }
+
+      //* ===== HOVER  =====
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: calc(50% + 12px);
+        height: 100dvh;
+        transform: translateY(-50%);
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.25s ease;
+        background: rgba(0, 0, 0, 0.22);
+        z-index: 0;
+      }
+
+      &:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: calc(50% + 12px);
+        height: 100dvh;
+        transform: translateY(-50%);
+        width: 2px;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.25s ease;
+        background: linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0) 0%,
+          $color-white 52%,
+          rgba(255, 255, 255, 0) 100%
+        );
+        z-index: 1;
+      }
+
+      &:hover::before,
+      &:focus-within::before {
+        opacity: 1;
+      }
+
+      &:hover:not(:last-child)::after,
+      &:focus-within:not(:last-child)::after {
+        opacity: 1;
+      }
+
+      &:hover:not(:last-child),
+      &:focus-within:not(:last-child) {
+        background-image: none;
+      }
+    }
+
+    @supports selector(:has(*)) {
+      &__item {
+        &:has(+ .nav-drawer__item:hover):not(:last-child)::after,
+        &:has(+ .nav-drawer__item:focus-within):not(:last-child)::after {
+          opacity: 1;
+        }
+
+        &:has(+ .nav-drawer__item:hover):not(:last-child),
+        &:has(+ .nav-drawer__item:focus-within):not(:last-child) {
+          background-image: none;
+        }
+      }
     }
 
     &__link {
       height: 100%;
       padding: 0 16px;
+      z-index: 2;
     }
 
     &__link-arrow {
@@ -330,6 +397,7 @@ body.is-menu-open .nav-drawer__footer {
         opacity 0.3s ease,
         transform 0.3s ease;
       color: $color-accent;
+      z-index: 3;
     }
 
     &__link-arrow-icon {
@@ -346,6 +414,8 @@ body.is-menu-open .nav-drawer__footer {
     }
 
     &__footer {
+      position: relative;
+      z-index: 30;
       margin-inline: auto;
       width: min(1564px, calc(100% - (2 * clamp(60px, 9.22vw, 178px))));
       padding: 54px 60px 42px 54px;
