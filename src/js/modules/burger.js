@@ -4,36 +4,32 @@ export function initBurgerMenu() {
 
   const body = document.body;
   const openers = document.querySelectorAll("[data-menu-open]");
-  let isOpen = false;
 
-  const syncState = (next) => {
-    if (isOpen === next) return;
-    isOpen = next;
+  const setOpen = (isOpen) => {
     body.classList.toggle("is-menu-open", isOpen);
     menu.setAttribute("aria-hidden", String(!isOpen));
     openers.forEach((btn) => btn.setAttribute("aria-expanded", String(isOpen)));
   };
 
-  const toggle = () => syncState(!isOpen);
-  const close = () => syncState(false);
+  document.addEventListener("click", (event) => {
+    const trigger = event.target.closest("[data-menu-open], [data-menu-close]");
+    if (!trigger) return;
 
-  openers.forEach((btn) => {
-    btn.addEventListener("click", (event) => {
+    if (trigger.matches("[data-menu-open]")) {
       event.preventDefault();
-      toggle();
-    });
-  });
+      setOpen(!body.classList.contains("is-menu-open"));
+      return;
+    }
 
-  menu.addEventListener("click", (event) => {
-    const target = event.target.closest("[data-menu-close]");
-    if (!target) return;
+    if (!menu.contains(trigger)) return;
     event.preventDefault();
-    close();
+    setOpen(false);
   });
 
   document.addEventListener("keydown", (event) => {
-    if (event.key !== "Escape" || !isOpen) return;
-    event.preventDefault();
-    close();
+    if (event.key === "Escape" && body.classList.contains("is-menu-open")) {
+      event.preventDefault();
+      setOpen(false);
+    }
   });
 }
