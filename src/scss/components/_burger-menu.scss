@@ -220,7 +220,7 @@ body.is-menu-open {
     }
 
     &__cta {
-      flex-flow: row wrap;
+      flex-flow: row wrap; //* флекс дайрекшн + флекс врап
       column-gap: 52px;
       row-gap: 21px;
       text-align: left;
@@ -353,11 +353,9 @@ body.is-menu-open {
       }
     }
 
-    @supports selector(:has(*)) {
-      &__item:has(+ .nav-drawer__item:hover):not(:last-child)::after,
-      &__item:has(+ .nav-drawer__item:focus-within):not(:last-child)::after {
-        opacity: 1;
-      }
+    &__item:has(+ .nav-drawer__item:hover):not(:last-child)::after,
+    &__item:has(+ .nav-drawer__item:focus-within):not(:last-child)::after {
+      opacity: 1;
     }
 
     &__link {
