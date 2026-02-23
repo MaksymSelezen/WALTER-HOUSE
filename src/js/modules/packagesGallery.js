@@ -43,9 +43,13 @@ const slidesByStyle = {
   ],
 };
 
-function pad2(n) {
-  return String(n).padStart(2, "0");
-}
+const STYLE_BY_CARD_CLASS = {
+  "packages__item--elite": "elite",
+  "packages__item--vip": "vip",
+  "packages__item--extra": "extra",
+};
+
+const pad2 = (value) => String(value).padStart(2, "0");
 
 export function initPackagesGallery() {
   const modal = document.querySelector("[data-gallery-modal]");
@@ -58,8 +62,12 @@ export function initPackagesGallery() {
   const btnPrev = modal.querySelector("[data-gallery-prev]");
   const btnNext = modal.querySelector("[data-gallery-next]");
 
-  const elCurrent = modal.querySelector("[data-gallery-current]");
-  const elTotal = modal.querySelector("[data-gallery-total]");
+  const elCurrent = modal.querySelector(
+    "[data-counter-current], [data-gallery-current]",
+  );
+  const elTotal = modal.querySelector(
+    "[data-counter-total], [data-gallery-total]",
+  );
 
   if (
     !stage ||
@@ -69,88 +77,131 @@ export function initPackagesGallery() {
     !btnNext ||
     !elCurrent ||
     !elTotal
-  )
+  ) {
     return;
+  }
 
   let swiper = null;
-  let slides = [];
+  let currentSlides = [];
 
-  function openModal() {
+  const setScrollLock = (isLocked) => {
+    document.documentElement.classList.toggle("is-modal-open", isLocked);
+    document.body.classList.toggle("is-modal-open", isLocked);
+  };
+
+  const getStyleFromTrigger = (trigger) => {
+    const card = trigger.closest(".packages__item");
+    if (!card) return "elite";
+
+    const cardClass = Object.keys(STYLE_BY_CARD_CLASS).find((className) =>
+      card.classList.contains(className),
+    );
+
+    return cardClass ? STYLE_BY_CARD_CLASS[cardClass] : "elite";
+  };
+
+  const isGalleryButton = (target) => {
+    const btn = target.closest(".packages__btn");
+    if (!btn) return false;
+
+    return Boolean(btn.querySelector('[data-i18n="gallery.text"]'));
+  };
+
+  const setCounter = (index) => {
+    elCurrent.textContent = pad2(index + 1);
+    elTotal.textContent = pad2(currentSlides.length);
+  };
+
+  const setStageBackground = (index) => {
+    const nextSlide = currentSlides[index];
+    if (!nextSlide) return;
+
+    stage.style.setProperty("--slide", `url(${nextSlide})`);
+  };
+
+  const updateUiByIndex = (index) => {
+    setCounter(index);
+    setStageBackground(index);
+  };
+
+  const rebuildSlides = () => {
+    wrapper.innerHTML = currentSlides
+      .map((src) => `<div class="swiper-slide" data-bg="${src}"></div>`)
+      .join("");
+  };
+
+  const openModal = () => {
     modal.classList.add("is-open");
     modal.setAttribute("aria-hidden", "false");
-  }
+    setScrollLock(true);
+  };
 
-  function closeModal() {
+  const closeModal = () => {
+    if (!modal.classList.contains("is-open")) return;
+
     modal.classList.remove("is-open");
     modal.setAttribute("aria-hidden", "true");
-  }
+    setScrollLock(false);
+  };
 
-  function render(index) {
-    stage.style.setProperty("--slide", `url(${slides[index]})`);
-    elCurrent.textContent = pad2(index + 1);
-    elTotal.textContent = pad2(slides.length);
-  }
-
-  function buildSlides(count) {
-    wrapper.innerHTML = "";
-    for (let i = 0; i < count; i++) {
-      const slide = document.createElement("div");
-      slide.className = "swiper-slide";
-      wrapper.appendChild(slide);
-    }
-  }
-
-  function initSwiper() {
-    if (swiper) {
-      swiper.destroy(true, true);
-      swiper = null;
-    }
-
-    swiper = new Swiper(swiperEl, {
-      modules: [Navigation],
-      slidesPerView: 1,
-      rewind: true,
-      navigation: {
-        prevEl: btnPrev,
-        nextEl: btnNext,
-      },
-      on: {
-        init() {
-          render(this.activeIndex);
+  const initOrUpdateSwiper = () => {
+    if (!swiper) {
+      swiper = new Swiper(swiperEl, {
+        modules: [Navigation],
+        slidesPerView: 1,
+        rewind: true,
+        navigation: {
+          prevEl: btnPrev,
+          nextEl: btnNext,
         },
-        slideChange() {
-          render(this.activeIndex);
+        on: {
+          init(instance) {
+            updateUiByIndex(instance.activeIndex);
+          },
+          slideChange(instance) {
+            updateUiByIndex(instance.activeIndex);
+          },
         },
-      },
-    });
-  }
+      });
 
-  document.addEventListener("click", (e) => {
-    const trigger = e.target.closest('[data-pkg-open="gallery"]');
-    if (!trigger) return;
+      return;
+    }
 
-    e.preventDefault();
+    swiper.update();
+    swiper.slideTo(0, 0);
+    updateUiByIndex(swiper.activeIndex);
+  };
 
-    const style = trigger.dataset.pkgStyle || "elite";
-    slides = slidesByStyle[style] || [];
+  document.addEventListener("click", (event) => {
+    const trigger = event.target.closest(".packages__btn");
+    if (!trigger || !isGalleryButton(event.target)) return;
 
-    if (slides.length === 0) return;
+    event.preventDefault();
 
-    buildSlides(slides.length);
+    const style = getStyleFromTrigger(trigger);
+    currentSlides = slidesByStyle[style] || [];
+
+    if (currentSlides.length === 0) return;
+
+    rebuildSlides();
     openModal();
-    initSwiper();
+    initOrUpdateSwiper();
+    swiper?.update();
   });
 
-  document.addEventListener("click", (e) => {
-    if (e.target.closest("[data-gallery-close]")) {
-      e.preventDefault();
+  document.addEventListener("click", (event) => {
+    if (!modal.classList.contains("is-open")) return;
+
+    if (event.target.closest("[data-gallery-close]")) {
+      event.preventDefault();
       closeModal();
     }
   });
 
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && modal.classList.contains("is-open")) {
-      closeModal();
-    }
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape" || !modal.classList.contains("is-open")) return;
+
+    event.preventDefault();
+    closeModal();
   });
 }
