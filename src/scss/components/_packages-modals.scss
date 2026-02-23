@@ -48,10 +48,10 @@
   &__close {
     top: 20px;
     right: 20px;
-  }
 
-  &__close-icon {
-    fill: $color-white;
+    &-icon {
+      fill: $color-white;
+    }
   }
 
   &__stage {
