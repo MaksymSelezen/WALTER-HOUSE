@@ -3,45 +3,28 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 
-import elite01 from "../../assets/images/slides/packages-modals/elite/1.jpg";
-import elite02 from "../../assets/images/slides/packages-modals/elite/2.jpg";
-import elite03 from "../../assets/images/slides/packages-modals/elite/3.jpg";
-import elite04 from "../../assets/images/slides/packages-modals/elite/4.jpg";
-import elite05 from "../../assets/images/slides/packages-modals/elite/5.jpg";
+const slideModules = import.meta.glob(
+  "../../assets/images/slides/packages-modals/*/*.jpg",
+  { eager: true, import: "default" },
+);
 
-import vip01 from "../../assets/images/slides/packages-modals/vip/1.jpg";
-import vip02 from "../../assets/images/slides/packages-modals/vip/2.jpg";
-import vip03 from "../../assets/images/slides/packages-modals/vip/3.jpg";
-import vip04 from "../../assets/images/slides/packages-modals/vip/4.jpg";
-import vip05 from "../../assets/images/slides/packages-modals/vip/5.jpg";
-import vip06 from "../../assets/images/slides/packages-modals/vip/6.jpg";
-import vip07 from "../../assets/images/slides/packages-modals/vip/7.jpg";
+const slidesByStyle = Object.entries(slideModules).reduce(
+  (acc, [path, src]) => {
+    const match = path.match(/packages-modals\/([^/]+)\/(\d+)\.jpg$/);
+    if (!match) return acc;
 
-import extra01 from "../../assets/images/slides/packages-modals/extra/1.jpg";
-import extra02 from "../../assets/images/slides/packages-modals/extra/2.jpg";
-import extra03 from "../../assets/images/slides/packages-modals/extra/3.jpg";
-import extra04 from "../../assets/images/slides/packages-modals/extra/4.jpg";
-import extra05 from "../../assets/images/slides/packages-modals/extra/5.jpg";
-import extra06 from "../../assets/images/slides/packages-modals/extra/6.jpg";
-import extra07 from "../../assets/images/slides/packages-modals/extra/7.jpg";
-import extra08 from "../../assets/images/slides/packages-modals/extra/8.jpg";
-import extra09 from "../../assets/images/slides/packages-modals/extra/9.jpg";
+    const [, style, order] = match;
+    (acc[style] ||= []).push({ order: Number(order), src });
+    return acc;
+  },
+  {},
+);
 
-const slidesByStyle = {
-  elite: [elite01, elite02, elite03, elite04, elite05],
-  vip: [vip01, vip02, vip03, vip04, vip05, vip06, vip07],
-  extra: [
-    extra01,
-    extra02,
-    extra03,
-    extra04,
-    extra05,
-    extra06,
-    extra07,
-    extra08,
-    extra09,
-  ],
-};
+Object.keys(slidesByStyle).forEach((style) => {
+  slidesByStyle[style] = slidesByStyle[style]
+    .sort((a, b) => a.order - b.order)
+    .map(({ src }) => src);
+});
 
 const STYLE_BY_CARD_CLASS = {
   "packages__item--elite": "elite",
@@ -58,16 +41,10 @@ export function initPackagesGallery() {
   const stage = modal.querySelector("[data-gallery-stage]");
   const swiperEl = modal.querySelector("[data-gallery-swiper]");
   const wrapper = modal.querySelector("[data-gallery-wrapper]");
-
   const btnPrev = modal.querySelector("[data-gallery-prev]");
   const btnNext = modal.querySelector("[data-gallery-next]");
-
-  const elCurrent = modal.querySelector(
-    "[data-counter-current], [data-gallery-current]",
-  );
-  const elTotal = modal.querySelector(
-    "[data-counter-total], [data-gallery-total]",
-  );
+  const currentEl = modal.querySelector("[data-gallery-current]");
+  const totalEl = modal.querySelector("[data-gallery-total]");
 
   if (
     !stage ||
@@ -75,133 +52,93 @@ export function initPackagesGallery() {
     !wrapper ||
     !btnPrev ||
     !btnNext ||
-    !elCurrent ||
-    !elTotal
-  ) {
+    !currentEl ||
+    !totalEl
+  )
     return;
-  }
 
-  let swiper = null;
-  let currentSlides = [];
+  let swiper;
+  let slides = [];
 
-  const setScrollLock = (isLocked) => {
-    document.documentElement.classList.toggle("is-modal-open", isLocked);
-    document.body.classList.toggle("is-modal-open", isLocked);
+  const syncUi = (index = 0) => {
+    currentEl.textContent = pad2(index + 1);
+    totalEl.textContent = pad2(slides.length);
+    if (slides[index])
+      stage.style.setProperty("--slide", `url(${slides[index]})`);
+  };
+
+  const setModalState = (isOpen) => {
+    modal.classList.toggle("is-open", isOpen);
+    modal.setAttribute("aria-hidden", String(!isOpen));
+    document.documentElement.classList.toggle("is-modal-open", isOpen);
+    document.body.classList.toggle("is-modal-open", isOpen);
+  };
+
+  const closeModal = () => setModalState(false);
+
+  const buildSlides = () => {
+    wrapper.innerHTML = slides
+      .map((src) => `<div class="swiper-slide" data-bg="${src}"></div>`)
+      .join("");
+  };
+
+  const initSwiper = () => {
+    if (swiper) return;
+
+    swiper = new Swiper(swiperEl, {
+      modules: [Navigation],
+      slidesPerView: 1,
+      rewind: true,
+      navigation: { prevEl: btnPrev, nextEl: btnNext },
+      on: {
+        init: ({ activeIndex }) => syncUi(activeIndex),
+        slideChange: ({ activeIndex }) => syncUi(activeIndex),
+      },
+    });
   };
 
   const getStyleFromTrigger = (trigger) => {
     const card = trigger.closest(".packages__item");
     if (!card) return "elite";
 
-    const cardClass = Object.keys(STYLE_BY_CARD_CLASS).find((className) =>
-      card.classList.contains(className),
+    const className = Object.keys(STYLE_BY_CARD_CLASS).find((name) =>
+      card.classList.contains(name),
     );
-
-    return cardClass ? STYLE_BY_CARD_CLASS[cardClass] : "elite";
+    return STYLE_BY_CARD_CLASS[className] || "elite";
   };
 
-  const isGalleryButton = (target) => {
-    const btn = target.closest(".packages__btn");
-    if (!btn) return false;
+  const openModal = (trigger) => {
+    slides = slidesByStyle[getStyleFromTrigger(trigger)] || [];
+    if (!slides.length) return;
 
-    return Boolean(btn.querySelector('[data-i18n="gallery.text"]'));
+    buildSlides();
+    setModalState(true);
+    initSwiper();
+    swiper.update();
+    swiper.slideTo(0, 0);
+    syncUi(0);
   };
 
-  const setCounter = (index) => {
-    elCurrent.textContent = pad2(index + 1);
-    elTotal.textContent = pad2(currentSlides.length);
-  };
-
-  const setStageBackground = (index) => {
-    const nextSlide = currentSlides[index];
-    if (!nextSlide) return;
-
-    stage.style.setProperty("--slide", `url(${nextSlide})`);
-  };
-
-  const updateUiByIndex = (index) => {
-    setCounter(index);
-    setStageBackground(index);
-  };
-
-  const rebuildSlides = () => {
-    wrapper.innerHTML = currentSlides
-      .map((src) => `<div class="swiper-slide" data-bg="${src}"></div>`)
-      .join("");
-  };
-
-  const openModal = () => {
-    modal.classList.add("is-open");
-    modal.setAttribute("aria-hidden", "false");
-    setScrollLock(true);
-  };
-
-  const closeModal = () => {
-    if (!modal.classList.contains("is-open")) return;
-
-    modal.classList.remove("is-open");
-    modal.setAttribute("aria-hidden", "true");
-    setScrollLock(false);
-  };
-
-  const initOrUpdateSwiper = () => {
-    if (!swiper) {
-      swiper = new Swiper(swiperEl, {
-        modules: [Navigation],
-        slidesPerView: 1,
-        rewind: true,
-        navigation: {
-          prevEl: btnPrev,
-          nextEl: btnNext,
-        },
-        on: {
-          init(instance) {
-            updateUiByIndex(instance.activeIndex);
-          },
-          slideChange(instance) {
-            updateUiByIndex(instance.activeIndex);
-          },
-        },
-      });
-
+  document.addEventListener("click", (event) => {
+    const closeBtn = event.target.closest("[data-gallery-close]");
+    if (closeBtn && modal.classList.contains("is-open")) {
+      event.preventDefault();
+      closeModal();
       return;
     }
 
-    swiper.update();
-    swiper.slideTo(0, 0);
-    updateUiByIndex(swiper.activeIndex);
-  };
-
-  document.addEventListener("click", (event) => {
     const trigger = event.target.closest(".packages__btn");
-    if (!trigger || !isGalleryButton(event.target)) return;
+    if (!trigger || trigger.classList.contains("packages__btn--services"))
+      return;
 
     event.preventDefault();
-
-    const style = getStyleFromTrigger(trigger);
-    currentSlides = slidesByStyle[style] || [];
-
-    if (currentSlides.length === 0) return;
-
-    rebuildSlides();
-    openModal();
-    initOrUpdateSwiper();
-    swiper?.update();
-  });
-
-  document.addEventListener("click", (event) => {
-    if (!modal.classList.contains("is-open")) return;
-
-    if (event.target.closest("[data-gallery-close]")) {
-      event.preventDefault();
-      closeModal();
-    }
+    openModal(trigger);
   });
 
   document.addEventListener("keydown", (event) => {
-    if (event.key !== "Escape" || !modal.classList.contains("is-open")) return;
-
-    event.preventDefault();
-    closeModal();
+    if (event.key === "Escape" && modal.classList.contains("is-open")) {
+      event.preventDefault();
+      closeModal();
+    }
   });
 }
