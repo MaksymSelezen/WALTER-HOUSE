@@ -28,6 +28,7 @@ export function initPackagesGallery() {
   const prev = modal.querySelector("[data-gallery-prev]");
   const next = modal.querySelector("[data-gallery-next]");
   const hotspotButtons = modal.querySelectorAll(".gallery-modal__hotspot");
+  const hotspotTitle = hotspotInfoModal?.querySelector("[data-hotspot-title]");
   const hotspotCloseButtons = hotspotInfoModal?.querySelectorAll(
     "[data-hotspot-modal-close]",
   );
@@ -35,11 +36,23 @@ export function initPackagesGallery() {
   if (![stage, swiperEl, wrapper, current, total, prev, next].every(Boolean))
     return;
 
+  const packageTitles = {
+    elite: "Elite Style",
+    vip: "Vip Style",
+    extra: "Extra Style",
+  };
+
   let swiper;
   let slides = [];
+  let currentPackage = "elite";
 
   const openHotspotInfoModal = () => {
     if (!hotspotInfoModal) return;
+
+    if (hotspotTitle) {
+      hotspotTitle.textContent =
+        packageTitles[currentPackage] || packageTitles.elite;
+    }
 
     hotspotInfoModal.classList.add("is-open");
     hotspotInfoModal.setAttribute("aria-hidden", "false");
@@ -97,11 +110,8 @@ export function initPackagesGallery() {
     );
     if (!trigger) return;
 
-    const [, style = "elite"] =
-      (trigger.closest(".packages__item")?.className || "").match(
-        /packages__item--(elite|vip|extra)/,
-      ) || [];
-    slides = (slidesByStyle[style] || []).filter(Boolean);
+    currentPackage = trigger.dataset.package || "elite";
+    slides = (slidesByStyle[currentPackage] || []).filter(Boolean);
     if (!slides.length) return;
 
     e.preventDefault();
