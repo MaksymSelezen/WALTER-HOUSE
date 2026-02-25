@@ -77,6 +77,17 @@
 
   &__hotspot {
     position: absolute;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    aspect-ratio: 1;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    flex: 0 0 auto;
+    line-height: 0;
     color: $color-white;
     pointer-events: auto;
     transition: color 200ms ease;
@@ -100,6 +111,12 @@
       top: 320px;
       right: 224px;
     }
+  }
+
+  &__hotspot-icon {
+    display: block;
+    width: 100%;
+    height: 100%;
   }
 
   &__annotation {
@@ -189,8 +206,8 @@
   &__controls {
     inset: auto 0 0;
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
     padding: 0 22px 20px;
   }
 

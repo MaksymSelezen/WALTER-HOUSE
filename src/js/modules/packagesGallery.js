@@ -26,7 +26,12 @@ const packageTitles = {
 const fallbackHotspotText =
   "Установка межкомнатных дверей без врезки фурнитуры и подрезки наличников";
 
-const pad2 = (n) => String(n).padStart(2, "0");
+const pad2 = (value) => String(value).padStart(2, "0");
+const setOpen = (element, isOpen) => {
+  if (!element) return;
+  element.classList.toggle("is-open", isOpen);
+  element.setAttribute("aria-hidden", String(!isOpen));
+};
 
 export function initPackagesGallery() {
   const modal = document.querySelector("[data-gallery-modal]");
@@ -46,35 +51,19 @@ export function initPackagesGallery() {
     hotspotModal: document.querySelector("[data-hotspot-modal]"),
   };
 
-  const required = [
-    els.stage,
-    els.swiper,
-    els.wrapper,
-    els.current,
-    els.total,
-    els.prev,
-    els.next,
-    els.hotspots,
-    els.annotation,
-    els.annotationText,
-  ];
-
-  if (!required.every(Boolean)) return;
+  if (
+    Object.values(els)
+      .slice(0, 10)
+      .some((element) => !element)
+  )
+    return;
 
   const hotspotTitle = els.hotspotModal?.querySelector("[data-hotspot-title]");
   const tabletMedia = window.matchMedia("(min-width: 768px)");
 
-  let swiper = null;
+  let swiper;
   let slides = [];
   let currentPackage = "elite";
-
-  const setOpen = (node, open) => {
-    if (!node) return;
-    node.classList.toggle("is-open", open);
-    node.setAttribute("aria-hidden", String(!open));
-  };
-
-  const closeHotspotModal = () => setOpen(els.hotspotModal, false);
 
   const resetInlineHotspot = () => {
     els.hotspots
@@ -85,32 +74,30 @@ export function initPackagesGallery() {
     els.annotation.setAttribute("aria-hidden", "true");
   };
 
-  const updateInlineHotspot = (hotspotBtn) => {
-    if (!hotspotBtn) return;
+  const closeHotspotModal = () => setOpen(els.hotspotModal, false);
 
+  const updateInlineHotspot = (hotspotBtn) => {
     resetInlineHotspot();
     hotspotBtn.classList.add("is-active");
 
     const hostRect = els.hotspots.getBoundingClientRect();
     const btnRect = hotspotBtn.getBoundingClientRect();
-
-    const centerX = btnRect.left + btnRect.width / 2;
-    const centerY = btnRect.top + btnRect.height / 2;
-
-    const x = ((centerX - hostRect.left) / hostRect.width) * 100;
-    const y = ((centerY - hostRect.top) / hostRect.height) * 100;
-
-    const text = hotspotBtn.dataset.hotspotText || fallbackHotspotText;
+    const x =
+      ((btnRect.left + btnRect.width / 2 - hostRect.left) / hostRect.width) *
+      100;
+    const y =
+      ((btnRect.top + btnRect.height / 2 - hostRect.top) / hostRect.height) *
+      100;
 
     els.annotation.style.setProperty("--hotspot-x", `${x}%`);
     els.annotation.style.setProperty("--hotspot-y", `${y}%`);
-    els.annotationText.textContent = text;
-
+    els.annotationText.textContent =
+      hotspotBtn.dataset.hotspotText || fallbackHotspotText;
     els.annotation.classList.add("is-visible");
     els.annotation.setAttribute("aria-hidden", "false");
   };
 
-  const sync = () => {
+  const syncCounterAndBackground = () => {
     const index = swiper?.activeIndex ?? 0;
     els.current.textContent = pad2(index + 1);
     els.total.textContent = pad2(slides.length);
@@ -128,14 +115,30 @@ export function initPackagesGallery() {
     document.body.classList.remove("is-modal-open");
   };
 
+  const createSwiper = () => {
+    swiper = new Swiper(els.swiper, {
+      modules: [Navigation],
+      slidesPerView: 1,
+      rewind: true,
+      navigation: { prevEl: els.prev, nextEl: els.next },
+      on: {
+        init: syncCounterAndBackground,
+        slideChange: () => {
+          closeHotspotModal();
+          resetInlineHotspot();
+          syncCounterAndBackground();
+        },
+      },
+    });
+  };
+
   const openGallery = (pack) => {
     slides = (slidesByPackage[pack] || []).filter(Boolean);
     if (!slides.length) return;
 
     currentPackage = pack;
-
     els.wrapper.innerHTML = slides
-      .map(() => `<div class="swiper-slide"></div>`)
+      .map(() => '<div class="swiper-slide"></div>')
       .join("");
 
     setOpen(modal, true);
@@ -144,54 +147,42 @@ export function initPackagesGallery() {
     document.body.classList.add("is-modal-open");
 
     if (!swiper) {
-      swiper = new Swiper(els.swiper, {
-        modules: [Navigation],
-        slidesPerView: 1,
-        rewind: true,
-        navigation: { prevEl: els.prev, nextEl: els.next },
-        on: {
-          init: sync,
-          slideChange: () => {
-            closeHotspotModal();
-            resetInlineHotspot();
-            sync();
-          },
-        },
-      });
+      createSwiper();
       return;
     }
 
     swiper.updateSlides();
     swiper.update();
     swiper.slideTo(0, 0);
-    sync();
+    syncCounterAndBackground();
   };
 
-  document.addEventListener("click", (event) => {
-    const galleryClose = event.target.closest("[data-gallery-close]");
-    if (galleryClose && modal.classList.contains("is-open")) {
+  const handleClick = (event) => {
+    const { target } = event;
+
+    if (
+      target.closest("[data-gallery-close]") &&
+      modal.classList.contains("is-open")
+    ) {
       event.preventDefault();
       closeGallery();
       return;
     }
 
-    const trigger = event.target.closest(".packages__btn[data-package]");
+    const trigger = target.closest(".packages__btn[data-package]");
     if (trigger) {
       event.preventDefault();
       openGallery(trigger.dataset.package || "elite");
       return;
     }
 
-    const hotspotModalClose = event.target.closest(
-      "[data-hotspot-modal-close]",
-    );
-    if (hotspotModalClose) {
+    if (target.closest("[data-hotspot-modal-close]")) {
       event.preventDefault();
       closeHotspotModal();
       return;
     }
 
-    const hotspotBtn = event.target.closest(".gallery-modal__hotspot");
+    const hotspotBtn = target.closest(".gallery-modal__hotspot");
     if (!hotspotBtn) return;
 
     event.preventDefault();
@@ -202,40 +193,32 @@ export function initPackagesGallery() {
       return;
     }
 
-    if (!els.hotspotModal) return;
-
     if (hotspotTitle) {
       hotspotTitle.textContent =
         packageTitles[currentPackage] || packageTitles.elite;
     }
 
     setOpen(els.hotspotModal, true);
-  });
+  };
 
-  const onMediaChange = ({ matches }) => {
-    if (matches) {
-      closeHotspotModal();
-      return;
-    }
+  const handleEsc = ({ key }) => {
+    if (key !== "Escape") return;
+    if (els.hotspotModal?.classList.contains("is-open"))
+      return closeHotspotModal();
+    if (modal.classList.contains("is-open")) closeGallery();
+  };
+
+  const handleMediaChange = ({ matches }) => {
+    if (matches) return closeHotspotModal();
     resetInlineHotspot();
   };
 
+  document.addEventListener("click", handleClick);
+  document.addEventListener("keydown", handleEsc);
+
   if (typeof tabletMedia.addEventListener === "function") {
-    tabletMedia.addEventListener("change", onMediaChange);
+    tabletMedia.addEventListener("change", handleMediaChange);
   } else {
-    tabletMedia.addListener(onMediaChange);
+    tabletMedia.addListener(handleMediaChange);
   }
-
-  document.addEventListener("keydown", ({ key }) => {
-    if (key !== "Escape") return;
-
-    if (els.hotspotModal?.classList.contains("is-open")) {
-      closeHotspotModal();
-      return;
-    }
-
-    if (modal.classList.contains("is-open")) {
-      closeGallery();
-    }
-  });
 }
