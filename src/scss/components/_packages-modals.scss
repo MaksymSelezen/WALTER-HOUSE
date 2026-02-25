@@ -60,6 +60,7 @@
 
   &__stage {
     --slide: url(../../assets/images/slides/packages-modals/vip/1.jpg);
+
     background:
       linear-gradient($color-overlay, $color-overlay),
       left / cover no-repeat var(--slide);
@@ -80,7 +81,8 @@
     pointer-events: auto;
     transition: color 200ms ease;
 
-    &:is(:hover, :focus-visible) {
+    &:is(:hover, :focus-visible),
+    &.is-active {
       color: $color-accent;
     }
 
@@ -98,6 +100,90 @@
       top: 320px;
       right: 224px;
     }
+  }
+
+  &__annotation {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease;
+
+    &.is-visible {
+      opacity: 1;
+
+      .gallery-modal__annotation-line {
+        opacity: 1;
+        transform: scaleX(1);
+      }
+
+      .gallery-modal__annotation-segment--diagonal {
+        transform: rotate(-29deg) scaleX(1);
+      }
+
+      .gallery-modal__annotation-segment--horizontal {
+        transform: scaleX(1);
+      }
+    }
+  }
+
+  &__annotation-line {
+    position: absolute;
+    left: calc(var(--hotspot-x, 50%) - 10px);
+    top: calc(var(--hotspot-y, 50%) - 12px);
+    width: clamp(140px, 28vw, 300px);
+    height: clamp(44px, 8vw, 72px);
+    opacity: 0;
+    transform: scaleX(0.7);
+    transform-origin: left center;
+    transition:
+      opacity 200ms ease,
+      transform 260ms ease;
+  }
+
+  &__annotation-segment {
+    position: absolute;
+    display: block;
+    height: 2px;
+    background-color: $color-accent;
+
+    &--diagonal {
+      left: 0;
+      top: calc(100% - 2px);
+      width: clamp(46px, 8vw, 86px);
+      transform: rotate(-29deg) scaleX(0.4);
+      transform-origin: left center;
+      transition: transform 260ms ease;
+    }
+
+    &--horizontal {
+      left: clamp(40px, 7vw, 74px);
+      top: 100%;
+      width: calc(100% - clamp(48px, 8vw, 82px));
+      transform: scaleX(0.35);
+      transform-origin: left center;
+      transition: transform 260ms ease 40ms;
+    }
+  }
+
+  &__annotation-dot {
+    position: absolute;
+    right: 0;
+    bottom: -5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: $color-accent;
+  }
+
+  &__annotation-text {
+    position: absolute;
+    left: calc(var(--hotspot-x, 50%) + clamp(48px, 8vw, 78px));
+    top: calc(var(--hotspot-y, 50%) - clamp(150px, 21vw, 190px));
+    max-width: min(46vw, 360px);
+    margin: 0;
+    font: 400 clamp(22px, 2.8vw, 38px) / 1.2 $ff-open-sans;
+    color: $color-white;
   }
 
   &__controls {
@@ -146,6 +232,94 @@
       bottom: 33px;
       font-size: 30px;
       color: $color-accent;
+    }
+  }
+
+  @media (max-width: calc($bp-768 - 0.02px)) {
+    &__annotation {
+      display: none;
+    }
+  }
+
+  @media (min-width: $bp-768) {
+    &__close {
+      top: 28px;
+      right: 28px;
+    }
+
+    &__hotspot {
+      &--1 {
+        top: 24%;
+        left: 74%;
+        right: auto;
+      }
+
+      &--2 {
+        top: 53%;
+        left: 23%;
+        right: auto;
+      }
+
+      &--3 {
+        top: 70%;
+        left: 20%;
+        right: auto;
+      }
+    }
+
+    &__controls {
+      align-items: flex-end;
+      gap: clamp(16px, 3vw, 40px);
+      padding: 0 clamp(32px, 6vw, 72px) clamp(30px, 5vw, 48px);
+    }
+
+    &__nav {
+      flex-shrink: 0;
+    }
+
+    &__counter {
+      width: min(54vw, 640px);
+      height: 124px;
+
+      &::before {
+        left: calc(50% - 8px);
+        bottom: 37px;
+        width: 136px;
+        transform: rotate(-145deg);
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        inset: auto 0 38px;
+        height: 1px;
+        background: linear-gradient(
+          to right,
+          rgb(255 255 255 / 42%) 0,
+          rgb(255 255 255 / 42%) 34%,
+          transparent 34%,
+          transparent 66%,
+          rgb(255 255 255 / 42%) 66%,
+          rgb(255 255 255 / 42%) 100%
+        );
+      }
+    }
+
+    &__count {
+      &--current {
+        left: 50%;
+        bottom: 42px;
+        transform: translateX(-10%);
+        font-size: clamp(52px, 8vw, 76px);
+      }
+
+      &--total {
+        left: calc(50% - 10px);
+        top: auto;
+        bottom: 0;
+        transform: translateX(-50%);
+        font-size: clamp(36px, 4.6vw, 50px);
+      }
     }
   }
 }

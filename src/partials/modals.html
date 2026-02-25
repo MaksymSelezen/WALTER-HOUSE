@@ -1,5 +1,6 @@
 <div class="gallery-modal" data-gallery-modal aria-hidden="true">
   <div class="gallery-modal__overlay" data-gallery-close></div>
+
   <div
     class="gallery-modal__dialog"
     role="dialog"
@@ -26,11 +27,13 @@
       <div class="gallery-modal__swiper swiper" data-gallery-swiper>
         <div class="swiper-wrapper" data-gallery-wrapper></div>
       </div>
-      <div class="gallery-modal__hotspots">
+
+      <div class="gallery-modal__hotspots" data-gallery-hotspots>
         <button
           class="gallery-modal__hotspot gallery-modal__hotspot--1"
           type="button"
           aria-label="Hotspot 1"
+          data-hotspot-text="Установка межкомнатных дверей без врезки фурнитуры и подрезки наличников"
         >
           <svg
             class="gallery-modal__hotspot-icon"
@@ -65,6 +68,42 @@
           class="gallery-modal__hotspot gallery-modal__hotspot--2"
           type="button"
           aria-label="Hotspot 2"
+          data-hotspot-text="Установка межкомнатных дверей без врезки фурнитуры и подрезки наличников"
+        >
+          <svg
+            class="gallery-modal__hotspot-icon"
+            width="46"
+            height="46"
+            viewBox="0 0 46 46"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <ellipse
+              cx="23"
+              cy="23"
+              rx="7"
+              ry="7"
+              transform="rotate(90 23 23)"
+              fill="currentColor"
+            />
+            <path
+              d="M37.5 23C37.5 31.0081 31.0081 37.5 23 37.5C14.9919 14.9919 8.5 31.0081 8.5 23C8.5 14.9919 14.9919 8.5 23 8.5C31.0081 8.5 37.5 14.9919 37.5 23Z"
+              stroke="currentColor"
+              stroke-opacity="0.5"
+            />
+            <path
+              d="M45.5 23C45.5 35.4264 35.4264 45.5 23 45.5C10.5736 45.5 0.499998 35.4264 0.499999 23C0.500001 10.5736 10.5736 0.499999 23 0.499999C35.4264 0.5 45.5 10.5736 45.5 23Z"
+              stroke="currentColor"
+              stroke-opacity="0.2"
+            />
+          </svg>
+        </button>
+
+        <button
+          class="gallery-modal__hotspot gallery-modal__hotspot--3"
+          type="button"
+          aria-label="Hotspot 3"
+          data-hotspot-text="Установка межкомнатных дверей без врезки фурнитуры и подрезки наличников"
         >
           <svg
             class="gallery-modal__hotspot-icon"
@@ -95,39 +134,28 @@
           </svg>
         </button>
 
-        <button
-          class="gallery-modal__hotspot gallery-modal__hotspot--3"
-          type="button"
-          aria-label="Hotspot 3"
+        <div
+          class="gallery-modal__annotation"
+          data-gallery-annotation
+          aria-hidden="true"
         >
-          <svg
-            class="gallery-modal__hotspot-icon"
-            width="46"
-            height="46"
-            viewBox="0 0 46 46"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+          <div class="gallery-modal__annotation-line" aria-hidden="true">
+            <span
+              class="gallery-modal__annotation-segment gallery-modal__annotation-segment--diagonal"
+            ></span>
+            <span
+              class="gallery-modal__annotation-segment gallery-modal__annotation-segment--horizontal"
+            ></span>
+            <span class="gallery-modal__annotation-dot"></span>
+          </div>
+          <p
+            class="gallery-modal__annotation-text"
+            data-gallery-annotation-text
           >
-            <ellipse
-              cx="23"
-              cy="23"
-              rx="7"
-              ry="7"
-              transform="rotate(90 23 23)"
-              fill="currentColor"
-            />
-            <path
-              d="M37.5 23C37.5 31.0081 31.0081 37.5 23 37.5C14.9919 37.5 8.5 31.0081 8.5 23C8.5 14.9919 14.9919 8.5 23 8.5C31.0081 8.5 37.5 14.9919 37.5 23Z"
-              stroke="currentColor"
-              stroke-opacity="0.5"
-            />
-            <path
-              d="M45.5 23C45.5 35.4264 35.4264 45.5 23 45.5C10.5736 45.5 0.499998 35.4264 0.499999 23C0.500001 10.5736 10.5736 0.499999 23 0.499999C35.4264 0.5 45.5 10.5736 45.5 23Z"
-              stroke="currentColor"
-              stroke-opacity="0.2"
-            />
-          </svg>
-        </button>
+            Установка межкомнатных дверей без врезки фурнитуры и подрезки
+            наличников
+          </p>
+        </div>
       </div>
     </div>
 
