@@ -3,155 +3,122 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 
-const slidesByStyle = Object.entries(
+const slidesByPackage = Object.entries(
   import.meta.glob("../../assets/images/slides/packages-modals/*/*.jpg", {
     eager: true,
     import: "default",
   }),
-).reduce((acc, [path, src]) => {
-  const [, style, order] =
+).reduce((map, [path, src]) => {
+  const [, pack, index] =
     path.match(/packages-modals\/([^/]+)\/(\d+)\.jpg$/) || [];
-  if (style) (acc[style] ||= [])[order - 1] = src;
-  return acc;
+  if (pack) (map[pack] ||= [])[index - 1] = src;
+  return map;
 }, {});
-
+const packageTitles = {
+  elite: "Elite Style",
+  vip: "Vip Style",
+  extra: "Extra Style",
+};
+const pad = (n) => String(n).padStart(2, "0");
 export function initPackagesGallery() {
   const modal = document.querySelector("[data-gallery-modal]");
   if (!modal) return;
 
-  const stage = modal.querySelector("[data-gallery-stage]");
-  const hotspotInfoModal = document.querySelector("[data-hotspot-modal]");
-  const swiperEl = modal.querySelector("[data-gallery-swiper]");
-  const wrapper = modal.querySelector("[data-gallery-wrapper]");
-  const current = modal.querySelector("[data-gallery-current]");
-  const total = modal.querySelector("[data-gallery-total]");
-  const prev = modal.querySelector("[data-gallery-prev]");
-  const next = modal.querySelector("[data-gallery-next]");
-  const hotspotButtons = modal.querySelectorAll(".gallery-modal__hotspot");
-  const hotspotTitle = hotspotInfoModal?.querySelector("[data-hotspot-title]");
-  const hotspotCloseButtons = hotspotInfoModal?.querySelectorAll(
-    "[data-hotspot-modal-close]",
-  );
-
-  if (![stage, swiperEl, wrapper, current, total, prev, next].every(Boolean))
-    return;
-
-  const packageTitles = {
-    elite: "Elite Style",
-    vip: "Vip Style",
-    extra: "Extra Style",
+  const els = {
+    stage: modal.querySelector("[data-gallery-stage]"),
+    swiper: modal.querySelector("[data-gallery-swiper]"),
+    wrapper: modal.querySelector("[data-gallery-wrapper]"),
+    current: modal.querySelector("[data-gallery-current]"),
+    total: modal.querySelector("[data-gallery-total]"),
+    prev: modal.querySelector("[data-gallery-prev]"),
+    next: modal.querySelector("[data-gallery-next]"),
+    hotspotModal: document.querySelector("[data-hotspot-modal]"),
   };
-
+  if (
+    ![
+      els.stage,
+      els.swiper,
+      els.wrapper,
+      els.current,
+      els.total,
+      els.prev,
+      els.next,
+    ].every(Boolean)
+  )
+    return;
+  const hotspotTitle = els.hotspotModal?.querySelector("[data-hotspot-title]");
   let swiper;
   let slides = [];
   let currentPackage = "elite";
-
-  const openHotspotInfoModal = () => {
-    if (!hotspotInfoModal) return;
-
-    if (hotspotTitle) {
-      hotspotTitle.textContent =
-        packageTitles[currentPackage] || packageTitles.elite;
-    }
-
-    hotspotInfoModal.classList.add("is-open");
-    hotspotInfoModal.setAttribute("aria-hidden", "false");
+  const setOpen = (node, open) =>
+    node &&
+    (node.classList.toggle("is-open", open),
+    node.setAttribute("aria-hidden", String(!open)));
+  const closeHotspot = () => setOpen(els.hotspotModal, false);
+  const closeGallery = () => {
+    closeHotspot();
+    setOpen(modal, false);
+    document.documentElement.classList.remove("is-modal-open");
+    document.body.classList.remove("is-modal-open");
   };
-
-  const closeHotspotInfoModal = () => {
-    if (!hotspotInfoModal) return;
-
-    hotspotInfoModal.classList.remove("is-open");
-    hotspotInfoModal.setAttribute("aria-hidden", "true");
-  };
-
-  const bindHotspotInfoEvents = () => {
-    if (!hotspotInfoModal || !hotspotButtons.length) return;
-
-    hotspotButtons.forEach((button) => {
-      button.addEventListener("click", (event) => {
-        event.preventDefault();
-        openHotspotInfoModal();
-      });
-    });
-
-    hotspotCloseButtons?.forEach((button) => {
-      button.addEventListener("click", () => {
-        closeHotspotInfoModal();
-      });
-    });
-  };
-
   const sync = () => {
-    const i = swiper?.activeIndex || 0;
-    current.textContent = `${i + 1}`.padStart(2, "0");
-    total.textContent = `${slides.length}`.padStart(2, "0");
-    stage.style.setProperty("--slide", `url(${slides[i] || slides[0]})`);
-  };
-
-  const toggle = (open) => {
-    if (!open) closeHotspotInfoModal();
-
-    modal.classList.toggle("is-open", open);
-    modal.setAttribute("aria-hidden", String(!open));
-    document.documentElement.classList.toggle("is-modal-open", open);
-    document.body.classList.toggle("is-modal-open", open);
-  };
-
-  document.addEventListener("click", (e) => {
-    if (
-      e.target.closest("[data-gallery-close]") &&
-      modal.classList.contains("is-open")
-    )
-      return (e.preventDefault(), toggle(false));
-
-    const trigger = e.target.closest(
-      ".packages__btn:not(.packages__btn--services)",
+    const index = swiper?.activeIndex || 0;
+    els.current.textContent = pad(index + 1);
+    els.total.textContent = pad(slides.length);
+    els.stage.style.setProperty(
+      "--slide",
+      `url(${slides[index] || slides[0]})`,
     );
-    if (!trigger) return;
-
-    currentPackage = trigger.dataset.package || "elite";
-    slides = (slidesByStyle[currentPackage] || []).filter(Boolean);
+  };
+  const openGallery = (pack) => {
+    slides = (slidesByPackage[pack] || []).filter(Boolean);
     if (!slides.length) return;
-
-    e.preventDefault();
-    wrapper.innerHTML = slides
+    currentPackage = pack;
+    els.wrapper.innerHTML = slides
       .map((src) => `<div class="swiper-slide" data-bg="${src}"></div>`)
       .join("");
-    toggle(true);
-
+    setOpen(modal, true);
+    document.documentElement.classList.add("is-modal-open");
+    document.body.classList.add("is-modal-open");
     if (!swiper) {
-      swiper = new Swiper(swiperEl, {
+      swiper = new Swiper(els.swiper, {
         modules: [Navigation],
         slidesPerView: 1,
         rewind: true,
-        navigation: { prevEl: prev, nextEl: next },
-        on: {
-          init: sync,
-          slideChange: () => {
-            closeHotspotInfoModal();
-            sync();
-          },
-        },
+        navigation: { prevEl: els.prev, nextEl: els.next },
+        on: { init: sync, slideChange: () => (closeHotspot(), sync()) },
       });
       return;
     }
-
     swiper.update();
     swiper.slideTo(0, 0);
     sync();
+  };
+  document.addEventListener("click", (event) => {
+    if (
+      event.target.closest("[data-gallery-close]") &&
+      modal.classList.contains("is-open")
+    )
+      return (event.preventDefault(), closeGallery());
+    const trigger = event.target.closest(".packages__btn[data-package]");
+    if (trigger)
+      return (
+        event.preventDefault(),
+        openGallery(trigger.dataset.package || "elite")
+      );
+    if (event.target.closest("[data-hotspot-modal-close]"))
+      return (event.preventDefault(), closeHotspot());
+    if (!event.target.closest(".gallery-modal__hotspot") || !els.hotspotModal)
+      return;
+    event.preventDefault();
+    if (hotspotTitle)
+      hotspotTitle.textContent =
+        packageTitles[currentPackage] || packageTitles.elite;
+    setOpen(els.hotspotModal, true);
   });
-
-  bindHotspotInfoEvents();
-
   document.addEventListener("keydown", ({ key }) => {
     if (key !== "Escape") return;
-
-    if (hotspotInfoModal?.classList.contains("is-open")) {
-      closeHotspotInfoModal();
-      return;
-    }
-
-    if (modal.classList.contains("is-open")) toggle(false);
+    if (els.hotspotModal?.classList.contains("is-open")) return closeHotspot();
+    if (modal.classList.contains("is-open")) closeGallery();
   });
 }

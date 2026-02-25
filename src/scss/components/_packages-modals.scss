@@ -1,9 +1,9 @@
 @use "../utils/variables" as *;
 
-.gallery-modal {
+.gallery-modal,
+.hotspot-info-modal {
   position: fixed;
   inset: 0;
-  z-index: 1000;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -16,6 +16,10 @@
     visibility: visible;
     pointer-events: auto;
   }
+}
+
+.gallery-modal {
+  z-index: 1000;
 
   &__overlay,
   &__swiper,
@@ -84,10 +88,12 @@
       top: 122px;
       right: 21px;
     }
+
     &--2 {
       top: 185px;
       right: 154px;
     }
+
     &--3 {
       top: 320px;
       right: 224px;
@@ -103,8 +109,8 @@
   }
 
   &__nav-icon {
-    stroke: $color-white;
     fill: none;
+    stroke: $color-white;
   }
 
   &__counter {
@@ -128,7 +134,6 @@
     position: absolute;
     font-family: $ff-brand;
     font-size: 16px;
-    font-weight: 400;
     color: $color-white;
 
     &--total {
@@ -146,26 +151,12 @@
 }
 
 .hotspot-info-modal {
-  position: fixed;
-  inset: 0;
   z-index: 1100;
   display: flex;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
   background: $color-white;
-  transition:
-    opacity 200ms ease,
-    visibility 200ms ease;
 
-  &.is-open {
+  &.is-open .hotspot-info-modal__dialog {
     opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-
-    .hotspot-info-modal__dialog {
-      opacity: 1;
-    }
   }
 
   &__dialog {
@@ -184,40 +175,31 @@
     right: 20px;
     width: 20px;
     height: 21px;
+
+    &-icon {
+      fill: rgb(184 184 184 / 70%);
+    }
   }
 
-  &__close-icon {
-    fill: rgb(184 184 184 / 70%);
-  }
-
-  &__content {
+  &__line,
+  &__text {
     width: 280px;
-    margin-top: 150px;
   }
 
   &__title {
-    margin-top: 30px;
-    margin-bottom: 33px;
-    font-family: $ff-open-sans;
-    font-size: 20px;
-    font-weight: 400;
-    line-height: normal;
+    margin: 30px 0 33px;
+    font: 400 20px/normal $ff-open-sans;
     text-transform: uppercase;
     color: $color-accent;
   }
 
   &__line {
-    width: 280px;
     border-top: 1px solid rgb(0 0 0 / 15%);
   }
 
   &__text {
     margin-top: 20px;
-    width: 280px;
-    font-family: $ff-open-sans;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.71429;
+    font: 400 14px/1.71429 $ff-open-sans;
     color: #000;
   }
 }
