@@ -25,6 +25,10 @@ const packageTitles = {
 
 const fallbackHotspotText =
   "Установка межкомнатных дверей без врезки фурнитуры и подрезки наличников";
+const annotationSafePadding = 20;
+const annotationGap = 52;
+const annotationMinWidth = 220;
+const annotationMaxWidth = 360;
 
 const pad2 = (value) => String(value).padStart(2, "0");
 const setOpen = (element, isOpen) => {
@@ -82,17 +86,61 @@ export function initPackagesGallery() {
 
     const hostRect = els.hotspots.getBoundingClientRect();
     const btnRect = hotspotBtn.getBoundingClientRect();
-    const x =
-      ((btnRect.left + btnRect.width / 2 - hostRect.left) / hostRect.width) *
-      100;
-    const y =
-      ((btnRect.top + btnRect.height / 2 - hostRect.top) / hostRect.height) *
-      100;
-
-    els.annotation.style.setProperty("--hotspot-x", `${x}%`);
-    els.annotation.style.setProperty("--hotspot-y", `${y}%`);
     els.annotationText.textContent =
       hotspotBtn.dataset.hotspotText || fallbackHotspotText;
+
+    const anchorX = btnRect.left + btnRect.width / 2 - hostRect.left;
+    const anchorY = btnRect.top + btnRect.height / 2 - hostRect.top;
+    const maxTextWidth = Math.min(
+      annotationMaxWidth,
+      hostRect.width - annotationSafePadding * 2,
+    );
+
+    els.annotationText.style.maxWidth = `${maxTextWidth}px`;
+
+    const textRect = els.annotationText.getBoundingClientRect();
+    const textWidth = Math.ceil(
+      Math.min(maxTextWidth, Math.max(annotationMinWidth, textRect.width)),
+    );
+    const textHeight = Math.ceil(textRect.height);
+
+    const spaceRight = hostRect.width - anchorX - annotationSafePadding;
+    const spaceLeft = anchorX - annotationSafePadding;
+    const openLeft =
+      spaceRight < Math.min(textWidth + annotationGap, annotationMaxWidth) &&
+      spaceLeft > spaceRight;
+
+    const spaceTop = anchorY - annotationSafePadding;
+    const spaceBottom = hostRect.height - anchorY - annotationSafePadding;
+    const openBottom =
+      spaceTop < textHeight + annotationGap && spaceBottom > spaceTop;
+
+    let textLeft = openLeft
+      ? anchorX - annotationGap - textWidth
+      : anchorX + annotationGap;
+    let textTop = openBottom
+      ? anchorY + annotationGap
+      : anchorY - annotationGap - textHeight;
+
+    const maxLeft = hostRect.width - annotationSafePadding - textWidth;
+    const maxTop = hostRect.height - annotationSafePadding - textHeight;
+
+    textLeft = Math.min(Math.max(textLeft, annotationSafePadding), maxLeft);
+    textTop = Math.min(Math.max(textTop, annotationSafePadding), maxTop);
+
+    const lineTargetX = openLeft ? textLeft + textWidth : textLeft;
+    const lineWidth = Math.max(72, Math.abs(lineTargetX - anchorX) - 28);
+
+    els.annotation.dataset.x = openLeft ? "left" : "right";
+    els.annotation.dataset.y = openBottom ? "bottom" : "top";
+    els.annotation.style.setProperty("--anchor-x", `${anchorX}px`);
+    els.annotation.style.setProperty("--anchor-y", `${anchorY}px`);
+    els.annotation.style.setProperty("--line-width", `${lineWidth}px`);
+    els.annotation.style.setProperty("--text-left", `${textLeft}px`);
+    els.annotation.style.setProperty("--text-top", `${textTop}px`);
+
+    els.annotation.classList.remove("is-visible");
+    void els.annotation.offsetWidth;
     els.annotation.classList.add("is-visible");
     els.annotation.setAttribute("aria-hidden", "false");
   };
