@@ -205,7 +205,7 @@
 
   &__annotation-text {
     position: absolute;
-    left: var(--text-left, 0);
+    left: calc(var(--text-left, 0) + 34px);
     top: var(--text-top, 0);
     max-width: 360px;
     margin: 0;
@@ -253,8 +253,8 @@
   @media (min-width: $bp-768) {
     &__annotation.gallery-modal__annotation--left {
       .gallery-modal__annotation-line {
-        left: calc(var(--text-left, 0) + var(--line-width, 150px));
-        top: calc(var(--text-top, 0) + var(--text-height, 0px) + 12px);
+        left: calc(var(--text-left, 0) - 40px + var(--line-width, 150px));
+        top: calc(var(--text-top, 0) + var(--text-height, 0px) + 50px);
         transform: none;
       }
 
@@ -263,14 +263,18 @@
         transform-origin: right center;
       }
 
+      .gallery-modal__annotation-segment--diagonal {
+        right: 0;
+        left: auto;
+      }
+
       .gallery-modal__annotation-segment--horizontal {
         right: 40px;
         left: auto;
       }
 
       .gallery-modal__annotation-dot {
-        right: -4px;
-        left: auto;
+        display: none;
       }
 
       &.is-visible .gallery-modal__annotation-segment--diagonal {
