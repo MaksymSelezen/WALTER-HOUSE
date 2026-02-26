@@ -75,6 +75,7 @@ export function initPackagesGallery() {
       .forEach((btn) => btn.classList.remove("is-active"));
 
     els.annotation.classList.remove("is-visible");
+    els.annotation.classList.remove("gallery-modal__annotation--left");
     els.annotation.setAttribute("aria-hidden", "true");
   };
 
@@ -103,6 +104,9 @@ export function initPackagesGallery() {
       Math.min(maxTextWidth, Math.max(annotationMinWidth, textRect.width)),
     );
     const textHeight = Math.ceil(textRect.height);
+    const isFirstHotspot = hotspotBtn.classList.contains(
+      "gallery-modal__hotspot--1",
+    );
 
     const spaceRight = hostRect.width - anchorX - annotationSafePadding;
     const spaceLeft = anchorX - annotationSafePadding;
@@ -138,6 +142,11 @@ export function initPackagesGallery() {
     els.annotation.style.setProperty("--line-width", `${lineWidth}px`);
     els.annotation.style.setProperty("--text-left", `${textLeft}px`);
     els.annotation.style.setProperty("--text-top", `${textTop}px`);
+    els.annotation.style.setProperty("--text-height", `${textHeight}px`);
+    els.annotation.classList.toggle(
+      "gallery-modal__annotation--left",
+      isFirstHotspot,
+    );
 
     els.annotation.classList.remove("is-visible");
     void els.annotation.offsetWidth;
