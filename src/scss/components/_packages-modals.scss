@@ -316,6 +316,8 @@
     }
   }
 
+  // * ========== 768 ==========
+
   @media (max-width: calc($bp-768 - 0.02px)) {
     &__annotation {
       display: none;
@@ -323,6 +325,10 @@
   }
 
   @media (min-width: $bp-768) {
+    &__annotation-line {
+      width: 380px;
+    }
+
     &__close {
       top: 28px;
       right: 28px;
