@@ -235,16 +235,9 @@
       transform-origin: right center;
     }
 
-    .gallery-modal__annotation-segment--diagonal {
-      right: 0;
-      left: auto;
-      transform: rotate(calc(var(--annotation-angle, -28deg) * -1)) scaleX(0);
-    }
-
     .gallery-modal__annotation-segment--horizontal {
       right: 40px;
       left: auto;
-      transform: scaleX(0);
     }
 
     .gallery-modal__annotation-dot {
@@ -369,8 +362,8 @@
       height: 124px;
 
       &::before {
-        left: calc(50% - 8px);
-        bottom: 37px;
+        left: 150px;
+        bottom: 35px;
         width: 136px;
         transform: rotate(-145deg);
       }
@@ -378,7 +371,7 @@
       &::after {
         content: "";
         position: absolute;
-        inset: auto 0 38px;
+        inset: auto -100px 15px;
         height: 1px;
         background: linear-gradient(
           to right,
@@ -397,7 +390,7 @@
         left: 50%;
         bottom: 42px;
         transform: translateX(-10%);
-        font-size: clamp(52px, 8vw, 76px);
+        font-size: 48px;
       }
 
       &--total {
@@ -405,7 +398,7 @@
         top: auto;
         bottom: 0;
         transform: translateX(-50%);
-        font-size: clamp(36px, 4.6vw, 50px);
+        font-size: 24px;
       }
     }
   }
