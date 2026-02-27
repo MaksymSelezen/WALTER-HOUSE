@@ -1,5 +1,3 @@
-// i18n.js — перемикання мови (en/ru), завантаження словників і застосування перекладів до DOM
-
 const STORAGE_KEY = "lang"; // ключ у localStorage для збереження вибраної мови
 const SUPPORTED = ["en", "ru"]; // список підтримуваних мов
 const DEFAULT_LANG = "en"; // мова за замовчуванням
@@ -141,4 +139,10 @@ export async function initI18n() {
 // Повертає поточну активну мову (корисно для логіки/форматування)
 export function getCurrentLang() {
   return currentLang;
+}
+
+export function t(key, fallback = "") {
+  const dict = DICTS[currentLang];
+  const value = get(dict, key);
+  return typeof value === "string" ? value : fallback;
 }

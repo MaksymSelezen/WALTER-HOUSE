@@ -49,15 +49,12 @@
       }
     }
   },
-
   "gallery": {
     "text": "GALLERY"
   },
-
   "services": {
     "text": "LIST OF SERVICES"
   },
-
   "callModal": {
     "title": "request for a call",
     "closeAria": "Close modal",
@@ -91,6 +88,247 @@
       "aria": "Discuss a project",
       "line1": "DISCUSS",
       "line2": "A PROJECT"
+    }
+  },
+  "packages": {
+    "gallery": {
+      "elite": {
+        "slide01": {
+          "hotspot1": {
+            "text": "Floor base preparation for finish covering"
+          },
+          "hotspot2": {
+            "text": "Ceiling lighting and layered light scenarios installation"
+          },
+          "hotspot3": {
+            "text": "Final wall leveling for premium finishes"
+          }
+        },
+        "slide02": {
+          "hotspot1": {
+            "text": "Installation of interior doors"
+          },
+          "hotspot2": {
+            "text": "Dismantling and construction of interior partitions"
+          },
+          "hotspot3": {
+            "text": "Post-renovation cleanup"
+          }
+        },
+        "slide03": {
+          "hotspot1": {
+            "text": "Sink installation"
+          },
+          "hotspot2": {
+            "text": "Floor and wall tiling in toilet and bathroom"
+          },
+          "hotspot3": {
+            "text": "Water supply and sewerage installation"
+          }
+        },
+        "slide04": {
+          "hotspot1": {
+            "text": "Electrical installation works (according to project)"
+          },
+          "hotspot2": {
+            "text": "Wall leveling with beacons, final wall finishing for wallpaper"
+          },
+          "hotspot3": {
+            "text": "Waterproofing of wet zones"
+          }
+        },
+        "slide05": {
+          "hotspot1": {
+            "text": "Wall preparation for wallpapering"
+          },
+          "hotspot2": {
+            "text": "Wallpaper installation"
+          },
+          "hotspot3": {
+            "text": "Low-voltage wiring installation (internet, antenna)"
+          }
+        }
+      },
+      "vip": {
+        "slide01": {
+          "hotspot1": {
+            "text": "Space planning based on a custom design project"
+          },
+          "hotspot2": {
+            "text": "Material selection and color concept approval"
+          },
+          "hotspot3": {
+            "text": "Quality control at every stage of work"
+          }
+        },
+        "slide02": {
+          "hotspot1": {
+            "text": "Development of an individual design project"
+          },
+          "hotspot2": {
+            "text": "Installation of interior doors"
+          },
+          "hotspot3": {
+            "text": "Low-voltage wiring installation (internet, antenna)"
+          }
+        },
+        "slide03": {
+          "hotspot1": {
+            "text": "Photo reports on work progress"
+          },
+          "hotspot2": {
+            "text": "Sink assembly"
+          },
+          "hotspot3": {
+            "text": "Water supply and sewerage laying"
+          }
+        },
+        "slide04": {
+          "hotspot1": {
+            "text": "Final wall finishing and wall painting"
+          },
+          "hotspot2": {
+            "text": "Electrical installation works (according to project)"
+          },
+          "hotspot3": {
+            "text": "Final floor finishing: laminate and engineered wood installation"
+          }
+        },
+        "slide05": {
+          "hotspot1": {
+            "text": "Setting corners to 90 degrees"
+          },
+          "hotspot2": {
+            "text": "Heating pipe replacement"
+          },
+          "hotspot3": {
+            "text": "Floor screed pouring"
+          }
+        },
+        "slide06": {
+          "hotspot1": {
+            "text": "Installation of single-level gypsum board ceiling (2 layers)"
+          },
+          "hotspot2": {
+            "text": "Waterproofing of wet zones"
+          },
+          "hotspot3": {
+            "text": "Tile laying with 45-degree trimming according to project"
+          }
+        },
+        "slide07": {
+          "hotspot1": {
+            "text": "Wall leveling with beacons, final wall finishing for wallpaper"
+          },
+          "hotspot2": {
+            "text": "Wall preparation for painting"
+          },
+          "hotspot3": {
+            "text": "Professional cleaning"
+          }
+        }
+      },
+      "extra": {
+        "slide01": {
+          "hotspot1": {
+            "text": "Comprehensive room preparation for EXTRA-level renovation"
+          },
+          "hotspot2": {
+            "text": "Precise zoning and marking of engineering points"
+          },
+          "hotspot3": {
+            "text": "Premium lighting solutions and decorative accents"
+          }
+        },
+        "slide02": {
+          "hotspot1": {
+            "text": "Installation of interior doors"
+          },
+          "hotspot2": {
+            "text": "Final wall finishing"
+          },
+          "hotspot3": {
+            "text": "Mixer tap installation"
+          }
+        },
+        "slide03": {
+          "hotspot1": {
+            "text": "EXTRA-quality stretch ceiling (\"floating\" design)"
+          },
+          "hotspot2": {
+            "text": "Setting corners to 90 degrees"
+          },
+          "hotspot3": {
+            "text": "Assistance in selecting furniture, appliances, sanitary ware, and finishing materials"
+          }
+        },
+        "slide04": {
+          "hotspot1": {
+            "text": "Lighting fixture installation"
+          },
+          "hotspot2": {
+            "text": "Installation of hidden inspection hatch with tile facing"
+          },
+          "hotspot3": {
+            "text": "Water leak control system installation"
+          }
+        },
+        "slide05": {
+          "hotspot1": {
+            "text": "Ceiling molding installation"
+          },
+          "hotspot2": {
+            "text": "Two-way switches"
+          },
+          "hotspot3": {
+            "text": "Organization of material procurement"
+          }
+        },
+        "slide06": {
+          "hotspot1": {
+            "text": "Electrical fittings installation"
+          },
+          "hotspot2": {
+            "text": "Tile laying with 45-degree trimming, mosaic laying"
+          },
+          "hotspot3": {
+            "text": "Installation of instant or storage water heater"
+          }
+        },
+        "slide07": {
+          "hotspot1": {
+            "text": "Complete professional post-renovation cleaning"
+          },
+          "hotspot2": {
+            "text": "Heating pipe replacement and relocation of heating devices"
+          },
+          "hotspot3": {
+            "text": "Thermal insulation works"
+          }
+        },
+        "slide08": {
+          "hotspot1": {
+            "text": "Electrical installation works (according to project)"
+          },
+          "hotspot2": {
+            "text": "Photo and video reports on work progress"
+          },
+          "hotspot3": {
+            "text": "Floor screed pouring"
+          }
+        },
+        "slide09": {
+          "hotspot1": {
+            "text": "Wall painting and decorative plaster"
+          },
+          "hotspot2": {
+            "text": "Dismantling and construction of interior partitions"
+          },
+          "hotspot3": {
+            "text": "Engineer and designer support throughout the renovation"
+          }
+        }
+      }
     }
   }
 }

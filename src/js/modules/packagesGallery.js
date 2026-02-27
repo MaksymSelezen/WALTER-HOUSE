@@ -1,5 +1,6 @@
 import Swiper from "swiper";
 import { Navigation } from "swiper/modules";
+import { t } from "../i18n.js";
 import "swiper/css";
 import "swiper/css/navigation";
 
@@ -15,8 +16,7 @@ const slidesByPackage = Object.entries(
 }, {});
 
 const titles = { elite: "Elite Style", vip: "VIP Style", extra: "Extra Style" };
-const fallbackText =
-  "Установка межкомнатных дверей без врезки фурнитуры и подрезки наличников";
+const fallbackText = "Service information";
 const cfg = { safe: 20, gap: 52, minW: 220, maxW: 360 };
 const mqTablet = window.matchMedia("(min-width: 768px)");
 const pad = (n) => String(n).padStart(2, "0");
@@ -24,6 +24,12 @@ const setOpen = (el, open) =>
   el &&
   (el.classList.toggle("is-open", open),
   el.setAttribute("aria-hidden", String(!open)));
+
+const getHotspotIndex = (btn) => {
+  if (btn.classList.contains("gallery-modal__hotspot--1")) return 1;
+  if (btn.classList.contains("gallery-modal__hotspot--2")) return 2;
+  return 3;
+};
 
 export function initPackagesGallery() {
   const modal = document.querySelector("[data-gallery-modal]");
@@ -43,6 +49,7 @@ export function initPackagesGallery() {
     noteText: modal.querySelector("[data-gallery-annotation-text]"),
     hotspotModal: document.querySelector("[data-hotspot-modal]"),
     hotspotTitle: document.querySelector("[data-hotspot-title]"),
+    hotspotText: document.querySelector("[data-hotspot-modal-text]"),
   };
   if (
     Object.values($)
@@ -54,6 +61,14 @@ export function initPackagesGallery() {
   let swiper,
     slides = [],
     currentPack = "elite";
+
+  const getHotspotText = (btn) => {
+    const slideIndex = (swiper?.activeIndex ?? 0) + 1;
+    const hotspotIndex = getHotspotIndex(btn);
+    const key = `packages.gallery.${currentPack}.slide${pad(slideIndex)}.hotspot${hotspotIndex}.text`;
+    return t(key, fallbackText);
+  };
+
   const resetHotspots = () => {
     $.hotspots
       .querySelectorAll(".gallery-modal__hotspot.is-active")
@@ -71,7 +86,7 @@ export function initPackagesGallery() {
   const showInlineHotspot = (btn) => {
     resetHotspots();
     btn.classList.add("is-active");
-    $.noteText.textContent = btn.dataset.hotspotText || fallbackText;
+    $.noteText.textContent = getHotspotText(btn);
 
     const host = $.hotspots.getBoundingClientRect(),
       dot = btn.getBoundingClientRect();
@@ -186,6 +201,7 @@ export function initPackagesGallery() {
       return (closeHotspotModal(), showInlineHotspot(hotspot));
     if ($.hotspotTitle)
       $.hotspotTitle.textContent = titles[currentPack] || titles.elite;
+    if ($.hotspotText) $.hotspotText.textContent = getHotspotText(hotspot);
     setOpen($.hotspotModal, true);
   });
 
