@@ -9,39 +9,28 @@ const slidesByPackage = Object.entries(
     import: "default",
   }),
 ).reduce((map, [path, src]) => {
-  const match = path.match(/packages-modals\/([^/]+)\/(\d+)\.jpg$/);
-  if (!match) return map;
-
-  const [, pack, index] = match;
-  (map[pack] ||= [])[Number(index) - 1] = src;
+  const m = path.match(/packages-modals\/([^/]+)\/(\d+)\.jpg$/);
+  if (m) (map[m[1]] ||= [])[m[2] - 1] = src;
   return map;
 }, {});
 
-const packageTitles = {
-  elite: "Elite Style",
-  vip: "VIP Style",
-  extra: "Extra Style",
-};
-
-const fallbackHotspotText =
+const titles = { elite: "Elite Style", vip: "VIP Style", extra: "Extra Style" };
+const fallbackText =
   "Установка межкомнатных дверей без врезки фурнитуры и подрезки наличников";
-const annotationSafePadding = 20;
-const annotationGap = 52;
-const annotationMinWidth = 220;
-const annotationMaxWidth = 360;
-
-const pad2 = (value) => String(value).padStart(2, "0");
-const setOpen = (element, isOpen) => {
-  if (!element) return;
-  element.classList.toggle("is-open", isOpen);
-  element.setAttribute("aria-hidden", String(!isOpen));
-};
+const cfg = { safe: 20, gap: 52, minW: 220, maxW: 360 };
+const mqTablet = window.matchMedia("(min-width: 768px)");
+const pad = (n) => String(n).padStart(2, "0");
+const setOpen = (el, open) =>
+  el &&
+  (el.classList.toggle("is-open", open),
+  el.setAttribute("aria-hidden", String(!open)));
 
 export function initPackagesGallery() {
   const modal = document.querySelector("[data-gallery-modal]");
   if (!modal) return;
 
-  const els = {
+  const $ = {
+    modal,
     stage: modal.querySelector("[data-gallery-stage]"),
     swiper: modal.querySelector("[data-gallery-swiper]"),
     wrapper: modal.querySelector("[data-gallery-wrapper]"),
@@ -50,232 +39,167 @@ export function initPackagesGallery() {
     prev: modal.querySelector("[data-gallery-prev]"),
     next: modal.querySelector("[data-gallery-next]"),
     hotspots: modal.querySelector("[data-gallery-hotspots]"),
-    annotation: modal.querySelector("[data-gallery-annotation]"),
-    annotationText: modal.querySelector("[data-gallery-annotation-text]"),
+    note: modal.querySelector("[data-gallery-annotation]"),
+    noteText: modal.querySelector("[data-gallery-annotation-text]"),
     hotspotModal: document.querySelector("[data-hotspot-modal]"),
+    hotspotTitle: document.querySelector("[data-hotspot-title]"),
   };
-
   if (
-    Object.values(els)
-      .slice(0, 10)
-      .some((element) => !element)
+    Object.values($)
+      .slice(1, 10)
+      .some((el) => !el)
   )
     return;
 
-  const hotspotTitle = els.hotspotModal?.querySelector("[data-hotspot-title]");
-  const tabletMedia = window.matchMedia("(min-width: 768px)");
-
-  let swiper;
-  let slides = [];
-  let currentPackage = "elite";
-
-  const resetInlineHotspot = () => {
-    els.hotspots
+  let swiper,
+    slides = [],
+    currentPack = "elite";
+  const resetHotspots = () => {
+    $.hotspots
       .querySelectorAll(".gallery-modal__hotspot.is-active")
-      .forEach((btn) => btn.classList.remove("is-active"));
-
-    els.annotation.classList.remove("is-visible");
-    els.annotation.classList.remove("gallery-modal__annotation--left");
-    els.annotation.setAttribute("aria-hidden", "true");
+      .forEach((b) => b.classList.remove("is-active"));
+    $.note.classList.remove("is-visible", "gallery-modal__annotation--left");
+    $.note.setAttribute("aria-hidden", "true");
+  };
+  const syncCounter = () => {
+    const i = swiper?.activeIndex ?? 0;
+    $.current.textContent = pad(i + 1);
+    $.total.textContent = pad(slides.length);
+    $.stage.style.setProperty("--slide", `url(${slides[i] || slides[0]})`);
   };
 
-  const closeHotspotModal = () => setOpen(els.hotspotModal, false);
+  const showInlineHotspot = (btn) => {
+    resetHotspots();
+    btn.classList.add("is-active");
+    $.noteText.textContent = btn.dataset.hotspotText || fallbackText;
 
-  const updateInlineHotspot = (hotspotBtn) => {
-    resetInlineHotspot();
-    hotspotBtn.classList.add("is-active");
+    const host = $.hotspots.getBoundingClientRect(),
+      dot = btn.getBoundingClientRect();
+    const x = dot.left + dot.width / 2 - host.left,
+      y = dot.top + dot.height / 2 - host.top;
+    const maxTextW = Math.min(cfg.maxW, host.width - cfg.safe * 2);
+    $.noteText.style.maxWidth = `${maxTextW}px`;
 
-    const hostRect = els.hotspots.getBoundingClientRect();
-    const btnRect = hotspotBtn.getBoundingClientRect();
-    els.annotationText.textContent =
-      hotspotBtn.dataset.hotspotText || fallbackHotspotText;
-
-    const anchorX = btnRect.left + btnRect.width / 2 - hostRect.left;
-    const anchorY = btnRect.top + btnRect.height / 2 - hostRect.top;
-    const maxTextWidth = Math.min(
-      annotationMaxWidth,
-      hostRect.width - annotationSafePadding * 2,
-    );
-
-    els.annotationText.style.maxWidth = `${maxTextWidth}px`;
-
-    const textRect = els.annotationText.getBoundingClientRect();
-    const textWidth = Math.ceil(
-      Math.min(maxTextWidth, Math.max(annotationMinWidth, textRect.width)),
-    );
-    const textHeight = Math.ceil(textRect.height);
-    const isFirstHotspot = hotspotBtn.classList.contains(
-      "gallery-modal__hotspot--1",
-    );
-
-    const spaceRight = hostRect.width - anchorX - annotationSafePadding;
-    const spaceLeft = anchorX - annotationSafePadding;
+    const textRect = $.noteText.getBoundingClientRect();
+    const textW = Math.ceil(
+        Math.min(maxTextW, Math.max(cfg.minW, textRect.width)),
+      ),
+      textH = Math.ceil(textRect.height);
+    const right = host.width - x - cfg.safe,
+      left = x - cfg.safe;
     const openLeft =
-      spaceRight < Math.min(textWidth + annotationGap, annotationMaxWidth) &&
-      spaceLeft > spaceRight;
+      right < Math.min(textW + cfg.gap, cfg.maxW) && left > right;
+    const top = y - cfg.safe,
+      bottom = host.height - y - cfg.safe;
+    const openBottom = top < textH + cfg.gap && bottom > top;
 
-    const spaceTop = anchorY - annotationSafePadding;
-    const spaceBottom = hostRect.height - anchorY - annotationSafePadding;
-    const openBottom =
-      spaceTop < textHeight + annotationGap && spaceBottom > spaceTop;
+    const textLeft = Math.min(
+      Math.max(openLeft ? x - cfg.gap - textW : x + cfg.gap, cfg.safe),
+      host.width - cfg.safe - textW,
+    );
+    const textTop = Math.min(
+      Math.max(openBottom ? y + cfg.gap : y - cfg.gap - textH, cfg.safe),
+      host.height - cfg.safe - textH,
+    );
+    const lineWidth = Math.max(
+      72,
+      Math.abs((openLeft ? textLeft + textW : textLeft) - x) - 28,
+    );
 
-    let textLeft = openLeft
-      ? anchorX - annotationGap - textWidth
-      : anchorX + annotationGap;
-    let textTop = openBottom
-      ? anchorY + annotationGap
-      : anchorY - annotationGap - textHeight;
-
-    const maxLeft = hostRect.width - annotationSafePadding - textWidth;
-    const maxTop = hostRect.height - annotationSafePadding - textHeight;
-
-    textLeft = Math.min(Math.max(textLeft, annotationSafePadding), maxLeft);
-    textTop = Math.min(Math.max(textTop, annotationSafePadding), maxTop);
-
-    const lineTargetX = openLeft ? textLeft + textWidth : textLeft;
-    const lineWidth = Math.max(72, Math.abs(lineTargetX - anchorX) - 28);
-
-    els.annotation.dataset.x = openLeft ? "left" : "right";
-    els.annotation.dataset.y = openBottom ? "bottom" : "top";
-    els.annotation.style.setProperty("--anchor-x", `${anchorX}px`);
-    els.annotation.style.setProperty("--anchor-y", `${anchorY}px`);
-    els.annotation.style.setProperty("--line-width", `${lineWidth}px`);
-    els.annotation.style.setProperty("--text-left", `${textLeft}px`);
-    els.annotation.style.setProperty("--text-top", `${textTop}px`);
-    els.annotation.style.setProperty("--text-height", `${textHeight}px`);
-    els.annotation.classList.toggle(
+    $.note.dataset.x = openLeft ? "left" : "right";
+    $.note.dataset.y = openBottom ? "bottom" : "top";
+    $.note.classList.toggle(
       "gallery-modal__annotation--left",
-      isFirstHotspot,
+      btn.classList.contains("gallery-modal__hotspot--1"),
     );
-
-    els.annotation.classList.remove("is-visible");
-    void els.annotation.offsetWidth;
-    els.annotation.classList.add("is-visible");
-    els.annotation.setAttribute("aria-hidden", "false");
+    $.note.style.setProperty("--anchor-x", `${x}px`);
+    $.note.style.setProperty("--anchor-y", `${y}px`);
+    $.note.style.setProperty("--line-width", `${lineWidth}px`);
+    $.note.style.setProperty("--text-left", `${textLeft}px`);
+    $.note.style.setProperty("--text-top", `${textTop}px`);
+    $.note.style.setProperty("--text-height", `${textH}px`);
+    $.note.classList.remove("is-visible");
+    void $.note.offsetWidth;
+    $.note.classList.add("is-visible");
+    $.note.setAttribute("aria-hidden", "false");
   };
 
-  const syncCounterAndBackground = () => {
-    const index = swiper?.activeIndex ?? 0;
-    els.current.textContent = pad2(index + 1);
-    els.total.textContent = pad2(slides.length);
-    els.stage.style.setProperty(
-      "--slide",
-      `url(${slides[index] || slides[0]})`,
-    );
-  };
-
+  const closeHotspotModal = () => setOpen($.hotspotModal, false);
   const closeGallery = () => {
     closeHotspotModal();
-    resetInlineHotspot();
-    setOpen(modal, false);
+    resetHotspots();
+    setOpen($.modal, false);
     document.documentElement.classList.remove("is-modal-open");
     document.body.classList.remove("is-modal-open");
   };
-
-  const createSwiper = () => {
-    swiper = new Swiper(els.swiper, {
-      modules: [Navigation],
-      slidesPerView: 1,
-      rewind: true,
-      navigation: { prevEl: els.prev, nextEl: els.next },
-      on: {
-        init: syncCounterAndBackground,
-        slideChange: () => {
-          closeHotspotModal();
-          resetInlineHotspot();
-          syncCounterAndBackground();
-        },
-      },
-    });
-  };
-
-  const openGallery = (pack) => {
+  const openGallery = (pack = "elite") => {
     slides = (slidesByPackage[pack] || []).filter(Boolean);
     if (!slides.length) return;
-
-    currentPackage = pack;
-    els.wrapper.innerHTML = slides
+    currentPack = pack;
+    $.wrapper.innerHTML = slides
       .map(() => '<div class="swiper-slide"></div>')
       .join("");
-
-    setOpen(modal, true);
-    resetInlineHotspot();
+    setOpen($.modal, true);
+    resetHotspots();
     document.documentElement.classList.add("is-modal-open");
     document.body.classList.add("is-modal-open");
 
     if (!swiper) {
-      createSwiper();
+      swiper = new Swiper($.swiper, {
+        modules: [Navigation],
+        slidesPerView: 1,
+        rewind: true,
+        navigation: { prevEl: $.prev, nextEl: $.next },
+        on: {
+          init: syncCounter,
+          slideChange: () => (
+            closeHotspotModal(),
+            resetHotspots(),
+            syncCounter()
+          ),
+        },
+      });
       return;
     }
-
     swiper.updateSlides();
     swiper.update();
     swiper.slideTo(0, 0);
-    syncCounterAndBackground();
+    syncCounter();
   };
 
-  const handleClick = (event) => {
-    const { target } = event;
-
+  document.addEventListener("click", (e) => {
+    const t = e.target,
+      trigger = t.closest(".packages__btn[data-package]"),
+      hotspot = t.closest(".gallery-modal__hotspot");
+    if (trigger)
+      return (e.preventDefault(), openGallery(trigger.dataset.package));
     if (
-      target.closest("[data-gallery-close]") &&
-      modal.classList.contains("is-open")
-    ) {
-      event.preventDefault();
-      closeGallery();
-      return;
-    }
+      t.closest("[data-gallery-close]") &&
+      $.modal.classList.contains("is-open")
+    )
+      return (e.preventDefault(), closeGallery());
+    if (t.closest("[data-hotspot-modal-close]"))
+      return (e.preventDefault(), closeHotspotModal());
+    if (!hotspot) return;
+    e.preventDefault();
+    if (mqTablet.matches)
+      return (closeHotspotModal(), showInlineHotspot(hotspot));
+    if ($.hotspotTitle)
+      $.hotspotTitle.textContent = titles[currentPack] || titles.elite;
+    setOpen($.hotspotModal, true);
+  });
 
-    const trigger = target.closest(".packages__btn[data-package]");
-    if (trigger) {
-      event.preventDefault();
-      openGallery(trigger.dataset.package || "elite");
-      return;
-    }
-
-    if (target.closest("[data-hotspot-modal-close]")) {
-      event.preventDefault();
-      closeHotspotModal();
-      return;
-    }
-
-    const hotspotBtn = target.closest(".gallery-modal__hotspot");
-    if (!hotspotBtn) return;
-
-    event.preventDefault();
-
-    if (tabletMedia.matches) {
-      closeHotspotModal();
-      updateInlineHotspot(hotspotBtn);
-      return;
-    }
-
-    if (hotspotTitle) {
-      hotspotTitle.textContent =
-        packageTitles[currentPackage] || packageTitles.elite;
-    }
-
-    setOpen(els.hotspotModal, true);
-  };
-
-  const handleEsc = ({ key }) => {
-    if (key !== "Escape") return;
-    if (els.hotspotModal?.classList.contains("is-open"))
-      return closeHotspotModal();
-    if (modal.classList.contains("is-open")) closeGallery();
-  };
-
-  const handleMediaChange = ({ matches }) => {
-    if (matches) return closeHotspotModal();
-    resetInlineHotspot();
-  };
-
-  document.addEventListener("click", handleClick);
-  document.addEventListener("keydown", handleEsc);
-
-  if (typeof tabletMedia.addEventListener === "function") {
-    tabletMedia.addEventListener("change", handleMediaChange);
-  } else {
-    tabletMedia.addListener(handleMediaChange);
-  }
+  document.addEventListener(
+    "keydown",
+    ({ key }) =>
+      key === "Escape" &&
+      ($.hotspotModal?.classList.contains("is-open")
+        ? closeHotspotModal()
+        : $.modal.classList.contains("is-open") && closeGallery()),
+  );
+  const onMedia = ({ matches }) =>
+    matches ? closeHotspotModal() : resetHotspots();
+  mqTablet.addEventListener
+    ? mqTablet.addEventListener("change", onMedia)
+    : mqTablet.addListener(onMedia);
 }

@@ -20,20 +20,19 @@
 
 .gallery-modal {
   z-index: 1000;
+  // &__overlay,
+  // &__swiper,
+  // &__swiper .swiper-wrapper,
+  // &__swiper .swiper-slide {
+  //   position: absolute;
+  //   inset: 0;
+  //   width: 100%;
+  //   height: 100%;
+  // }
 
-  &__overlay,
-  &__swiper,
-  &__swiper .swiper-wrapper,
-  &__swiper .swiper-slide {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-  &__overlay {
-    background: $color-overlay;
-  }
+  // &__overlay {
+  //   background: $color-overlay;
+  // }
 
   &__dialog,
   &__stage {
@@ -41,6 +40,17 @@
     width: 100%;
     height: 100%;
   }
+
+  &__stage {
+    --slide: url(../../assets/images/slides/packages-modals/vip/1.jpg);
+    background:
+      linear-gradient($color-overlay, $color-overlay),
+      left / cover no-repeat var(--slide);
+  }
+
+  // &__swiper {
+  //   z-index: 1;
+  // }
 
   &__close,
   &__hotspots,
@@ -52,22 +62,9 @@
   &__close {
     top: 20px;
     right: 20px;
-
     &-icon {
       fill: $color-white;
     }
-  }
-
-  &__stage {
-    --slide: url(../../assets/images/slides/packages-modals/vip/1.jpg);
-
-    background:
-      linear-gradient($color-overlay, $color-overlay),
-      left / cover no-repeat var(--slide);
-  }
-
-  &__swiper {
-    z-index: 1;
   }
 
   &__hotspots {
@@ -77,18 +74,14 @@
 
   &__hotspot {
     position: absolute;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
     width: 46px;
     aspect-ratio: 1;
     padding: 0;
     border: 0;
     border-radius: 50%;
     background: transparent;
-    flex: 0 0 auto;
-    line-height: 0;
     color: $color-white;
+    line-height: 0;
     pointer-events: auto;
     transition: color 200ms ease;
 
@@ -129,12 +122,13 @@
     &.is-visible {
       opacity: 1;
 
-      .gallery-modal__annotation-line {
+      .gallery-modal__annotation-line,
+      .gallery-modal__annotation-text {
         opacity: 1;
       }
 
       .gallery-modal__annotation-segment--diagonal {
-        transform: rotate(var(--annotation-angle, -28deg)) scaleX(1);
+        transform: rotate(var(--annotation-angle)) scaleX(1);
       }
 
       .gallery-modal__annotation-segment--horizontal {
@@ -142,20 +136,47 @@
       }
 
       .gallery-modal__annotation-text {
-        opacity: 1;
         transform: translateY(0);
       }
     }
 
     &[data-y="top"] {
       --annotation-angle: -28deg;
-      --annotation-text-offset: -8px;
     }
 
-    &[data-y="bottom"] {
-      --annotation-angle: 28deg;
-      --annotation-text-offset: 8px;
-    }
+    // &[data-y="bottom"] {
+    //   --annotation-angle: 28deg;
+    //   .gallery-modal__annotation-segment--horizontal {
+    //     top: 22px;
+    //   }
+    //   .gallery-modal__annotation-text {
+    //     transform: translateY(8px);
+    //   }
+    // }
+
+    // &[data-x="left"] {
+    //   .gallery-modal__annotation-line {
+    //     transform: translateX(calc(var(--line-width, 150px) * -1));
+    //   }
+
+    //   .gallery-modal__annotation-segment--diagonal,
+    //   .gallery-modal__annotation-segment--horizontal {
+    //     transform-origin: right center;
+    //   }
+
+    //   .gallery-modal__annotation-segment--horizontal {
+    //     right: 40px;
+    //     left: auto;
+    //   }
+    //   .gallery-modal__annotation-dot {
+    //     right: -4px;
+    //     left: auto;
+    //   }
+
+    //   &.is-visible .gallery-modal__annotation-segment--diagonal {
+    //     transform: rotate(calc(var(--annotation-angle) * -1)) scaleX(1);
+    //   }
+    // }
   }
 
   &__annotation-line {
@@ -172,11 +193,11 @@
     position: absolute;
     display: block;
     height: 2px;
-    background-color: $color-accent;
+    background: $color-accent;
 
     &--diagonal {
-      left: 0;
       top: 0;
+      left: 0;
       width: 46px;
       transform: rotate(var(--annotation-angle, -28deg)) scaleX(0);
       transform-origin: left center;
@@ -184,8 +205,8 @@
     }
 
     &--horizontal {
-      left: 40px;
       top: -22px;
+      left: 40px;
       width: calc(100% - 44px);
       transform: scaleX(0);
       transform-origin: left center;
@@ -193,117 +214,36 @@
     }
   }
 
-  &__annotation-dot {
-    position: absolute;
-    left: -4px;
-    top: -4px;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: $color-accent;
-  }
+  // &__annotation-dot {
+  //   position: absolute;
+  //   top: -4px;
+  //   left: -4px;
+  //   width: 10px;
+  //   height: 10px;
+  //   border-radius: 50%;
+  //   background: $color-accent;
+  // }
 
   &__annotation-text {
     position: absolute;
-    left: calc(var(--text-left, 0) + 34px);
     top: var(--text-top, 0);
+    left: calc(var(--text-left, 0) + 34px);
     max-width: 360px;
     margin: 0;
     font: 400 clamp(22px, 2.8vw, 38px) / 1.2 $ff-open-sans;
     color: $color-white;
     opacity: 0;
-    transform: translateY(var(--annotation-text-offset, -8px));
     transition:
       opacity 220ms ease 190ms,
       transform 220ms ease 190ms;
     overflow-wrap: anywhere;
   }
 
-  &__annotation[data-y="bottom"] {
-    .gallery-modal__annotation-segment--horizontal {
-      top: 22px;
-    }
-  }
-
-  &__annotation[data-x="left"] {
-    .gallery-modal__annotation-line {
-      transform: translateX(calc(var(--line-width, 150px) * -1));
-    }
-
-    .gallery-modal__annotation-segment--diagonal,
-    .gallery-modal__annotation-segment--horizontal {
-      transform-origin: right center;
-    }
-
-    .gallery-modal__annotation-segment--horizontal {
-      right: 40px;
-      left: auto;
-    }
-
-    .gallery-modal__annotation-dot {
-      right: -4px;
-      left: auto;
-    }
-
-    &.is-visible .gallery-modal__annotation-segment--diagonal {
-      transform: rotate(calc(var(--annotation-angle, -28deg) * -1)) scaleX(1);
-    }
-  }
-
-  @media (min-width: $bp-768) {
-    &__annotation.gallery-modal__annotation--left {
-      .gallery-modal__annotation-line {
-        left: calc(var(--text-left, 0) - 40px + var(--line-width, 150px));
-        top: calc(var(--text-top, 0) + var(--text-height, 0px) + 50px);
-        transform: none;
-      }
-
-      .gallery-modal__annotation-segment--diagonal,
-      .gallery-modal__annotation-segment--horizontal {
-        transform-origin: right center;
-      }
-
-      .gallery-modal__annotation-segment--diagonal {
-        right: 0;
-        left: auto;
-      }
-
-      .gallery-modal__annotation-segment--horizontal {
-        right: 40px;
-        left: auto;
-      }
-
-      .gallery-modal__annotation-dot {
-        display: none;
-      }
-
-      &.is-visible .gallery-modal__annotation-segment--diagonal {
-        transform: rotate(calc(var(--annotation-angle, -28deg) * -1)) scaleX(1);
-      }
-    }
-
-    &__annotation.gallery-modal__annotation--left[data-y="bottom"] {
-      .gallery-modal__annotation-line {
-        top: calc(var(--text-top, 0) + var(--text-height, 0px) + 12px);
-      }
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    &__annotation,
-    &__annotation-line,
-    &__annotation-segment,
-    &__annotation-text {
-      transition-duration: 1ms;
-      transition-delay: 0ms;
-    }
-  }
-
   &__controls {
     inset: auto 0 0;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     padding: 0 22px 20px;
   }
 
@@ -332,12 +272,12 @@
   &__count {
     position: absolute;
     font-family: $ff-brand;
-    font-size: 16px;
     color: $color-white;
 
     &--total {
       top: 42px;
       left: 89px;
+      font-size: 16px;
     }
 
     &--current {
@@ -348,22 +288,45 @@
     }
   }
 
-  // * ========== 768 ==========
-
-  @media (max-width: calc($bp-768 - 0.02px)) {
-    &__annotation {
-      display: none;
-    }
-  }
-
   @media (min-width: $bp-768) {
+    &__close {
+      top: 28px;
+      right: 28px;
+    }
+
     &__annotation-line {
       width: 380px;
     }
 
-    &__close {
-      top: 28px;
-      right: 28px;
+    &__annotation.gallery-modal__annotation--left {
+      .gallery-modal__annotation-line {
+        left: calc(var(--text-left, 0) - 40px + var(--line-width, 150px));
+        top: calc(var(--text-top, 0) + var(--text-height, 0px) + 50px);
+        transform: none;
+      }
+
+      .gallery-modal__annotation-segment--diagonal,
+      .gallery-modal__annotation-segment--horizontal {
+        transform-origin: right center;
+      }
+
+      .gallery-modal__annotation-segment--diagonal {
+        right: 0;
+        left: auto;
+      }
+
+      .gallery-modal__annotation-segment--horizontal {
+        right: 40px;
+        left: auto;
+      }
+
+      &.is-visible .gallery-modal__annotation-segment--diagonal {
+        transform: rotate(calc(var(--annotation-angle) * -1)) scaleX(1);
+      }
+
+      // &[data-y="bottom"] .gallery-modal__annotation-line {
+      //   top: calc(var(--text-top, 0) + var(--text-height, 0px) + 12px);
+      // }
     }
 
     &__hotspot {
@@ -392,10 +355,6 @@
       padding: 0 clamp(32px, 6vw, 72px) clamp(30px, 5vw, 48px);
     }
 
-    &__nav {
-      flex-shrink: 0;
-    }
-
     &__counter {
       width: min(54vw, 640px);
       height: 124px;
@@ -404,7 +363,6 @@
         left: 150px;
         bottom: 35px;
         width: 136px;
-        transform: rotate(-145deg);
       }
 
       &::after {
@@ -433,8 +391,8 @@
       }
 
       &--total {
-        left: calc(50% - 10px);
         top: auto;
+        left: calc(50% - 10px);
         bottom: 0;
         transform: translateX(-50%);
         font-size: 24px;
@@ -468,22 +426,21 @@
     right: 20px;
     width: 20px;
     height: 21px;
-
     &-icon {
       fill: rgb(184 184 184 / 70%);
     }
   }
 
+  &__title {
+    width: 280px;
+    margin: 30px 0 33px;
+    font: 400 20px/normal $ff-open-sans;
+    color: $color-accent;
+  }
+
   &__line,
   &__text {
     width: 280px;
-  }
-
-  &__title {
-    margin: 30px 0 33px;
-    font: 400 20px/normal $ff-open-sans;
-    text-transform: uppercase;
-    color: $color-accent;
   }
 
   &__line {
