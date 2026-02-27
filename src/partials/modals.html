@@ -1,24 +1,9 @@
-<div class="gallery-modal" data-gallery-modal aria-hidden="true">
+<div class="gallery-modal" data-gallery-modal>
   <div class="gallery-modal__overlay" data-gallery-close></div>
 
-  <div
-    class="gallery-modal__dialog"
-    role="dialog"
-    aria-modal="true"
-    aria-label="Gallery"
-  >
-    <button
-      class="gallery-modal__close"
-      type="button"
-      aria-label="Close"
-      data-gallery-close
-    >
-      <svg
-        class="gallery-modal__close-icon"
-        width="22"
-        height="22"
-        aria-hidden="true"
-      >
+  <div class="gallery-modal__dialog">
+    <button class="gallery-modal__close" type="button" data-gallery-close>
+      <svg class="gallery-modal__close-icon" width="22" height="22">
         <use href="/icons/sprite.svg#icon-close"></use>
       </svg>
     </button>
@@ -32,7 +17,6 @@
         <button
           class="gallery-modal__hotspot gallery-modal__hotspot--1"
           type="button"
-          aria-label="Hotspot 1"
           data-hotspot-text="Установка межкомнатных дверей без врезки фурнитуры и подрезки наличников"
         >
           <svg
@@ -59,7 +43,6 @@
         <button
           class="gallery-modal__hotspot gallery-modal__hotspot--2"
           type="button"
-          aria-label="Hotspot 2"
           data-hotspot-text="Установка межкомнатных дверей без врезки фурнитуры и подрезки наличников"
         >
           <svg
@@ -86,7 +69,6 @@
         <button
           class="gallery-modal__hotspot gallery-modal__hotspot--3"
           type="button"
-          aria-label="Hotspot 3"
           data-hotspot-text="Установка межкомнатных дверей без врезки фурнитуры и подрезки наличников"
         >
           <svg
@@ -110,19 +92,14 @@
           </svg>
         </button>
 
-        <div
-          class="gallery-modal__annotation"
-          data-gallery-annotation
-          aria-hidden="true"
-        >
-          <div class="gallery-modal__annotation-line" aria-hidden="true">
+        <div class="gallery-modal__annotation" data-gallery-annotation>
+          <div class="gallery-modal__annotation-line">
             <span
               class="gallery-modal__annotation-segment gallery-modal__annotation-segment--diagonal"
             ></span>
             <span
               class="gallery-modal__annotation-segment gallery-modal__annotation-segment--horizontal"
             ></span>
-            <span class="gallery-modal__annotation-dot"></span>
           </div>
           <p
             class="gallery-modal__annotation-text"
@@ -136,18 +113,8 @@
     </div>
 
     <div class="gallery-modal__controls">
-      <button
-        class="gallery-modal__nav"
-        type="button"
-        aria-label="Previous"
-        data-gallery-prev
-      >
-        <svg
-          class="gallery-modal__nav-icon"
-          width="22"
-          height="29"
-          aria-hidden="true"
-        >
+      <button class="gallery-modal__nav" type="button" data-gallery-prev>
+        <svg class="gallery-modal__nav-icon" width="22" height="29">
           <use href="/icons/sprite.svg#icon-vector-left"></use>
         </svg>
       </button>
@@ -165,18 +132,8 @@
         >
       </div>
 
-      <button
-        class="gallery-modal__nav"
-        type="button"
-        aria-label="Next"
-        data-gallery-next
-      >
-        <svg
-          class="gallery-modal__nav-icon"
-          width="22"
-          height="29"
-          aria-hidden="true"
-        >
+      <button class="gallery-modal__nav" type="button" data-gallery-next>
+        <svg class="gallery-modal__nav-icon" width="22" height="29">
           <use href="/icons/sprite.svg#icon-vector-right"></use>
         </svg>
       </button>
@@ -184,34 +141,22 @@
   </div>
 </div>
 
-<div
-  class="hotspot-info-modal"
-  data-hotspot-modal
-  role="dialog"
-  aria-modal="true"
-  aria-hidden="true"
->
+<div class="hotspot-info-modal" data-hotspot-modal>
   <div class="hotspot-info-modal__overlay" data-hotspot-modal-close></div>
 
   <div class="hotspot-info-modal__dialog">
     <button
       class="hotspot-info-modal__close"
       type="button"
-      aria-label="Close hotspot info"
       data-hotspot-modal-close
     >
-      <svg
-        class="hotspot-info-modal__close-icon"
-        width="22"
-        height="22"
-        aria-hidden="true"
-      >
+      <svg class="hotspot-info-modal__close-icon" width="22" height="22">
         <use href="/icons/sprite.svg#icon-close"></use>
       </svg>
     </button>
 
     <h2 class="hotspot-info-modal__title" data-hotspot-title>VIP style</h2>
-    <div class="hotspot-info-modal__line" aria-hidden="true"></div>
+    <div class="hotspot-info-modal__line"></div>
     <p class="hotspot-info-modal__text">
       Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
       ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
