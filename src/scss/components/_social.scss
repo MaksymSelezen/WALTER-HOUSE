@@ -89,7 +89,83 @@
   }
 }
 
-@media (min-width: 1440px) {
+@media (min-width: 1440px) and (max-width: 1919.98px) {
+  .social {
+    z-index: 25;
+
+    &__topline {
+      top: 109px;
+      left: 120px;
+      right: 120px;
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    &__title {
+      top: 220px;
+      left: 44px;
+      right: auto;
+      width: 210px;
+      font-size: 11px;
+      letter-spacing: 0.58em;
+      transform: rotate(-90deg);
+      transform-origin: left top;
+      pointer-events: none;
+    }
+
+    &__rail-notch {
+      display: block;
+      position: absolute;
+      top: 272px;
+      left: 48px;
+      width: 1px;
+      height: 64px;
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    &__list {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      position: absolute;
+      left: 42px;
+      bottom: 72px;
+      pointer-events: auto;
+    }
+
+    &__link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      color: rgba(255, 255, 255, 0.85);
+      opacity: 0.8;
+      transition:
+        opacity 180ms ease,
+        transform 180ms ease;
+
+      &:hover {
+        opacity: 1;
+        transform: translateY(-1px);
+      }
+
+      &:focus-visible {
+        outline: 2px solid rgba(255, 255, 255, 0.6);
+        outline-offset: 6px;
+        border-radius: 6px;
+        opacity: 1;
+      }
+    }
+
+    &__icon {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+  }
+}
+
+@media (min-width: 1920px) {
   .social {
     &__topline {
       top: 119px;
